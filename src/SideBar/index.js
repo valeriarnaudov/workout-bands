@@ -1,21 +1,40 @@
 import React from "react";
-import { CloseIcon, Icon, SidebarContainer, SidebarLink, SidebarMenu, SidebarRoute, SidebarWrapper, SideBtnWrap } from "./SidebarElements";
+import {
+    CloseIcon,
+    Icon,
+    SidebarContainer,
+    SidebarLink,
+    SidebarMenu,
+    SidebarRoute,
+    SidebarWrapper,
+    SideBtnWrap,
+} from "./SidebarElements";
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, toogle }) => {
     return (
-        <SidebarContainer>
-            <Icon>
+        <SidebarContainer isOpen={isOpen} onClick={toogle}>
+            <Icon onClick={toogle}>
                 <CloseIcon />
             </Icon>
             <SidebarWrapper>
                 <SidebarMenu>
-                    <SidebarLink to="/exercises">Exercises</SidebarLink>
-                    <SidebarLink to="/signup">Sign Up</SidebarLink>
-                    <SidebarLink to="/logout">Logout</SidebarLink>
-                    <SidebarLink to="/contact">Contact</SidebarLink>
+                    <SidebarLink to="/exercises" onClick={toogle}>
+                        Exercises
+                    </SidebarLink>
+                    <SidebarLink to="/signup" onClick={toogle}>
+                        Sign Up
+                    </SidebarLink>
+                    <SidebarLink to="/logout" onClick={toogle}>
+                        Logout
+                    </SidebarLink>
+                    <SidebarLink to="/contact" onClick={toogle}>
+                        Contact
+                    </SidebarLink>
                 </SidebarMenu>
                 <SideBtnWrap>
-                    <SidebarRoute to="/signin">Sign In</SidebarRoute>
+                    <SidebarRoute to="/signin">
+                        Sign In
+                    </SidebarRoute>
                 </SideBtnWrap>
             </SidebarWrapper>
         </SidebarContainer>

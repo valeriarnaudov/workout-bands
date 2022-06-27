@@ -20,6 +20,7 @@ export const SidebarContainer = styled.aside`
 
 export const CloseIcon = styled(FaTimesCircle)`
     color: red;
+    font-size: 4rem;
 `;
 
 export const Icon = styled.div`
@@ -59,10 +60,11 @@ export const SideBtnWrap = styled.div`
 `;
 
 export const SidebarMenu = styled.ul`
-    display:grid;
+    display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(6, 80px);
     text-align: center;
+    padding: 0;
 
     @media screen and (max-width: 480px) {
         grid-template-rows: repeat(6, 60px);

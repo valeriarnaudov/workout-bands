@@ -1,6 +1,6 @@
 import React from 'react'
 import Title from '../../pageTitle/Title'
-import SinglePost from './singlePost'
+import SinglePost from './SinglePost'
 
 function Posts() {
   return (

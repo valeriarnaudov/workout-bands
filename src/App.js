@@ -7,10 +7,12 @@ import { BrowserRouter as Router } from "react-router-dom";
 // import Login from "./pages/login/Login";
 // import Register from "./pages/register/Register";
 import NavBar from "./NavBar";
+import Sidebar from "./SideBar";
 
 function App() {
     return (
         <Router>
+            <Sidebar />
             <NavBar />
             {/* <Routes>
                     <Route path="/" element={<Home />} />

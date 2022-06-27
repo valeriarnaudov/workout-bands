@@ -76,7 +76,7 @@ export const NavLinks = styled(LinkS)`
     align-items: center;
     text-decoration: none;
     padding: 0 1rem;
-    high: 100%;
+    height: 100%;
     cursor: pointer;
 
     &.active {
@@ -94,7 +94,7 @@ export const NavBtn = styled.nav`
 `;
 
 export const NavBtnLink = styled(LinkR)`
-    border-radius; 50px;
+    border-radius: 50px;
     background: red;
     color: white;
     white-space: nowrap;

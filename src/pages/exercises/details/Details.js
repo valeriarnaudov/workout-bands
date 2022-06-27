@@ -1,12 +1,14 @@
 import React from "react";
+import Title from "../../pageTitle/Title";
 
 function Details() {
     return (
         <div>
+            <Title />
             <section className="video">
                 <div className="container video">
                     <h2>Video</h2>
-                    <a href="#">'video'</a>
+                    <p>'video'</p>
                 </div>
             </section>
             <section className="info">

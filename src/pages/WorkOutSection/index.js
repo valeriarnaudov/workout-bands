@@ -7,8 +7,11 @@ import {
     WorkoutH1,
     WorkoutP,
     WorkoutBtnWrapper,
+    ArrowForward,
+    ArrowRight,
 } from "./WorkoutElements";
-import Video from "../assets/videos/video.mp4";
+import Video from "../../assets/videos/video.mp4";
+import { Button } from "./buttonElement";
 
 const WorkOutSection = () => {
     const [hover, setHover] = useState(false);
@@ -32,6 +35,8 @@ const WorkOutSection = () => {
                         to="signup"
                         onMouseEnter={onHover}
                         onMouseLeave={onHover}
+                        primary="true"
+                        dark="true"
                     >
                         Get started {hover ? <ArrowForward /> : <ArrowRight />}
                     </Button>

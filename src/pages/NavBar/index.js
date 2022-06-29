@@ -23,16 +23,16 @@ function NavBar({ toogle }) {
                     </MobileIcon>
                     <NavMenu>
                         <NavItem>
-                            <NavLinks to="/exercises">Exercises</NavLinks>
+                            <NavLinks to="about">About</NavLinks>
+                        </NavItem>
+                        <NavItem>
+                            <NavLinks to="people">Info</NavLinks>
+                        </NavItem>
+                        <NavItem>
+                            <NavLinks to="upload">Upload</NavLinks>
                         </NavItem>
                         <NavItem>
                             <NavLinks to="/signup">Sign Up</NavLinks>
-                        </NavItem>
-                        <NavItem>
-                            <NavLinks to="/logout">Logout</NavLinks>
-                        </NavItem>
-                        <NavItem>
-                            <NavLinks to="/contact">Contact</NavLinks>
                         </NavItem>
                     </NavMenu>
                     <NavBtn>

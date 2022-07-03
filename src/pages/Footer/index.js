@@ -1,4 +1,6 @@
 import React from "react";
+import { animateScroll as scroll } from "react-scroll";
+
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 import {
     FooterContainer,
@@ -17,6 +19,10 @@ import {
 } from "./FooterElements";
 
 function Footer() {
+    const toogleHome = () => {
+        scroll.scrollToTop();
+    };
+
     return (
         <FooterContainer>
             <FooterWrap>
@@ -57,7 +63,9 @@ function Footer() {
 
                 <SocialMedia>
                     <SocialMediaWrap>
-                        <SocialLogo to="/">workout band</SocialLogo>
+                        <SocialLogo to="/" onClick={toogleHome}>
+                            workout band
+                        </SocialLogo>
                         <WebsiteRights>
                             &copy; VaLto - {new Date().getFullYear()} All rights
                             reserverd.

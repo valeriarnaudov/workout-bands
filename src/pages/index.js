@@ -19,10 +19,10 @@ function Home() {
             <Sidebar isOpen={isOpen} toogle={toogle} />
             <NavBar toogle={toogle} />
             <WorkOutSection />
-            <InfoSection {...homeObjOne}/>
-            <InfoSection {...homeObjTwo}/>
+            <InfoSection {...homeObjOne} />
+            <InfoSection {...homeObjTwo} />
             <Services />
-            <InfoSection {...homeObjThree}/>
+            <InfoSection {...homeObjThree} />
             <Footer />
         </>
     );

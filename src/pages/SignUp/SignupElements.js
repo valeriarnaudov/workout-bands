@@ -109,14 +109,3 @@ export const Text = styled.a`
     color: #fff;
     font-size: 14px;
 `;
-
-export const ErrorLable = styled.label`
-    text-align: center;
-    color: white;
-    font-size: 16px;
-    margin-bottom: 8px;
-    padding: 10px;
-    border-radius: 4px;
-    background: red;
-    font-weight: 700;
-`

@@ -8,6 +8,7 @@ import {
     NavBtn,
     NavBtnLink,
     NavItem,
+    NavLink,
     NavLinks,
     NavLogo,
     NavMenu,
@@ -92,7 +93,7 @@ function NavBar({ toogle }) {
                             </NavLinks>
                         </NavItem>
                         <NavItem>
-                            <NavLinks to="/signup">Sign Up</NavLinks>
+                            <NavLink to="/signup">Sign Up</NavLink>
                         </NavItem>
                     </NavMenu>
                     <NavBtn>

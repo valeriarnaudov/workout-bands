@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
+
 import {
     Container,
+    ErrorLable,
     Form,
     FormButton,
     FormContent,
@@ -13,20 +18,53 @@ import {
 } from "./SigninElements";
 
 function SignIn() {
+    const [error, setError] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const navigate = useNavigate();
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+
+            navigate("/workouts");
+        } catch (error) {
+            setError(true);
+        }
+    };
+
     return (
         <>
             <Container>
                 <FormWrap>
                     <Icon to="/">Workout</Icon>
                     <FormContent>
-                        <Form action="#">
-                            <FormH1>Sign in to your accout</FormH1>
-                            <FormLabel htmlFor="for">Email</FormLabel>
-                            <FormInput type="email" required />
+                        <Form onSubmit={handleLogin}>
+                            <FormH1>Sign In to your accout</FormH1>
+                            {error && (
+                                <ErrorLable>
+                                    Wrong email or password!!!
+                                </ErrorLable>
+                            )}
+                            <FormLabel htmlFor="for" value="email">
+                                Email
+                            </FormLabel>
+                            <FormInput
+                                type="email"
+                                required
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
                             <FormLabel htmlFor="for">Password</FormLabel>
-                            <FormInput type="password" required />
+                            <FormInput
+                                type="password"
+                                required
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
                             <FormButton type="submit">Sign in</FormButton>
-                            <Text>Forgot password</Text>
+                            <Text href="/forgot">Forgot password</Text>
                         </Form>
                     </FormContent>
                 </FormWrap>

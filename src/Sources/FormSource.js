@@ -1,0 +1,45 @@
+export const userInputs = [
+    {
+        id: "username",
+        label: "Username",
+        type: "text",
+        placeholder: "Username",
+        required: true,
+        value: "",
+    },
+    {
+        id: "displayName",
+        label: "Display Name",
+        type: "text",
+        placeholder: "Display Name",
+        required: true,
+        value: "",
+    },
+    {
+        id: "age",
+        label: "Age",
+        type: "number",
+        placeholder: "Age",
+        required: true,
+    },
+    {
+        id: "email",
+        label: "Email",
+        type: "email",
+        placeholder: "Email",
+        required: true,
+        value: "",
+    },
+    {
+        id: "password",
+        label: "Password",
+        type: "password",
+        required: true,
+    },
+    {
+        id: "confirmPassword",
+        label: "Confirm Password",
+        type: "password",
+        required: true,
+    },
+];

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
@@ -16,6 +16,7 @@ import {
     Icon,
     Text,
 } from "./SigninElements";
+import { AuthContext } from "../../AuthContext/AuthContext";
 
 function SignIn() {
     const [error, setError] = useState(false);
@@ -24,12 +25,15 @@ function SignIn() {
 
     const navigate = useNavigate();
 
+    const { dispatch } = useContext(AuthContext);
+
     const handleLogin = async (e) => {
         e.preventDefault();
 
         try {
-            await signInWithEmailAndPassword(auth, email, password);
-
+            const userCredentials = await signInWithEmailAndPassword(auth, email, password);
+            const user = userCredentials.user;
+            dispatch({ type: "LOGIN", payload: user });
             navigate("/workouts");
         } catch (error) {
             setError(true);

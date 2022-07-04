@@ -46,8 +46,15 @@ export const postInputs = [
         id: "title",
         label: "Title",
         type: "text",
-        placeholder: "Title",
+        placeholder: "Post Title",
         value: "title",
+    },
+    {
+        id: "muscleGroup",
+        label: "Muscle Group",
+        type: "text",
+        placeholder: "Muscle Group",
+        value: "muscleGroup",
     },
     {
         id: "description",
@@ -57,25 +64,12 @@ export const postInputs = [
         value: "description",
     },
     {
-        id: "img",
-        label: "Image",
-        type: "file",
-        placeholder: "Image",
-        value: "",
-    },
-    {
         id: "video",
         label: "Video",
         type: "url",
         placeholder: "Should start with http:// or https://",
         value: "",
     },        
-    {
-        id: "muscleGroup",
-        label: "Muscle Group",
-        type: "text",
-        placeholder: "Muscle Group",
-        value: "muscleGroup",
-    },
+
     
 ];

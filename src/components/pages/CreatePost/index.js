@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { doc, setDoc, Timestamp } from "firebase/firestore";
+import { collection, doc, setDoc, Timestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { FaUpload } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -23,6 +23,7 @@ function CreatePost() {
     const [file, setFile] = useState("");
     const [data, setData] = useState({});
     const [per, setPer] = useState(null);
+    // const [image, setImage] = useState("");
 
     const navigate = useNavigate();
 
@@ -56,6 +57,7 @@ function CreatePost() {
                 () => {
                     getDownloadURL(uploadTask.snapshot.ref).then((url) => {
                         setData((prev) => ({ ...prev, img: url }));
+                        // setImage(url)
                     });
                 }
             );
@@ -75,21 +77,22 @@ function CreatePost() {
         try {
             const userId = JSON.parse(localStorage.getItem("user")).uid;
 
-            await setDoc(doc(db, "posts"), {
+            const docRef = doc(collection(db, "posts"))
+            await setDoc(docRef, {
                 title: data.title,
                 description: data.description,
                 owner: userId,
-                img: data.img,
+                img: data.img || "",
                 video: data.video,
                 likes: [],
-                muscheGroup: data.muscheGroup,
+                muscleGroup: data.muscleGroup,
                 timeStamp: Timestamp.fromDate(new Date()),
                 comments: [],
             });
 
             navigate("/workouts");
         } catch (error) {
-            return error;
+            console.log(error);
         }
     };
 
@@ -99,7 +102,7 @@ function CreatePost() {
                 <FormWrap>
                     <FormContent>
                         <Form onSubmit={handleAdd}>
-                            <FormH1>Create new user</FormH1>
+                            <FormH1>Create new post</FormH1>
                             {errorHandler && (
                                 <ErrorLable>{errorHandler}</ErrorLable>
                             )}
@@ -107,7 +110,7 @@ function CreatePost() {
                                 htmlFor="file"
                                 style={{ fontSize: "20px" }}
                             >
-                                Image:{" "}
+                                Image or video link below:{" "}
                                 <FaUpload
                                     style={{
                                         background: "red",

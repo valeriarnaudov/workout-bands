@@ -15,6 +15,7 @@ import Sidebar from "./components/pages/SideBar";
 import NavBar from "./components/pages/NavBar";
 import Footer from "./components/pages/Footer";
 import { AuthContectProvider, AuthContext } from "./components/AuthContext/AuthContext";
+import Main from "./components/pages/Main";
 
 function App() {
     const { currentUser } = useContext(AuthContext);
@@ -47,7 +48,7 @@ function App() {
                             </RequireAuth>
                         }
                     />
-                    <Route path="/workouts" />
+                    <Route path="/workouts" element={<Main />}/>
                 </Routes>
                 <Footer />
             </Router>

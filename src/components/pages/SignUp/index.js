@@ -125,6 +125,7 @@ function SignUp() {
             dispatch({ type: "LOGIN", payload: user });
 
             await setDoc(doc(db, "users", res.user.uid), {
+                email: data.email,
                 age: data.age,
                 displayName: data.displayName,
                 img: data.img,

@@ -1,9 +1,10 @@
 import React from "react";
+import Auth from "./Auth";
+import Guest from "./Guest";
 import {
     CloseIcon,
     Icon,
     SidebarContainer,
-    SidebarLink,
     SidebarMenu,
     SidebarRoute,
     SidebarWrapper,
@@ -11,6 +12,10 @@ import {
 } from "./SidebarElements";
 
 const Sidebar = ({ isOpen, toogle }) => {
+    const isSignIn = () => {
+        return localStorage.getItem("user") !== null;
+    };
+
     return (
         <SidebarContainer isOpen={isOpen} onClick={toogle}>
             <Icon onClick={toogle}>
@@ -18,23 +23,14 @@ const Sidebar = ({ isOpen, toogle }) => {
             </Icon>
             <SidebarWrapper>
                 <SidebarMenu>
-                    <SidebarLink to="/exercises" onClick={toogle}>
-                        Exercises
-                    </SidebarLink>
-                    <SidebarLink to="/signup" onClick={toogle}>
-                        Sign Up
-                    </SidebarLink>
-                    <SidebarLink to="/logout" onClick={toogle}>
-                        Logout
-                    </SidebarLink>
-                    <SidebarLink to="/contact" onClick={toogle}>
-                        Contact
-                    </SidebarLink>
+                    {!isSignIn() ? (<Guest />) : (<Auth />)}
                 </SidebarMenu>
                 <SideBtnWrap>
-                    <SidebarRoute to="/signin">
-                        Sign In
-                    </SidebarRoute>
+                    {!isSignIn() ? (
+                        <SidebarRoute to="/signin">Sign In</SidebarRoute>
+                    ) : (
+                        <SidebarRoute to="/profile">Profile</SidebarRoute>
+                    )}
                 </SideBtnWrap>
             </SidebarWrapper>
         </SidebarContainer>

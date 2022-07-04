@@ -1,30 +1,32 @@
 import React, { useState } from "react";
 import { NavItem, NavLink } from "./NavbarElements";
-import {getDoc, doc} from "firebase/firestore"
+import { getDoc, doc } from "firebase/firestore";
 import { db } from "../../../firebase";
 
 function Guest() {
-
     const [user, setUser] = useState("");
 
     const userNameGetter = async () => {
         const userId = JSON.parse(localStorage.getItem("user")).uid;
         const docRef = await doc(db, "users", userId);
         const userData = await getDoc(docRef);
-        
+
         const displayName = userData.data().displayName;
 
         setUser(displayName);
         return displayName;
-    }
+    };
 
-    userNameGetter()
+    userNameGetter();
 
     return (
         <>
             <NavItem>
+                <NavLink to="/profile">Welcome: {user}</NavLink>
+            </NavItem>
+            <NavItem>
                 <NavLink
-                    to="/create"
+                    to="/create-post"
                     smooth="true"
                     duration={500}
                     exact="true"
@@ -45,7 +47,7 @@ function Guest() {
                 </NavLink>
             </NavItem>
             <NavItem>
-                <NavLink to="/profile">Welcome: {user}</NavLink>
+                <NavLink to="/signout">Sign out</NavLink>
             </NavItem>
         </>
     );

@@ -8,12 +8,11 @@ import {
     NavbarContainer,
     NavBtn,
     NavBtnLink,
-    NavItem,
-    NavLink,
-    NavLinks,
     NavLogo,
     NavMenu,
 } from "./NavbarElements";
+import Guest from "./Guest";
+import Auth from "./Auth";
 
 function NavBar({ toogle }) {
     const [scrollNav, setScrollNav] = useState(false);
@@ -34,72 +33,36 @@ function NavBar({ toogle }) {
         scroll.scrollToTop();
     };
 
+    const isSignIn = () => {
+        return localStorage.getItem("user") !== null;
+    };
+
     return (
         <>
             <Nav scrollNav={scrollNav}>
                 <NavbarContainer>
-                    <NavLogo to="/" onClick={toogleHome}>
-                        <GiWeightLiftingUp /> workout bands
-                    </NavLogo>
+                    {isSignIn() ? (
+                        <NavLogo to="/workouts" onClick={toogleHome}>
+                            <GiWeightLiftingUp /> workout bands
+                        </NavLogo>
+                    ) : (
+                        <NavLogo to="/" onClick={toogleHome}>
+                            <GiWeightLiftingUp /> workout bands
+                        </NavLogo>
+                    )}
                     <MobileIcon onClick={toogle}>
                         <FaListAlt />
                     </MobileIcon>
-                    <NavMenu>
-                        <NavItem>
-                            <NavLinks
-                                to="about"
-                                smooth="true"
-                                duration={500}
-                                spy={true}
-                                exact="true"
-                                offset={-80}
-                            >
-                                About
-                            </NavLinks>
-                        </NavItem>
-                        <NavItem>
-                            <NavLinks
-                                to="people"
-                                smooth="true"
-                                duration={500}
-                                spy={true}
-                                exact="true"
-                                offset={-80}
-                            >
-                                Info
-                            </NavLinks>
-                        </NavItem>
-                        <NavItem>
-                            <NavLinks
-                                to="services"
-                                smooth="true"
-                                duration={500}
-                                spy={true}
-                                exact="true"
-                                offset={-80}
-                            >
-                                Services
-                            </NavLinks>
-                        </NavItem>
-                        <NavItem>
-                            <NavLinks
-                                to="upload"
-                                smooth="true"
-                                duration={500}
-                                spy={true}
-                                exact="true"
-                                offset={-80}
-                            >
-                                Upload
-                            </NavLinks>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink to="/signup">Sign Up</NavLink>
-                        </NavItem>
-                    </NavMenu>
-                    <NavBtn>
-                        <NavBtnLink to="/signin">Sign In</NavBtnLink>
-                    </NavBtn>
+                    <NavMenu>{!isSignIn() ? <Guest /> : <Auth />}</NavMenu>
+                    {!isSignIn() ? (
+                        <NavBtn>
+                            <NavBtnLink to="/signin">Sign In</NavBtnLink>
+                        </NavBtn>
+                    ) : (
+                        <NavBtn>
+                            <NavBtnLink to="/profile">Profile</NavBtnLink>
+                        </NavBtn>
+                    )}
                 </NavbarContainer>
             </Nav>
         </>

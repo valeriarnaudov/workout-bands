@@ -1,4 +1,3 @@
-import React from "react";
 import { animateScroll as scroll } from "react-scroll";
 
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";

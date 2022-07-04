@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaListAlt } from "react-icons/fa";
 import { animateScroll as scroll } from "react-scroll";
 import { GiWeightLiftingUp } from "react-icons/gi";

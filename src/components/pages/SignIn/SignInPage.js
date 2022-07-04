@@ -1,4 +1,3 @@
-import React from "react";
 import SignIn from "./index";
 import ScrollToTop from "../ScrollToTop";
 

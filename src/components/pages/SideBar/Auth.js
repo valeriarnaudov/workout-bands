@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { getDoc, doc } from "firebase/firestore";
 import { db } from "../../../firebase";
 import { SidebarLink } from "./SidebarElements";

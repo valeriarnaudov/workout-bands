@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { NavItem, NavLink } from "./NavbarElements";
 import { getDoc, doc } from "firebase/firestore";
 import { db } from "../../../firebase";

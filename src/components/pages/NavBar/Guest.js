@@ -1,4 +1,3 @@
-import React from "react";
 import { NavItem, NavLinks, NavLink } from "./NavbarElements";
 
 function Guest() {

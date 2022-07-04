@@ -1,5 +1,3 @@
-import React from "react";
-
 import InfoSection from "./InfoSection";
 import { homeObjOne, homeObjThree, homeObjTwo } from "./InfoSection/Data";
 import Services from "./Services";

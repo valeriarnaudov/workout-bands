@@ -1,4 +1,3 @@
-import React from "react";
 import { ContentContainer, ContentItemsContainer, LikeBtn, Likes, MainSection, MainSectionTitle, PostContainer, PostInfo, PostTitle, PostVideo } from "./MainElements";
 import { BiLike } from "react-icons/bi";
 

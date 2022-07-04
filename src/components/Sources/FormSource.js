@@ -30,10 +30,12 @@ export const userInputs = [
         id: "password",
         label: "Password",
         type: "password",
+        placeholder: "Password",
     },
     {
         id: "confirmPassword",
         label: "Confirm Password",
         type: "password",
+        placeholder: "Confirm Password",
     },
 ];

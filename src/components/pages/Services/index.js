@@ -1,7 +1,7 @@
 import React from "react";
-import Icon1 from "../../assets/images/train.png";
-import Icon2 from "../../assets/images/work.png";
-import Icon3 from "../../assets/images/uploadvid.png";
+import Icon1 from "../../../assets/images/train.png";
+import Icon2 from "../../../assets/images/work.png";
+import Icon3 from "../../../assets/images/uploadvid.png";
 import {
     ServicesCard,
     ServicesContainer,

@@ -7,8 +7,7 @@ export const WorkoutContainer = styled.div`
     justify-content: center;
     align-items: center;
     padding: 0 30px;
-    height: 800px;
-    position: relative;
+    height: 760px;
     z-index: 1;
 
     :before {

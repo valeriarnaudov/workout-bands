@@ -5,14 +5,16 @@ import {
     Route,
     Navigate,
 } from "react-router-dom";
+import { useContext, useState } from "react";
 
-import Home from "./pages";
-import SignInPage from "./pages/SignIn/SignInPage";
-import SignUp from "./pages/SignUp";
-import CreatePost from "./pages/CreatePost";
-import { AuthContectProvider, AuthContext } from "./AuthContext/AuthContext";
-import { useContext } from "react";
-// import NavBar from "./pages/NavBar";
+import Home from "./components/pages"; 
+import SignInPage from "./components/pages/SignIn/SignInPage";
+import SignUp from "./components/pages/SignUp";
+import CreatePost from "./components/pages/CreatePost";
+import Sidebar from "./components/pages/SideBar";
+import NavBar from "./components/pages/NavBar";
+import Footer from "./components/pages/Footer";
+import { AuthContectProvider, AuthContext } from "./components/AuthContext/AuthContext";
 
 function App() {
     const { currentUser } = useContext(AuthContext);
@@ -21,10 +23,17 @@ function App() {
         return currentUser ? children : <Navigate to="/signin" />;
     };
 
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toogle = () => {
+        setIsOpen(!isOpen);
+    };
+
     return (
         <AuthContectProvider>
             <Router>
-                {/* <NavBar /> */}
+                <NavBar toogle={toogle} />
+                <Sidebar isOpen={isOpen} toogle={toogle} />
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/signin" element={<SignInPage />} />
@@ -38,7 +47,9 @@ function App() {
                             </RequireAuth>
                         }
                     />
+                    <Route path="/workouts" />
                 </Routes>
+                <Footer />
             </Router>
         </AuthContectProvider>
     );

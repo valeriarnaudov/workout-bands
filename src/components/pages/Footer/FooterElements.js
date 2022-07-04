@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 
 export const FooterContainer = styled.footer`
     background-color: #1a1a1a;
+    box-shadow: 20px 20px 20px 22px rgba(0, 0, 0, 1);
 `;
 
 export const FooterWrap = styled.div`
-    padding: 48px 24px;
+    padding: 10px 24px;
     display: flex;
     justify-content: column;
     align-items: center;
@@ -43,7 +44,8 @@ export const FooterLinkItems = styled.div`
     text-align: left;
     width: 160px;
     box-sizing: border-box;
-    color: white;
+    color: red;
+    box-shadow: 10px 4px 20px 0px rgba(0, 0, 0, 1);
 
     @media screen and (max-width: 420px) {
         margin: 0;
@@ -58,13 +60,13 @@ export const FooterLinkTitle = styled.h1`
 `;
 
 export const FooterLink = styled(Link)`
-    color: red;
+    color: black;
     text-decoration: none;
     margin-bottom: 0.5rem;
     font-size: 14px;
 
     &:hover {
-        color: white;
+        color: red;
         transition: 0.3s ease-in-out;
     }
 `;
@@ -79,7 +81,7 @@ export const SocialMediaWrap = styled.div`
     justify-content: space-between;
     align-items: center;
     max-width: 1100px;
-    margin: 40px auto 0 auto;
+    margin: 10px auto 0 auto;
 
     @media screen and (max-width: 820px) {
         flex-direction: column;

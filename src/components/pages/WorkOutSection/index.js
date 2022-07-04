@@ -10,7 +10,7 @@ import {
     ArrowForward,
     ArrowRight,
 } from "./WorkoutElements";
-import Video from "../../assets/videos/video.mp4";
+import Video from "../../../assets/videos/video.mp4";
 import { Button } from "./buttonElement";
 
 const WorkOutSection = () => {

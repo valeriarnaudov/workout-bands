@@ -28,7 +28,7 @@ export const Icon = styled.div`
     top: 1.2rem;
     right: 1.5rem;
     background: transparent;
-    fnt-size: 2rem;
+    font-size: 2rem;
     cursor: pointer;
     outline: none;
 `;
@@ -68,6 +68,7 @@ export const SidebarMenu = styled.ul`
 
     @media screen and (max-width: 480px) {
         grid-template-rows: repeat(6, 60px);
+    }
 `;
 
 export const SidebarRoute = styled(LinkR)`

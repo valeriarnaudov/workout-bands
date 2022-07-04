@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase";
+import { auth } from "../../../firebase";
 
 import {
     Container,
@@ -13,7 +13,6 @@ import {
     FormInput,
     FormLabel,
     FormWrap,
-    Icon,
     Text,
 } from "./SigninElements";
 import { AuthContext } from "../../AuthContext/AuthContext";
@@ -44,7 +43,6 @@ function SignIn() {
         <>
             <Container>
                 <FormWrap>
-                    <Icon to="/">Workout</Icon>
                     <FormContent>
                         <Form onSubmit={handleLogin}>
                             <FormH1>Sign In to your accout</FormH1>

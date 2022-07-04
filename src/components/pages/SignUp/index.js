@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { FaUpload } from "react-icons/fa";
@@ -14,12 +14,12 @@ import {
     FormInput,
     FormLabel,
     FormWrap,
-    Icon,
     Text,
 } from "./SignupElements";
-import { auth, db, storage } from "../../firebase";
+import { auth, db, storage } from "../../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { userInputs } from "../../Sources/FormSource";
+import { AuthContext } from "../../AuthContext/AuthContext";
 
 function SignUp() {
     const [errorHandler, setError] = useState(false);
@@ -27,6 +27,7 @@ function SignUp() {
     const [data, setData] = useState({});
     const [per, setPer] = useState(null);
 
+    const { dispatch } = useContext(AuthContext);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -76,37 +77,64 @@ function SignUp() {
         e.preventDefault();
 
         try {
-
-            if (data.age === "") {
+            if (data.age === "" || data.age == null || data.age === undefined) {
                 return setError("Fill age to continue");
-            } else if (data.displayName === "") {
+            } else if (
+                data.displayName === "" ||
+                data.displayName == null ||
+                data.displayName === undefined
+            ) {
                 return setError("Fill display name to continue");
-            } else if (data.img === "") {
+            } else if (
+                data.img === "" ||
+                data.img == null ||
+                data.img === undefined
+            ) {
                 return setError("Upload image to continue");
-            } else if (data.username === "") {
+            } else if (
+                data.username === "" ||
+                data.username == null ||
+                data.username === undefined
+            ) {
                 return setError("Fill username to continue");
+            } else if (
+                data.confirmPassword === "" ||
+                data.confirmPassword == null ||
+                data.confirmPassword === undefined
+            ) {
+                return setError("Confirm password to continue");
+            } else if (
+                data.password === "" ||
+                data.password == null ||
+                data.password === undefined
+            ) {
+                return setError("Fill password to continue");
             }
 
             if (data.password !== data.confirmPassword) {
                 return setError("Passwords do not match");
             }
 
-            
             const res = await createUserWithEmailAndPassword(
                 auth,
                 data.email,
                 data.password
             );
-            
+
+            const user = res.user;
+            dispatch({ type: "LOGIN", payload: user });
+
             await setDoc(doc(db, "users", res.user.uid), {
-                ...data,
+                age: data.age,
+                displayName: data.displayName,
+                img: data.img,
+                username: data.username,
                 timeStamp: serverTimestamp(),
             });
 
-
             navigate("/workouts");
         } catch (error) {
-            console.log(error);
+            return error;
         }
     };
 
@@ -114,7 +142,6 @@ function SignUp() {
         <>
             <Container>
                 <FormWrap>
-                    <Icon to="/">Workout</Icon>
                     <FormContent>
                         <Form onSubmit={handleAdd}>
                             <FormH1>Create new user</FormH1>

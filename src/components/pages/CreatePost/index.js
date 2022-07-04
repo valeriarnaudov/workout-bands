@@ -92,7 +92,7 @@ function CreatePost() {
 
             navigate("/workouts");
         } catch (error) {
-            console.log(error);
+            return error;
         }
     };
 

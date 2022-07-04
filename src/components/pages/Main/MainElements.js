@@ -55,7 +55,17 @@ export const PostContainer = styled.div`
     }
 `;
 
-export const PostVideo = styled.div``;
+export const PostImage = styled.img`
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+`;
+
+export const PostVideo = styled.video`
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+`;
 export const PostInfo = styled.div`
     background: lightgray;
     padding: 20px;

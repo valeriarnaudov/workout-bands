@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 
 export const Container = styled.div`
     min-height: 692px;
-    position: fixed;
+    display: block;
+    align-items: center;
+    padding: 15px 0 20px;
     bottom: 0;
     left: 0;
     right: 0;
@@ -57,8 +59,8 @@ export const Form = styled.form`
     display: grid;
     margin: 0 auto;
     padding: 80px 32px;
-    border-radius: 4px;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.9);
+    border-radius: 20px;
+    box-shadow: 10px 4px 20px rgba(0, 0, 0, 0.9);
 
     @media screen and (max-width: 400px) {
         padding: 32px 32px;
@@ -100,6 +102,11 @@ export const FormButton = styled.button`
         transition: 0.3s ease-in-out;
         background: white;
         color: red;
+    }
+    
+    &:disabled {
+        background: #ccc;
+        color: #fff;
     }
 `;
 

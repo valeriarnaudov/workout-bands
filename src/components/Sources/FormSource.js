@@ -39,3 +39,43 @@ export const userInputs = [
         placeholder: "Confirm Password",
     },
 ];
+
+
+export const postInputs = [
+    {
+        id: "title",
+        label: "Title",
+        type: "text",
+        placeholder: "Title",
+        value: "title",
+    },
+    {
+        id: "description",
+        label: "Description",
+        type: "text",
+        placeholder: "Description",
+        value: "description",
+    },
+    {
+        id: "img",
+        label: "Image",
+        type: "file",
+        placeholder: "Image",
+        value: "",
+    },
+    {
+        id: "video",
+        label: "Video",
+        type: "url",
+        placeholder: "Should start with http:// or https://",
+        value: "",
+    },        
+    {
+        id: "muscleGroup",
+        label: "Muscle Group",
+        type: "text",
+        placeholder: "Muscle Group",
+        value: "muscleGroup",
+    },
+    
+];

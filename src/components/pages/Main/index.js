@@ -7,20 +7,21 @@ import {
     MainSectionTitle,
     PostContainer,
     PostImage,
-    // PostImage,
     PostInfo,
     PostTitle,
     PostVideo,
-    // PostVideo,
 } from "./MainElements";
 import { BiLike } from "react-icons/bi";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase";
-import { FormH1 } from "../CreatePost/CreateElements";
 
 function Main() {
     const [data, setData] = useState([]);
+
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -39,6 +40,11 @@ function Main() {
         fetchData();
     }, []);
 
+    const redirectToDetailsHandler = (id) => {
+        navigate(`/details/${id}`);
+    }
+
+
     return (
         <>
             <MainSection>
@@ -47,7 +53,7 @@ function Main() {
                 <ContentContainer>
                     <ContentItemsContainer>
                         {data.map((item) => (
-                            <PostContainer key={item.id}>
+                            <PostContainer key={item.id} onClick={() => redirectToDetailsHandler(item.id)}>
                                 {item.src.includes(".mp4") ? (
                                     <PostVideo
                                         src={item.src}

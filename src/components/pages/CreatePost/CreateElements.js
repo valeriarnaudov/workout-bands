@@ -103,7 +103,7 @@ export const FormButton = styled.button`
         background: white;
         color: red;
     }
-    
+
     &:disabled {
         background: #ccc;
         color: #fff;

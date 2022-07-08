@@ -16,6 +16,7 @@ import NavBar from "./components/pages/NavBar";
 import Footer from "./components/pages/Footer";
 import { AuthContectProvider, AuthContext } from "./components/AuthContext/AuthContext";
 import Main from "./components/pages/Main";
+import Details from "./components/pages/Details";
 
 function App() {
     const { currentUser } = useContext(AuthContext);
@@ -49,6 +50,7 @@ function App() {
                         }
                     />
                     <Route path="/workouts" element={<Main />}/>
+                    <Route path="/details/:id" element={<Details />}/>
                 </Routes>
                 <Footer />
             </Router>

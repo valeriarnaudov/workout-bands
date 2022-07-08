@@ -125,7 +125,7 @@ function CreatePost() {
                                 onChange={(e) => setFile(e.target.files[0])}
                             />
                             {postInputs.map((input) => (
-                                <>  
+                                <>
                                     <FormLabel>{input.label}</FormLabel>
                                     <FormInput
                                         id={input.id}

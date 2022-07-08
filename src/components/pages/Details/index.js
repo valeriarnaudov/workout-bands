@@ -3,11 +3,12 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "../../../firebase";
 
+import PostDetails from "./PostDetails";
+
 function Details() {
     const { id } = useParams();
-    const [data, setData] = useState(null);
-    
-    
+    const [data, setData] = useState({});
+
     useEffect(() => {
         const fetchData = async () => {
             const post = await getDoc(doc(db, "posts", id));
@@ -16,14 +17,12 @@ function Details() {
 
         fetchData();
     }, [id]);
-    console.log(data)
+
     return (
         <>
-            <h1>{data.title}</h1>
-            <img src={data.src} alt=""/>
-            <p>{data.description}</p>
+            <PostDetails postData={data} />
         </>
-        );
+    );
 }
 
 export default Details;

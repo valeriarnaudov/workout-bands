@@ -6,6 +6,7 @@ import {
     MainSection,
     MainSectionTitle,
     PostContainer,
+    PostImage,
     // PostImage,
     PostInfo,
     PostTitle,
@@ -16,6 +17,7 @@ import { BiLike } from "react-icons/bi";
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase";
+import { FormH1 } from "../CreatePost/CreateElements";
 
 function Main() {
     const [data, setData] = useState([]);
@@ -41,48 +43,20 @@ function Main() {
         <>
             <MainSection>
                 <MainSectionTitle>Workouts</MainSectionTitle>
+                {!data.length && <h1>There are no posts yet.</h1>}
                 <ContentContainer>
                     <ContentItemsContainer>
                         {data.map((item) => (
-                            <PostContainer>
-                                {/* <PostImage src={item.img} /> */}
-                                <PostVideo>{
-                                    <>
-                                        <blockquote
-                                            class="tiktok-embed"
-                                            cite="https://www.tiktok.com/@fabrizioalessandr90/video/7113948147814108422"
-                                            data-video-id="7113948147814108422"
-                                            style="max-width: 605px;min-width: 325px;"
-                                        >
-                                            {" "}
-                                            <section>
-                                                {" "}
-                                                <a
-                                                    target="_blank"
-                                                    title="@fabrizioalessandr90"
-                                                    href="https://www.tiktok.com/@fabrizioalessandr90"
-                                                >
-                                                    @fabrizioalessandr90
-                                                </a>{" "}
-                                                <p></p>{" "}
-                                                <a
-                                                    target="_blank"
-                                                    title="♬ Daddy Cool - Boney M."
-                                                    href="https://www.tiktok.com/music/Daddy-Cool-6698932824587634690"
-                                                >
-                                                    ♬ Daddy Cool - Boney M.
-                                                </a>{" "}
-                                            </section>{" "}
-                                        </blockquote>{" "}
-                                        <script
-                                            async
-                                            src="https://www.tiktok.com/embed.js"
-                                        ></script>
-                                    </>}
-                                </PostVideo>
-                                {/* <video className="video__player" src="https://v16m.tiktokcdn.com/00f8150467034acf33c0036f54dc624a/5f497764/video/tos/useast2a/tos-useast2a-pve-0068/5c92cd711b4c4d11a0f7560389ff3514/?a=1233&br=2200&bt=1100&cr=0&cs=0&dr=0&ds=3&er=&l=2020082815291201019018913720166B55&lr=tiktok_m&mime_type=video_mp4&qs=0&rc=Mzg8NjY0a2RodTMzPDczM0ApaTY8MzdnOWVlN2k4ZzVmOWdwcWdqLW5mNWNfLS0xMTZzc2AzNS0vMS41MDYwMWBhM2A6Yw%3D%3D&vl=&vr="></video> */}
-
-                                {/* <PostVideo src={item.video} /> */}
+                            <PostContainer key={item.id}>
+                                {item.src.includes(".mp4") ? (
+                                    <PostVideo
+                                        src={item.src}
+                                        autoPlay={true}
+                                        muted={true}
+                                    />
+                                ) : (
+                                    <PostImage src={item.src} />
+                                )}
                                 <PostInfo>
                                     <PostTitle>{item.title}</PostTitle>
                                     <Likes>Likes: {item.likes.length}</Likes>

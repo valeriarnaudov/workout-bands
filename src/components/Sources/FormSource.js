@@ -62,14 +62,6 @@ export const postInputs = [
         type: "text",
         placeholder: "Description",
         value: "description",
-    },
-    {
-        id: "video",
-        label: "Video",
-        type: "url",
-        placeholder: "Should start with http:// or https://",
-        value: "",
-    },        
+    },  
 
-    
 ];

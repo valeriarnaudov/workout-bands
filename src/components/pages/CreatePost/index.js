@@ -23,7 +23,6 @@ function CreatePost() {
     const [file, setFile] = useState("");
     const [data, setData] = useState({});
     const [per, setPer] = useState(null);
-    // const [image, setImage] = useState("");
 
     const navigate = useNavigate();
 
@@ -56,8 +55,7 @@ function CreatePost() {
                 },
                 () => {
                     getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-                        setData((prev) => ({ ...prev, img: url }));
-                        // setImage(url)
+                        setData((prev) => ({ ...prev, src: url }));
                     });
                 }
             );
@@ -77,13 +75,12 @@ function CreatePost() {
         try {
             const userId = JSON.parse(localStorage.getItem("user")).uid;
 
-            const docRef = doc(collection(db, "posts"))
+            const docRef = doc(collection(db, "posts"));
             await setDoc(docRef, {
                 title: data.title,
                 description: data.description,
                 owner: userId,
-                img: data.img || "",
-                video: data.video,
+                src: data.src || "",
                 likes: [],
                 muscleGroup: data.muscleGroup,
                 timeStamp: Timestamp.fromDate(new Date()),
@@ -128,7 +125,7 @@ function CreatePost() {
                                 onChange={(e) => setFile(e.target.files[0])}
                             />
                             {postInputs.map((input) => (
-                                <>
+                                <>  
                                     <FormLabel>{input.label}</FormLabel>
                                     <FormInput
                                         id={input.id}

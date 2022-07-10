@@ -1,6 +1,9 @@
-import React from "react";
+import { useNavigate, useParams } from "react-router";
+import { BiLike } from "react-icons/bi";
 import {
+    DeleteBtn,
     Description,
+    EditBtn,
     Image,
     InfoContainer,
     LikeBtn,
@@ -14,7 +17,19 @@ import {
 
 function PostDetails(props) {
     const post = props.postData;
+    const isSignIn = props.isSignIn;
+    const isOwner = props.isOwner;
+    const { id } = useParams();
 
+
+    const navigate = useNavigate()
+
+    console.log(post)
+
+    const editHandler = () => {
+        navigate("/edit/" + id)
+    }
+ 
     return (
         <PostSection>
             <SrcContainer>
@@ -25,15 +40,23 @@ function PostDetails(props) {
                 )}
             </SrcContainer>
             <InfoContainer>
-                <Title>{post.title}</Title>
-                <MuscleGroup>{post.muscleGroup}</MuscleGroup>
-                <Description>{post.description}</Description>
+                <Title>Title: {post.title}</Title>
+                <MuscleGroup>Muscle group: {post.muscleGroup}</MuscleGroup>
+                <Description>Description: {post.description}</Description>
                 <Likes>
                     {!post.likes
                         ? "This post currently has no likes"
-                        : "Likes: " + post.likes}
+                        : "Likes: " + post.likes.length}
                 </Likes>
-                <LikeBtn>Like</LikeBtn>
+                {isSignIn && !isOwner ? <LikeBtn><BiLike /></LikeBtn> : ""}
+                {isOwner ? (
+                    <>
+                        <EditBtn onClick={editHandler}>Edit</EditBtn>
+                        <DeleteBtn>Delete</DeleteBtn>
+                    </>
+                ) : (
+                    ""
+                )}
             </InfoContainer>
         </PostSection>
     );

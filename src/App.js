@@ -17,6 +17,7 @@ import Footer from "./components/pages/Footer";
 import { AuthContectProvider, AuthContext } from "./components/AuthContext/AuthContext";
 import Main from "./components/pages/Main";
 import Details from "./components/pages/Details";
+import SignOut from "./components/pages/SignOut";
 
 function App() {
     const { currentUser } = useContext(AuthContext);
@@ -51,6 +52,7 @@ function App() {
                     />
                     <Route path="/workouts" element={<Main />}/>
                     <Route path="/details/:id" element={<Details />}/>
+                    <Route path="/signout" element={<SignOut />}/>
                 </Routes>
                 <Footer />
             </Router>

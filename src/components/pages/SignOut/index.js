@@ -6,9 +6,9 @@ function SignOut() {
 
     useEffect(() => {
         const SignOut = () => {
-            localStorage.setItem("user", null);
+            localStorage.clear();
             navigate("/");
-            window.location.reload(false);
+            window.location.reload(true);
         };
 
         SignOut()

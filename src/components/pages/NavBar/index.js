@@ -27,6 +27,7 @@ function NavBar({ toogle }) {
 
     useEffect(() => {
         window.addEventListener("scroll", changeNav);
+        isSignIn()
     }, []);
 
     const toogleHome = () => {

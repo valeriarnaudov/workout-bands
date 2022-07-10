@@ -18,18 +18,31 @@ import {
 function PostDetails(props) {
     const post = props.postData;
     const isSignIn = props.isSignIn;
-    const isOwner = props.isOwner;
     const { id } = useParams();
+
+    const ownerId = post.owner
+
+    console.log(ownerId)
 
 
     const navigate = useNavigate()
 
-    console.log(post)
-
     const editHandler = () => {
         navigate("/edit/" + id)
+
     }
- 
+    
+    const isOwner = () => {
+        const signedUser = JSON.parse(localStorage.getItem("user"))
+        console.log(signedUser)
+        if (ownerId !== signedUser) {
+            return false;
+        }
+        return true;
+    };
+
+    isOwner()
+
     return (
         <PostSection>
             <SrcContainer>
@@ -48,8 +61,8 @@ function PostDetails(props) {
                         ? "This post currently has no likes"
                         : "Likes: " + post.likes.length}
                 </Likes>
-                {isSignIn && !isOwner ? <LikeBtn><BiLike /></LikeBtn> : ""}
-                {isOwner ? (
+                {isSignIn && !isOwner() ? <LikeBtn><BiLike /></LikeBtn> : ""}
+                {isOwner() ? (
                     <>
                         <EditBtn onClick={editHandler}>Edit</EditBtn>
                         <DeleteBtn>Delete</DeleteBtn>

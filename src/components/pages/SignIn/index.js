@@ -34,7 +34,7 @@ function SignIn() {
             const user = userCredentials.user;
             dispatch({ type: "LOGIN", payload: user });
             navigate("/workouts");
-            window.location.reload(false);
+            window.location.reload(true);
         } catch (error) {
             setError(true);
         }

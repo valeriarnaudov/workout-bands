@@ -134,6 +134,8 @@ function SignUp() {
             });
 
             navigate("/workouts");
+            window.location.reload(true);
+
         } catch (error) {
             return error;
         }

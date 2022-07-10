@@ -9,17 +9,6 @@ function Details() {
     const { id } = useParams();
     const [data, setData] = useState({});
 
-    const isSignIn = () => {
-        return localStorage.getItem("user") !== null;
-    };
-
-    const isOwner = () => {
-        const signedUserId = JSON.parse(localStorage.getItem("user")).uid
-        if (data.owner !== signedUserId) {
-            return false;
-        }
-        return true;
-    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -30,9 +19,14 @@ function Details() {
         fetchData();
     }, [id]);
 
+    
+    const isSignIn = () => {
+        return localStorage.getItem("user") !== null;
+    };
+
     return (
         <>
-            <PostDetails postData={data} isSignIn={isSignIn} isOwner={isOwner}/>
+            <PostDetails postData={data} isSignIn={isSignIn()} />
         </>
     );
 }

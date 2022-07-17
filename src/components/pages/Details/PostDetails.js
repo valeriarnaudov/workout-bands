@@ -4,6 +4,7 @@ import {
     DeleteBtn,
     Description,
     EditBtn,
+    H1,
     Image,
     InfoContainer,
     LikeBtn,
@@ -25,8 +26,6 @@ function PostDetails(props) {
 
     const ownerId = post.owner;
 
-    console.log(ownerId);
-
     const navigate = useNavigate();
 
     const editRedirect = () => {
@@ -46,11 +45,12 @@ function PostDetails(props) {
     const deleteHandler = async () => {
         await deleteDoc(doc(db, "posts", id));
         navigate("/workouts");
-    }
+    };
 
     return (
         <>
             <PostSection>
+                <H1>Details</H1>
                 <PostContainer>
                     <SrcContainer>
                         {!post.src || post.src.includes(".mp4") ? (
@@ -82,7 +82,9 @@ function PostDetails(props) {
                         {isOwner() ? (
                             <>
                                 <EditBtn onClick={editRedirect}>Edit</EditBtn>
-                                <DeleteBtn onClick={deleteHandler}>Delete</DeleteBtn>
+                                <DeleteBtn onClick={deleteHandler}>
+                                    Delete
+                                </DeleteBtn>
                             </>
                         ) : (
                             ""

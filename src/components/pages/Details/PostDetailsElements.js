@@ -1,24 +1,31 @@
 import styled from "styled-components";
 
 export const PostSection = styled.div`
+    justify-content: center;
+    align-items: center;
+`;
+
+export const H1 = styled.h1`
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: red;
+    margin-top: 2rem;
+    max-width: 100%;
+    text-align: center;
+`;
+
+export const PostContainer = styled.div`
     max-width: 1100px;
     padding: 20px 20px 20px 20px;
     border-radius: 20px;
     margin-top: 20px;
     margin-bottom: 20px;
+    text-align: center;
     justify-content: center;
     align-items: center;
     background: lightgray;
-    box-shadow: 0 0 20px 20px (0, 0, 0, 19);
-`;
-
-export const PostContainer = styled.div`
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
-    justify-content: center;
-    align-items: center;
-    justify-items: center;
+    box-shadow: 0 0 20px 20px (0, 0, 0, 1);
 `;
 
 export const SrcContainer = styled.div`

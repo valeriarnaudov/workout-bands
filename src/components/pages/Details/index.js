@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { db } from "../../../firebase";
 
 import PostDetails from "./PostDetails";
+import PostNewComment from "./PostNewComment";
 
 function Details() {
     const { id } = useParams();
@@ -27,6 +28,7 @@ function Details() {
     return (
         <>
             <PostDetails postData={data} isSignIn={isSignIn()} />
+            {isSignIn() ? <PostNewComment postData={data} isSignIn={isSignIn()} /> : undefined}
         </>
     );
 }

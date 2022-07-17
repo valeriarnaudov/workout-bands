@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const PostSection = styled.div`
+    display: grid;
     justify-content: center;
     align-items: center;
 `;
@@ -16,7 +17,9 @@ export const H1 = styled.h1`
 `;
 
 export const PostContainer = styled.div`
-    max-width: 1100px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 1000px;
     padding: 20px 20px 20px 20px;
     border-radius: 20px;
     margin-top: 20px;

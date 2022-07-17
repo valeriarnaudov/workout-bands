@@ -28,7 +28,6 @@ function Details() {
     return (
         <>
             <PostDetails postData={data} isSignIn={isSignIn()} />
-            {isSignIn() ? <PostNewComment postData={data} isSignIn={isSignIn()} /> : undefined}
         </>
     );
 }

@@ -18,6 +18,7 @@ import {
 } from "./PostDetailsElements";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../../firebase";
+import PostNewComment from "./PostNewComment";
 
 function PostDetails(props) {
     const post = props.postData;
@@ -91,6 +92,7 @@ function PostDetails(props) {
                         )}
                     </InfoContainer>
                 </PostContainer>
+                {isSignIn && isOwner() ? <PostNewComment /> : undefined}
             </PostSection>
         </>
     );

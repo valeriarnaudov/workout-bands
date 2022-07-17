@@ -23,7 +23,7 @@ export const ContentContainer = styled.div`
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 100%;
+    max-width: 1100px;
 `;
 
 export const ContentItemsContainer = styled.div`

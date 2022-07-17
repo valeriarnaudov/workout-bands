@@ -1,32 +1,38 @@
 import styled from "styled-components";
 
-export const PostSection = styled.section`
+export const PostSection = styled.div`
+    max-width: 1100px;
     padding: 20px 20px 20px 20px;
     border-radius: 20px;
-    box-shadow: 0 0 20px 20px (0, 0, 0, 1);
     margin-top: 20px;
     margin-bottom: 20px;
     justify-content: center;
     align-items: center;
     background: lightgray;
-    max-width: 1000px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    z-index: 0;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    box-shadow: 0 0 20px 20px (0, 0, 0, 19);
 `;
 
-export const SrcContainer = styled.div``;
+export const PostContainer = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+`;
+
+export const SrcContainer = styled.div`
+    border-radius: 20px;
+`;
 export const Video = styled.video`
     width: 50%;
     height: 100%;
     object-fit: cover;
+    border-radius: 20px;
 `;
 export const Image = styled.img`
     width: 50%;
+    border-radius: 20px;
 `;
 export const InfoContainer = styled.div`
     display: block;

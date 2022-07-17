@@ -18,6 +18,7 @@ import { AuthContectProvider, AuthContext } from "./components/AuthContext/AuthC
 import Main from "./components/pages/Main";
 import Details from "./components/pages/Details";
 import SignOut from "./components/pages/SignOut";
+import EditPost from "./components/pages/EditPost";
 
 function App() {
     const { currentUser } = useContext(AuthContext);
@@ -52,6 +53,7 @@ function App() {
                     />
                     <Route path="/workouts" element={<Main />}/>
                     <Route path="/details/:id" element={<Details />}/>
+                    <Route path="/edit/:id" element={<EditPost />}/>
                     <Route path="/signout" element={<SignOut />}/>
                 </Routes>
                 <Footer />

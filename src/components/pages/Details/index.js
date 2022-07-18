@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { db } from "../../../firebase";
 
 import PostDetails from "./PostDetails";
-import PostNewComment from "./PostNewComment";
 
 function Details() {
     const { id } = useParams();

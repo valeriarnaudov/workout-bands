@@ -7,7 +7,7 @@ function Guest() {
     const [user, setUser] = useState("");
 
     const userNameGetter = async () => {
-        const userId = JSON.parse(localStorage.getItem("user")).uid;
+        let userId = JSON.parse(localStorage.getItem("user")).uid;
         const docRef = await doc(db, "users", userId);
         const userData = await getDoc(docRef);
 

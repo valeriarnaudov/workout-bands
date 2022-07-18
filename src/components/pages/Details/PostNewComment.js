@@ -89,7 +89,7 @@ function PostNewComment() {
         };
 
         fetchData();
-    }, [commentData]);
+    }, []);
 
     return (
         <>

@@ -21,6 +21,7 @@ export const CommentContainer = styled.div`
 `;
 
 export const CommentForm = styled.form`
+    max-width: 440px;
     display: flex;
     flex-direction: column;
     background: lightgray;

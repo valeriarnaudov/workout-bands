@@ -5,9 +5,10 @@ import {
     getDocs,
     setDoc,
     Timestamp,
+    updateDoc,
 } from "firebase/firestore";
-import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { db } from "../../../firebase";
 import {
     CommentContainer,
@@ -29,14 +30,57 @@ import {
     LikeComment,
     NoComments,
     SingleCommentContainer,
+    ColumnContainer,
 } from "./CommentsElements";
 
-function PostNewComment() {
-    const [comment, setComment] = React.useState("");
-    const [commentData, setCommentData] = React.useState({});
-    const [ownerName, setOwnerName] = React.useState("");
+function PostNewComment(props) {
+    const data = props.postData;
+    const [postData, setPostData] = useState(data);
+    const [comment, setComment] = useState("");
+    const [ownerName, setOwnerName] = useState("");
+
+    const { id } = useParams();
 
     const userId = JSON.parse(localStorage.getItem("user")).uid;
+    const list = data.comments
+
+    const commentSubmitHandler = async (e) => {
+        e.preventDefault();
+        const newComment = {
+            text: comment,
+            owner: { id: userId, name: ownerName },
+            createdAt: Timestamp.fromDate(new Date()),
+            likes: [],
+        };
+
+        try {
+            await updateDoc(doc(db, "posts", id), "comments", [
+                newComment,
+                ...data.comments,
+            ]);
+            setComment("");
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+
+    // try {
+    //     const docRef = doc(db, "posts", data.id);
+    //     await updateDoc(docRef, { ...data});
+    // } catch (error) {
+    //     console.log(error);
+    // }
+
+    const handleInput = (e) => {
+        const targetId = e.target.id;
+        const value = e.target.value;
+        setComment({ ...comment, [targetId]: value });
+    };
+
+    // const [commentData, setCommentData] = useState({});
+
+    // const { id } = useParams();
 
     useEffect(() => {
         const ownerDisplayName = async () => {
@@ -49,47 +93,51 @@ function PostNewComment() {
         };
 
         ownerDisplayName();
-    }, [userId]);
-
-
-    const handleInput = (e) => {
-        const id = e.target.id;
-        const value = e.target.value;
-        setComment({ ...comment, [id]: value });
-    };
-
-    const commentSubmitHandler = async (e) => {
-        e.preventDefault();
-
-        try {
-            const docRef = doc(collection(db, "comments"));
-            await setDoc(docRef, {
-                text: comment.comment,
-                owner: {id: userId, name: ownerName},
-                likes: [],
-                timeStamp: Timestamp.fromDate(new Date()),
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const list = [];
-                const comments = await getDocs(collection(db, "comments"));
-                comments.forEach((doc) => {
-                    list.push({ id: doc.id, ...doc.data() });
-                });
-                setCommentData(list);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
-        fetchData();
     }, []);
+
+    // const commentSubmitHandler = async (e) => {
+
+    //     try {
+    //         const docRef = doc(collection(db, "comments"));
+    //         await setDoc(docRef, {
+    //             text: comment.comment,
+    //             owner: { id: userId, name: ownerName },
+    //             likes: [],
+    //             timeStamp: Timestamp.fromDate(new Date()),
+    //         });
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
+
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const list = [];
+    //             const comments = await getDocs(collection(db, "comments"));
+    //             comments.forEach((doc) => {
+    //                 list.push({ id: doc.id, ...doc.data() });
+    //             });
+    //             setCommentData(list);
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     };
+
+    //     fetchData();
+    // }, []);
+
+    // const likeHandler = async (e) => {
+    //     try {
+    //         const docRef = doc(db, "comments", e.target.parentElement.id);
+    //         const comment = await getDoc(docRef);
+    //         const likes = comment.data().likes;
+    //         const newLikes = [...likes, userId];
+    //         await updateDoc(docRef, { likes: newLikes });
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
 
     return (
         <>
@@ -103,29 +151,38 @@ function PostNewComment() {
                         name="comment"
                         onChange={handleInput}
                     />
-                    <CommentSubmit>Submit</CommentSubmit>
+                    <CommentSubmit type="submit">Submit</CommentSubmit>
                 </CommentForm>
-                {!commentData.length ? (
+                {!data.comments ? (
                     <NoComments>Still no comments</NoComments>
                 ) : (
-                    commentData.map((com) => {
+                    list.map(com => {
                         return (
-                            <SingleCommentContainer key={com.id}>
+                            <SingleCommentContainer key={com.text.comment}>
                                 <CommentTextContainer>
-                                    <CommentText>{com.text}</CommentText>
+                                    <CommentText>{com.text.comment}</CommentText>
                                 </CommentTextContainer>
-                                <CommentLikeContainer>
-                                    <CommentLikes>
-                                        Likes: {com.likes.length}
-                                    </CommentLikes>
-                                    <LikeComment>
-                                        <FcLike />
-                                    </LikeComment>
-                                </CommentLikeContainer>
-                                <InfoCommentContainer>
-                                    <CommentOwner>{com.owner.name}</CommentOwner>
-                                    <CommentTime>{com.timeStamp.toDate().toDateString()}</CommentTime>
-                                </InfoCommentContainer>
+                                <ColumnContainer>
+                                    <CommentLikeContainer>
+                                        <CommentLikes>
+                                            Likes: {com.likes.length}
+                                        </CommentLikes>
+                                        <LikeComment>
+                                            <FcLike
+                                            // onClick={likeHandler}
+                                            />
+                                        </LikeComment>
+                                    </CommentLikeContainer>
+                                    <InfoCommentContainer>
+                                        <CommentOwner>
+                                            By: {com.owner.name}
+                                        </CommentOwner>
+                                        <CommentTime>
+                                            On:{" "}
+                                            {com.createdAt.toDate().toLocaleString()}                                            
+                                        </CommentTime>
+                                    </InfoCommentContainer>
+                                </ColumnContainer>
                             </SingleCommentContainer>
                         );
                     })

@@ -92,7 +92,7 @@ function PostDetails(props) {
                         )}
                     </InfoContainer>
                 </PostContainer>
-                {isSignIn && isOwner() ? <PostNewComment /> : undefined}
+                {isSignIn ? <PostNewComment postData={post}/> : undefined}
             </PostSection>
         </>
     );

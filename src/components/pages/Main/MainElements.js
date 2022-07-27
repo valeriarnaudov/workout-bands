@@ -33,11 +33,11 @@ export const ContentItemsContainer = styled.div`
     padding: 10px 10px 10px 10px;
     grid-template-columns: repeat(3, 1fr);
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 1150px) {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    @media screen and (max-width: 480px) {
+    @media screen and (max-width: 768px) {
         grid-template-columns: repeat(1, 1fr);
     }
 `;
@@ -49,9 +49,13 @@ export const PostContainer = styled.div`
     border-radius: 15px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    width: 360px;
+    height: 320px;
 
     @media screen and (max-width: 768px) {
         grid-template-columns: repeat(1, 1fr);
+        height: 900px;
+        width: 460px;
     }
 `;
 
@@ -80,6 +84,7 @@ export const Likes = styled.p`
     margin-top: 10px;
 `;
 export const LikeBtn = styled.button`
+    font-size: 2rem;
     margin-top: 10px;
     color: red;
     background: white;
@@ -88,4 +93,10 @@ export const LikeBtn = styled.button`
     padding: 5px;
     text-align: center;
     align-items: center;
+
+    &hover {
+        cursor: pointer;
+        color: white;
+        background: red;
+    }
 `;

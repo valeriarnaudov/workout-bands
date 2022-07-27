@@ -42,7 +42,7 @@ function PostNewComment(props) {
     const { id } = useParams();
 
     const userId = JSON.parse(localStorage.getItem("user")).uid;
-    const list = data.comments
+    const list = data.comments;
 
     const commentSubmitHandler = async (e) => {
         e.preventDefault();
@@ -64,6 +64,27 @@ function PostNewComment(props) {
         }
     };
 
+    const likeCommentHandler = async (e) => {
+        e.preventDefault();
+        console.log(e.target.parentElement.parentElement.parentElement.parentElement.parentElement);
+        const commentId = data.comments.findIndexOf(
+            e.target.id,
+        );
+        console.log(commentId);
+        try {
+            const comment = data.comments.commentId;
+            console.log(comment);
+            const newLikes = [...comment.likes, userId];
+            await updateDoc(doc(db, "posts", id), "comments", {
+                [commentId]: {
+                    ...comment,
+                    likes: newLikes,
+                },
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     // try {
     //     const docRef = doc(db, "posts", data.id);
@@ -156,11 +177,18 @@ function PostNewComment(props) {
                 {!data.comments ? (
                     <NoComments>Still no comments</NoComments>
                 ) : (
-                    list.map(com => {
+                    list.map((com) => {
                         return (
-                            <SingleCommentContainer key={com.text.comment}>
+                            <SingleCommentContainer
+                                key={
+                                    com.text.comment +
+                                    com.createdAt.toDate().toLocaleString()
+                                }
+                            >
                                 <CommentTextContainer>
-                                    <CommentText>{com.text.comment}</CommentText>
+                                    <CommentText>
+                                        {com.text.comment}
+                                    </CommentText>
                                 </CommentTextContainer>
                                 <ColumnContainer>
                                     <CommentLikeContainer>
@@ -169,7 +197,7 @@ function PostNewComment(props) {
                                         </CommentLikes>
                                         <LikeComment>
                                             <FcLike
-                                            // onClick={likeHandler}
+                                                onClick={likeCommentHandler}
                                             />
                                         </LikeComment>
                                     </CommentLikeContainer>
@@ -179,7 +207,9 @@ function PostNewComment(props) {
                                         </CommentOwner>
                                         <CommentTime>
                                             On:{" "}
-                                            {com.createdAt.toDate().toLocaleString()}                                            
+                                            {com.createdAt
+                                                .toDate()
+                                                .toLocaleString()}
                                         </CommentTime>
                                     </InfoCommentContainer>
                                 </ColumnContainer>

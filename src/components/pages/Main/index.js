@@ -14,7 +14,7 @@ import {
 import { BiLike } from "react-icons/bi";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { collection, doc, getDocs, updateDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase";
 
 function Main() {
@@ -37,7 +37,7 @@ function Main() {
         };
 
         fetchData();
-    }, []);
+    }, [data]);
 
     const redirectToDetailsHandler = (id) => {
         navigate(`/details/${id}`);
@@ -45,9 +45,16 @@ function Main() {
 
     const likePostHandler = async (id) => {
         try {
-            const docRef = doc(db, "posts", id);
+            const docRef = (doc(db, "posts", id));
+            const docSnapshot = await getDoc(docRef);
+            const likes = docSnapshot.data().likes;
+
+            if (likes.includes(userId)) {
+                throw new Error(`Already liked this post!`);
+            }
+
             await updateDoc(docRef, {
-                likes: [...data.likes, userId],
+                likes: [...likes, userId],
             });
         } catch (error) {
             console.log(error);
@@ -84,7 +91,7 @@ function Main() {
                                     <PostTitle>{item.title}</PostTitle>
                                     <Likes>Likes: {item.likes.length}</Likes>
                                     {item.likes.includes(userId) ? undefined : (
-                                        <LikeBtn onClick={likePostHandler}>
+                                        <LikeBtn onClick={() => likePostHandler(item.id)}>
                                             <BiLike />
                                         </LikeBtn>
                                     )}

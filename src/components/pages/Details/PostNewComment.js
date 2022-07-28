@@ -186,7 +186,7 @@ function PostNewComment(props) {
                                 }
                             >
                                 <CommentTextContainer>
-                                    <CommentText>
+                                    <CommentText>   
                                         {com.text.comment}
                                     </CommentText>
                                 </CommentTextContainer>

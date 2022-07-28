@@ -14,7 +14,13 @@ import {
 import { BiLike } from "react-icons/bi";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { collection, doc, getDoc, getDocs, updateDoc } from "firebase/firestore";
+import {
+    collection,
+    doc,
+    getDoc,
+    getDocs,
+    updateDoc,
+} from "firebase/firestore";
 import { db } from "../../../firebase";
 
 function Main() {
@@ -45,7 +51,7 @@ function Main() {
 
     const likePostHandler = async (id) => {
         try {
-            const docRef = (doc(db, "posts", id));
+            const docRef = doc(db, "posts", id);
             const docSnapshot = await getDoc(docRef);
             const likes = docSnapshot.data().likes;
 
@@ -91,7 +97,11 @@ function Main() {
                                     <PostTitle>{item.title}</PostTitle>
                                     <Likes>Likes: {item.likes.length}</Likes>
                                     {item.likes.includes(userId) ? undefined : (
-                                        <LikeBtn onClick={() => likePostHandler(item.id)}>
+                                        <LikeBtn
+                                            onClick={() =>
+                                                likePostHandler(item.id)
+                                            }
+                                        >
                                             <BiLike />
                                         </LikeBtn>
                                     )}

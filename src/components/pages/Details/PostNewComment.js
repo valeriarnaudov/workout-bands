@@ -39,6 +39,8 @@ function PostNewComment(props) {
     const [comment, setComment] = useState("");
     const [ownerName, setOwnerName] = useState("");
 
+    console.log(data.id)
+
     const { id } = useParams();
 
     const userId = JSON.parse(localStorage.getItem("user")).uid;
@@ -46,18 +48,13 @@ function PostNewComment(props) {
 
     const commentSubmitHandler = async (e) => {
         e.preventDefault();
-        const newComment = {
-            text: comment,
-            owner: { id: userId, name: ownerName },
-            createdAt: Timestamp.fromDate(new Date()),
-            likes: [],
-        };
-
         try {
-            await updateDoc(doc(db, "posts", id), "comments", [
-                newComment,
-                ...data.comments,
-            ]);
+            await setDoc(doc(collection(db, "posts", id, "comments")), {
+                text: comment,
+                owner: { id: userId, name: ownerName },
+                createdAt: Timestamp.fromDate(new Date()),
+                likes: [],
+            });
             setComment("");
         } catch (error) {
             console.log(error);
@@ -66,13 +63,10 @@ function PostNewComment(props) {
 
     const likeCommentHandler = async (e) => {
         e.preventDefault();
-        console.log(e.target.parentElement.parentElement.parentElement.parentElement.parentElement);
-        const commentId = data.comments.findIndexOf(
-            e.target.id,
-        );
+        const commentId = data.comments;
         console.log(commentId);
         try {
-            const comment = data.comments.commentId;
+            const comment = data.comments;
             console.log(comment);
             const newLikes = [...comment.likes, userId];
             await updateDoc(doc(db, "posts", id), "comments", {
@@ -186,7 +180,7 @@ function PostNewComment(props) {
                                 }
                             >
                                 <CommentTextContainer>
-                                    <CommentText>   
+                                    <CommentText>
                                         {com.text.comment}
                                     </CommentText>
                                 </CommentTextContainer>

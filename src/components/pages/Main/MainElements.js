@@ -94,7 +94,7 @@ export const LikeBtn = styled.button`
     text-align: center;
     align-items: center;
 
-    &hover {
+    &:hover {
         cursor: pointer;
         color: white;
         background: red;

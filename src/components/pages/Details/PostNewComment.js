@@ -32,19 +32,38 @@ import {
     SingleCommentContainer,
     ColumnContainer,
 } from "./CommentsElements";
+import { get } from "react-scroll/modules/mixins/scroller";
 
 function PostNewComment(props) {
     const data = props.postData;
     const [postData, setPostData] = useState(data);
     const [comment, setComment] = useState("");
     const [ownerName, setOwnerName] = useState("");
-
-    console.log(data.id)
+    const [comments, setComments] = useState([]);
 
     const { id } = useParams();
 
     const userId = JSON.parse(localStorage.getItem("user")).uid;
     const list = data.comments;
+
+    useEffect(() => {
+        const getComments = async () => {
+            try {
+                const commentData = await getDocs(
+                    collection(db, "posts", id, "comments")
+                );
+                commentData.forEach((com) =>
+                    setComments(...comments, com.data())
+                );
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        getComments();
+
+        console.log(comments)
+    }, [comments]);
 
     const commentSubmitHandler = async (e) => {
         e.preventDefault();
@@ -154,6 +173,8 @@ function PostNewComment(props) {
     //     }
     // };
 
+    console.log(comments);
+
     return (
         <>
             <H1>Comments</H1>
@@ -171,7 +192,7 @@ function PostNewComment(props) {
                 {!data.comments ? (
                     <NoComments>Still no comments</NoComments>
                 ) : (
-                    list.map((com) => {
+                    comments.map((com) => {
                         return (
                             <SingleCommentContainer
                                 key={

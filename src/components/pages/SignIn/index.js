@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../firebase";
+import { auth, db } from "../../../firebase";
 
 import {
     Container,
@@ -16,6 +16,7 @@ import {
     Text,
 } from "./SigninElements";
 import { AuthContext } from "../../AuthContext/AuthContext";
+import { doc, getDoc } from "firebase/firestore";
 
 function SignIn() {
     const [error, setError] = useState(false);
@@ -32,9 +33,14 @@ function SignIn() {
         try {
             const userCredentials = await signInWithEmailAndPassword(auth, email, password);
             const user = userCredentials.user;
+            localStorage.setItem('user', JSON.stringify(user));
+
             dispatch({ type: "LOGIN", payload: user });
             navigate("/workouts");
-            window.location.reload(true);
+
+            //TO CHECK FOR RELOADING PAGE
+            window.location.reload();
+
         } catch (error) {
             setError(true);
         }

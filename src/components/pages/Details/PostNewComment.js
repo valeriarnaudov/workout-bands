@@ -5,10 +5,10 @@ import {
     getDocs,
     setDoc,
     Timestamp,
-    updateDoc,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { db } from "../../../firebase";
 import {
     CommentContainer,
@@ -32,19 +32,18 @@ import {
     SingleCommentContainer,
     ColumnContainer,
 } from "./CommentsElements";
-import { get } from "react-scroll/modules/mixins/scroller";
 
 function PostNewComment(props) {
     const data = props.postData;
-    const [postData, setPostData] = useState(data);
     const [comment, setComment] = useState("");
     const [ownerName, setOwnerName] = useState("");
     const [comments, setComments] = useState([]);
 
     const { id } = useParams();
+    let navigate = useNavigate();
 
     const userId = JSON.parse(localStorage.getItem("user")).uid;
-    const list = data.comments;
+    const list = [];
 
     useEffect(() => {
         const getComments = async () => {
@@ -52,18 +51,17 @@ function PostNewComment(props) {
                 const commentData = await getDocs(
                     collection(db, "posts", id, "comments")
                 );
-                commentData.forEach((com) =>
-                    setComments(...comments, com.data())
-                );
+                commentData.docs.forEach((com) => {
+                    list.push(com.data());
+                });
+                setComments(list);
             } catch (error) {
                 console.log(error);
             }
         };
 
         getComments();
-
-        console.log(comments)
-    }, [comments]);
+    }, [comment]);
 
     const commentSubmitHandler = async (e) => {
         e.preventDefault();
@@ -75,29 +73,33 @@ function PostNewComment(props) {
                 likes: [],
             });
             setComment("");
+            navigate("/details/" + id);
         } catch (error) {
             console.log(error);
         }
     };
-
     const likeCommentHandler = async (e) => {
         e.preventDefault();
-        const commentId = data.comments;
-        console.log(commentId);
-        try {
-            const comment = data.comments;
-            console.log(comment);
-            const newLikes = [...comment.likes, userId];
-            await updateDoc(doc(db, "posts", id), "comments", {
-                [commentId]: {
-                    ...comment,
-                    likes: newLikes,
-                },
-            });
-        } catch (error) {
-            console.log(error);
-        }
     };
+
+    // const likeCommentHandler = async (e) => {
+    //     e.preventDefault();
+    //     const commentId = data.comments;
+    //     console.log(commentId);
+    //     try {
+    //         const comment = data.comments;
+    //         console.log(comment);
+    //         const newLikes = [...comment.likes, userId];
+    //         await updateDoc(doc(db, "posts", id), "comments", {
+    //             [commentId]: {
+    //                 ...comment,
+    //                 likes: newLikes,
+    //             },
+    //         });
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
 
     // try {
     //     const docRef = doc(db, "posts", data.id);
@@ -173,8 +175,6 @@ function PostNewComment(props) {
     //     }
     // };
 
-    console.log(comments);
-
     return (
         <>
             <H1>Comments</H1>
@@ -189,7 +189,7 @@ function PostNewComment(props) {
                     />
                     <CommentSubmit type="submit">Submit</CommentSubmit>
                 </CommentForm>
-                {!data.comments ? (
+                {!comments ? (
                     <NoComments>Still no comments</NoComments>
                 ) : (
                     comments.map((com) => {

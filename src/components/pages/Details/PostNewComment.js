@@ -5,6 +5,7 @@ import {
     getDocs,
     setDoc,
     Timestamp,
+    updateDoc,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -43,16 +44,29 @@ function PostNewComment(props) {
     let navigate = useNavigate();
 
     const userId = JSON.parse(localStorage.getItem("user")).uid;
-    const list = [];
-
+    
+    useEffect(() => {
+        const ownerDisplayName = async () => {
+            try {
+                const user = await getDoc(doc(db, "users", userId));
+                setOwnerName(user.data().displayName);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        
+        ownerDisplayName();
+    }, []);
+    
     useEffect(() => {
         const getComments = async () => {
+            const list = [];
             try {
                 const commentData = await getDocs(
                     collection(db, "posts", id, "comments")
                 );
                 commentData.docs.forEach((com) => {
-                    list.push(com.data());
+                    list.push({ ...com.data(), id: com.id });
                 });
                 setComments(list);
             } catch (error) {
@@ -65,6 +79,7 @@ function PostNewComment(props) {
 
     const commentSubmitHandler = async (e) => {
         e.preventDefault();
+        
         try {
             await setDoc(doc(collection(db, "posts", id, "comments")), {
                 text: comment,
@@ -74,12 +89,24 @@ function PostNewComment(props) {
             });
             setComment("");
             navigate("/details/" + id);
+
+            e.target.querySelector("textarea").value = "";
         } catch (error) {
             console.log(error);
         }
     };
     const likeCommentHandler = async (e) => {
         e.preventDefault();
+        const comeentId = e.target.parentNode.id;
+
+        try {
+            await updateDoc(doc(collection(db, "posts", id, "comments"), comeentId), {
+                likes: [...comments[comeentId].likes, userId],
+            });
+        } catch (error) {
+            console.log(error);
+        }
+
     };
 
     // const likeCommentHandler = async (e) => {
@@ -117,19 +144,6 @@ function PostNewComment(props) {
     // const [commentData, setCommentData] = useState({});
 
     // const { id } = useParams();
-
-    useEffect(() => {
-        const ownerDisplayName = async () => {
-            try {
-                const user = await getDoc(doc(db, "users", userId));
-                setOwnerName(user.data().displayName);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
-        ownerDisplayName();
-    }, []);
 
     // const commentSubmitHandler = async (e) => {
 
@@ -196,7 +210,7 @@ function PostNewComment(props) {
                         return (
                             <SingleCommentContainer
                                 key={
-                                    com.text.comment +
+                                    com.id +
                                     com.createdAt.toDate().toLocaleString()
                                 }
                             >
@@ -212,7 +226,7 @@ function PostNewComment(props) {
                                         </CommentLikes>
                                         <LikeComment>
                                             <FcLike
-                                                onClick={likeCommentHandler}
+                                                id={com.id} onClick={likeCommentHandler}
                                             />
                                         </LikeComment>
                                     </CommentLikeContainer>

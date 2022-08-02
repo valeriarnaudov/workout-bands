@@ -39,12 +39,13 @@ function PostNewComment(props) {
     const [comment, setComment] = useState("");
     const [ownerName, setOwnerName] = useState("");
     const [comments, setComments] = useState([]);
+    const [isLiked, setIsLiked] = useState(false);
 
     const { id } = useParams();
     let navigate = useNavigate();
 
     const userId = JSON.parse(localStorage.getItem("user")).uid;
-    
+
     useEffect(() => {
         const ownerDisplayName = async () => {
             try {
@@ -54,10 +55,10 @@ function PostNewComment(props) {
                 console.log(error);
             }
         };
-        
+
         ownerDisplayName();
     }, []);
-    
+
     useEffect(() => {
         const getComments = async () => {
             const list = [];
@@ -79,7 +80,7 @@ function PostNewComment(props) {
 
     const commentSubmitHandler = async (e) => {
         e.preventDefault();
-        
+
         try {
             await setDoc(doc(collection(db, "posts", id, "comments")), {
                 text: comment,
@@ -97,97 +98,23 @@ function PostNewComment(props) {
     };
     const likeCommentHandler = async (e) => {
         e.preventDefault();
-        const comeentId = e.target.parentNode.id;
+        const commentId = e.target.parentNode.id;
+        const currentComment = comments.find((cmt) => cmt.id === commentId);
 
         try {
-            await updateDoc(doc(collection(db, "posts", id, "comments"), comeentId), {
-                likes: [...comments[comeentId].likes, userId],
+            await updateDoc(doc(db, "posts", id, "comments", commentId), {
+                likes: [...currentComment.likes, userId],
             });
         } catch (error) {
             console.log(error);
         }
-
     };
-
-    // const likeCommentHandler = async (e) => {
-    //     e.preventDefault();
-    //     const commentId = data.comments;
-    //     console.log(commentId);
-    //     try {
-    //         const comment = data.comments;
-    //         console.log(comment);
-    //         const newLikes = [...comment.likes, userId];
-    //         await updateDoc(doc(db, "posts", id), "comments", {
-    //             [commentId]: {
-    //                 ...comment,
-    //                 likes: newLikes,
-    //             },
-    //         });
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
-
-    // try {
-    //     const docRef = doc(db, "posts", data.id);
-    //     await updateDoc(docRef, { ...data});
-    // } catch (error) {
-    //     console.log(error);
-    // }
 
     const handleInput = (e) => {
         const targetId = e.target.id;
         const value = e.target.value;
         setComment({ ...comment, [targetId]: value });
     };
-
-    // const [commentData, setCommentData] = useState({});
-
-    // const { id } = useParams();
-
-    // const commentSubmitHandler = async (e) => {
-
-    //     try {
-    //         const docRef = doc(collection(db, "comments"));
-    //         await setDoc(docRef, {
-    //             text: comment.comment,
-    //             owner: { id: userId, name: ownerName },
-    //             likes: [],
-    //             timeStamp: Timestamp.fromDate(new Date()),
-    //         });
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const list = [];
-    //             const comments = await getDocs(collection(db, "comments"));
-    //             comments.forEach((doc) => {
-    //                 list.push({ id: doc.id, ...doc.data() });
-    //             });
-    //             setCommentData(list);
-    //         } catch (error) {
-    //             console.log(error);
-    //         }
-    //     };
-
-    //     fetchData();
-    // }, []);
-
-    // const likeHandler = async (e) => {
-    //     try {
-    //         const docRef = doc(db, "comments", e.target.parentElement.id);
-    //         const comment = await getDoc(docRef);
-    //         const likes = comment.data().likes;
-    //         const newLikes = [...likes, userId];
-    //         await updateDoc(docRef, { likes: newLikes });
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
 
     return (
         <>
@@ -224,11 +151,14 @@ function PostNewComment(props) {
                                         <CommentLikes>
                                             Likes: {com.likes.length}
                                         </CommentLikes>
-                                        <LikeComment>
-                                            <FcLike
-                                                id={com.id} onClick={likeCommentHandler}
-                                            />
-                                        </LikeComment>
+                                        {!com.likes.includes(userId) ? (
+                                            <LikeComment>
+                                                <FcLike
+                                                    id={com.id}
+                                                    onClick={likeCommentHandler}
+                                                />
+                                            </LikeComment>
+                                        ) : undefined}
                                     </CommentLikeContainer>
                                     <InfoCommentContainer>
                                         <CommentOwner>

@@ -76,7 +76,13 @@ function PostNewComment(props) {
         };
 
         getComments();
-    }, [comment]);
+    }, [comments]);
+
+    const handleInput = (e) => {
+        const targetId = e.target.id;
+        const value = e.target.value;
+        setComment({ ...comment, [targetId]: value });
+    };
 
     const commentSubmitHandler = async (e) => {
         e.preventDefault();
@@ -108,12 +114,6 @@ function PostNewComment(props) {
         } catch (error) {
             console.log(error);
         }
-    };
-
-    const handleInput = (e) => {
-        const targetId = e.target.id;
-        const value = e.target.value;
-        setComment({ ...comment, [targetId]: value });
     };
 
     return (

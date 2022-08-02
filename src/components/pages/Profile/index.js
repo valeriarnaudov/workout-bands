@@ -40,10 +40,7 @@ function Profile() {
                         <CommentsCounter>
                             You have "0" comments.
                         </CommentsCounter>
-                        <Btns>
-                            <EditBtn>Edit</EditBtn>
-                            <DeleteAccount>Delete</DeleteAccount>
-                        </Btns>
+
                     </ProfileInfoContainer>
                 </ProfileInfo>
 

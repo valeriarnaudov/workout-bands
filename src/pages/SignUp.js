@@ -19,7 +19,7 @@ import {
 import { auth, db, storage } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { userInputs } from "../sources/FormSource";
-import { AuthContext } from "../contexts/AuthContext/AuthContext";
+import { AuthContext } from "../contexts/AuthContext";
 
 function SignUp() {
     const [errorHandler, setError] = useState(false);

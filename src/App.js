@@ -1,11 +1,6 @@
 import "./App.css";
-import {
-    BrowserRouter as Router,
-    Routes,
-    Route,
-    Navigate,
-} from "react-router-dom";
-import { useContext, useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useState } from "react";
 
 import Home from "./pages";
 import SignInPage from "./pages/SignIn";
@@ -14,22 +9,13 @@ import CreatePost from "./pages/CreatePost";
 import Sidebar from "./components/SideBar";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
-import {
-    AuthContectProvider,
-    AuthContext,
-} from "./contexts/AuthContext/AuthContext";
+import AuthProvider from "./contexts/AuthContext";
 import Main from "./pages/MainPage";
 import Details from "./pages/Details";
 import EditPost from "./pages/EditPost";
 import Profile from "./pages/Profile";
 
 function App() {
-    const { currentUser } = useContext(AuthContext);
-
-    const RequireAuth = ({ children }) => {
-        return currentUser ? children : <Navigate to="/signin" />;
-    };
-
     const [isOpen, setIsOpen] = useState(false);
 
     const toogle = () => {
@@ -37,7 +23,7 @@ function App() {
     };
 
     return (
-        <AuthContectProvider>
+        <AuthProvider>
             <Router>
                 <NavBar toogle={toogle} />
                 <Sidebar isOpen={isOpen} toogle={toogle} />
@@ -48,18 +34,17 @@ function App() {
                     <Route
                         path="/profile"
                         element={
-                            <RequireAuth>
-                                <Profile />
-                            </RequireAuth>
+                            // <RequireAuth>
+                            <Profile />
+                            // </RequireAuth>
                         }
                     />
                     <Route
                         path="/create-post"
                         element={
-                            <RequireAuth>
-                                {" "}
-                                <CreatePost />{" "}
-                            </RequireAuth>
+                            // <RequireAuth>
+                            <CreatePost />
+                            // </RequireAuth>
                         }
                     />
                     <Route path="/workouts" element={<Main />} />
@@ -67,15 +52,15 @@ function App() {
                     <Route
                         path="/edit/:id"
                         element={
-                            <RequireAuth>
-                                <EditPost />
-                            </RequireAuth>
+                            // <RequireAuth>
+                            <EditPost />
+                            // </RequireAuth>
                         }
                     />
                 </Routes>
                 <Footer />
             </Router>
-        </AuthContectProvider>
+        </AuthProvider>
     );
 }
 

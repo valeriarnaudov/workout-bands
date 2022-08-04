@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../firebase";
+import { auth } from "../firebase";
 
 import {
     Container,
@@ -15,8 +15,7 @@ import {
     FormWrap,
     Text,
 } from "../styles/SigninElements";
-import { AuthContext } from "../contexts/AuthContext/AuthContext";
-import { doc, getDoc } from "firebase/firestore";
+import { AuthContext } from "../contexts/AuthContext";
 
 function SignIn() {
     const [error, setError] = useState(false);
@@ -35,11 +34,7 @@ function SignIn() {
             const user = userCredentials.user;
             localStorage.setItem('user', JSON.stringify(user));
 
-            dispatch({ type: "LOGIN", payload: user });
             navigate("/workouts");
-
-            //TO CHECK FOR RELOADING PAGE
-
 
         } catch (error) {
             setError(true);

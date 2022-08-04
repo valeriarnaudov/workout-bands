@@ -1,42 +1,43 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { NavItem, NavLink } from "../../styles/NavbarElements";
-import { getDoc, doc } from "firebase/firestore";
-import { db } from "../../firebase";
+import { getDoc, doc, updateDoc } from "firebase/firestore";
+import { auth, db } from "../../firebase";
 import { useEffect } from "react";
 import { signOut } from "firebase/auth";
+import { AuthContext } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Auth() {
-    const [user, setUser] = useState("");
-    
-    useEffect (() => {
+    const [userName, setUserName] = useState("");
+
+    const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    useEffect(() => {
         const userNameGetter = async () => {
             let userId = JSON.parse(localStorage.getItem("user")).uid;
             const docRef = await doc(db, "users", userId);
             const userData = await getDoc(docRef);
-    
+
             const displayName = userData.data().displayName;
-    
-            setUser(displayName);
+
+            setUserName(displayName);
             return displayName;
         };
-    
+
         userNameGetter();
     }, []);
 
-    const handleSignOut = async () => {
-        try {
-            await signOut();
-            localStorage.removeItem("user");
-            setUser("");
-        } catch (error) {
-            console.log(error);
-        }
+    const handleSignout = async () => {
+        await signOut(auth);
+        navigate("/");
+        localStorage.setItem("user", null);
     };
 
     return (
         <>
             <NavItem>
-                <NavLink to="/profile">Welcome: {user}</NavLink>
+                <NavLink to="/profile">Welcome: {userName}</NavLink>
             </NavItem>
             <NavItem>
                 <NavLink
@@ -59,7 +60,9 @@ function Auth() {
                 </NavLink>
             </NavItem>
             <NavItem>
-                <NavLink to="/" onClick={handleSignOut}>Sign out</NavLink>
+                <NavLink to="/" onClick={handleSignout}>
+                    Sign out
+                </NavLink>
             </NavItem>
         </>
     );

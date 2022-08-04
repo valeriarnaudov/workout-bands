@@ -1,4 +1,4 @@
-import { SidebarLink } from "./SidebarElements";
+import { SidebarLink } from "../../styles/SidebarElements";
 
 function Guest({ toogle }) {
     return (

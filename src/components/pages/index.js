@@ -1,7 +1,7 @@
-import InfoSection from "./InfoSection";
+import InfoSection from "./HomePageInfoSection";
 import { homeObjOne, homeObjThree, homeObjTwo } from "./InfoSection/Data";
-import Services from "./Services";
-import WorkOutSection from "./WorkOutSection";
+import Services from "./HomePageServices";
+import WorkOutSection from "./HomePage";
 
 function Home() {
     return (

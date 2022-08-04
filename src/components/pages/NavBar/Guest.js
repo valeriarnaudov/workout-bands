@@ -1,4 +1,4 @@
-import { NavItem, NavLinks, NavLink } from "./NavbarElements";
+import { NavItem, NavLinks, NavLink } from "../../styles/NavbarElements";
 
 function Guest() {
     return (
@@ -6,7 +6,6 @@ function Guest() {
             <NavItem>
                 <NavLinks
                     to="about"
-                    smooth="true"
                     duration={500}
                     spy={true}
                     exact="true"
@@ -18,7 +17,6 @@ function Guest() {
             <NavItem>
                 <NavLinks
                     to="people"
-                    smooth="true"
                     duration={500}
                     spy={true}
                     exact="true"
@@ -30,7 +28,6 @@ function Guest() {
             <NavItem>
                 <NavLinks
                     to="services"
-                    smooth="true"
                     duration={500}
                     spy={true}
                     exact="true"
@@ -42,7 +39,6 @@ function Guest() {
             <NavItem>
                 <NavLinks
                     to="upload"
-                    smooth="true"
                     duration={500}
                     spy={true}
                     exact="true"

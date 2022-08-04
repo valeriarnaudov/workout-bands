@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { NavItem, NavLink } from "./NavbarElements";
+import { NavItem, NavLink } from "../../styles/NavbarElements";
 import { getDoc, doc } from "firebase/firestore";
 import { db } from "../../../firebase";
 import { useEffect } from "react";
+import { signOut } from "firebase/auth";
 
 function Auth() {
     const [user, setUser] = useState("");
@@ -22,6 +23,15 @@ function Auth() {
         userNameGetter();
     }, []);
 
+    const handleSignOut = async () => {
+        try {
+            await signOut();
+            localStorage.removeItem("user");
+            setUser("");
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     return (
         <>
@@ -31,7 +41,6 @@ function Auth() {
             <NavItem>
                 <NavLink
                     to="/create-post"
-                    smooth="true"
                     duration={500}
                     exact="true"
                     offset={-80}
@@ -42,7 +51,6 @@ function Auth() {
             <NavItem>
                 <NavLink
                     to="/my-posts"
-                    smooth="true"
                     duration={500}
                     exact="true"
                     offset={-80}
@@ -51,7 +59,7 @@ function Auth() {
                 </NavLink>
             </NavItem>
             <NavItem>
-                <NavLink to="/signout">Sign out</NavLink>
+                <NavLink to="/" onClick={handleSignOut}>Sign out</NavLink>
             </NavItem>
         </>
     );

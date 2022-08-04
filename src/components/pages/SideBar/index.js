@@ -8,7 +8,7 @@ import {
     SidebarRoute,
     SidebarWrapper,
     SideBtnWrap,
-} from "./SidebarElements";
+} from "../../styles/SidebarElements";
 
 const Sidebar = ({ isOpen, toogle }) => {
     const isSignIn = () => {

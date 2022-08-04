@@ -8,7 +8,7 @@ import {
 import { useContext, useState } from "react";
 
 import Home from "./components/pages";
-import SignInPage from "./components/pages/SignIn/SignInPage";
+import SignInPage from "./components/pages/SignIn";
 import SignUp from "./components/pages/SignUp";
 import CreatePost from "./components/pages/CreatePost";
 import Sidebar from "./components/pages/SideBar";
@@ -18,9 +18,8 @@ import {
     AuthContectProvider,
     AuthContext,
 } from "./components/AuthContext/AuthContext";
-import Main from "./components/pages/Main";
+import Main from "./components/pages/MainPage";
 import Details from "./components/pages/Details";
-import SignOut from "./components/pages/SignOut";
 import EditPost from "./components/pages/EditPost";
 import Profile from "./components/pages/Profile";
 
@@ -70,14 +69,6 @@ function App() {
                         element={
                             <RequireAuth>
                                 <EditPost />
-                            </RequireAuth>
-                        }
-                    />
-                    <Route
-                        path="/signout"
-                        element={
-                            <RequireAuth>
-                                <SignOut />
                             </RequireAuth>
                         }
                     />

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { FaListAlt } from "react-icons/fa";
 import { animateScroll as scroll } from "react-scroll";
 import { GiWeightLiftingUp } from "react-icons/gi";
+import { auth } from "../../../firebase";
 import {
     MobileIcon,
     Nav,
@@ -10,7 +11,7 @@ import {
     NavBtnLink,
     NavLogo,
     NavMenu,
-} from "./NavbarElements";
+} from "../../styles/NavbarElements";
 import Guest from "./Guest";
 import Auth from "./Auth";
 
@@ -27,7 +28,7 @@ function NavBar({ toogle }) {
 
     useEffect(() => {
         window.addEventListener("scroll", changeNav);
-        isSignIn()
+        isSignIn();
     }, []);
 
     const toogleHome = () => {
@@ -35,33 +36,35 @@ function NavBar({ toogle }) {
     };
 
     const isSignIn = () => {
-        return localStorage.getItem("user") !== null;
+        return localStorage.getItem("user") === null;
     };
+
+    console.log(auth.currentUser);
 
     return (
         <>
             <Nav scrollNav={scrollNav}>
                 <NavbarContainer>
-                    {isSignIn() ? (
-                        <NavLogo to="/workouts" onClick={toogleHome}>
+                    {auth.currentUser ? (
+                        <NavLogo to="/" onClick={toogleHome}>
                             <GiWeightLiftingUp /> workout bands
                         </NavLogo>
                     ) : (
-                        <NavLogo to="/" onClick={toogleHome}>
+                        <NavLogo to="/workouts" onClick={toogleHome}>
                             <GiWeightLiftingUp /> workout bands
                         </NavLogo>
                     )}
                     <MobileIcon onClick={toogle}>
                         <FaListAlt />
                     </MobileIcon>
-                    <NavMenu>{!isSignIn() ? <Guest /> : <Auth />}</NavMenu>
-                    {!isSignIn() ? (
+                    <NavMenu>{auth.currentUser ? <Auth /> : <Guest />}</NavMenu>
+                    {auth.currentUser ? (
                         <NavBtn>
-                            <NavBtnLink to="/signin">Sign In</NavBtnLink>
+                            <NavBtnLink to="/profile">Profile</NavBtnLink>
                         </NavBtn>
                     ) : (
                         <NavBtn>
-                            <NavBtnLink to="/profile">Profile</NavBtnLink>
+                            <NavBtnLink to="/signin">Sign In</NavBtnLink>
                         </NavBtn>
                     )}
                 </NavbarContainer>

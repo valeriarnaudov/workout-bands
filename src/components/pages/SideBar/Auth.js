@@ -1,20 +1,25 @@
 import { useState } from "react";
 import { getDoc, doc } from "firebase/firestore";
 import { db } from "../../../firebase";
-import { SidebarLink } from "./SidebarElements";
+import { SidebarLink } from "../../styles/SidebarElements";
 
 function Auth({ toogle }) {
     const [user, setUser] = useState("");
 
     const userNameGetter = async () => {
-        const userId = JSON.parse(localStorage.getItem("user")).uid;
-        const docRef = await doc(db, "users", userId);
-        const userData = await getDoc(docRef);
+        try {
+            const userId = JSON.parse(localStorage.getItem("user")).uid;
+            const docRef = await doc(db, "users", userId);
+            const userData = await getDoc(docRef);
+    
+            const displayName = userData.data().displayName;
+    
+            setUser(displayName);
+            return displayName;
+        } catch (error) {
+            console.log(error);
+        }
 
-        const displayName = userData.data().displayName;
-
-        setUser(displayName);
-        return displayName;
     };
 
     userNameGetter();

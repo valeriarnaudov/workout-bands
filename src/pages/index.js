@@ -1,5 +1,5 @@
 import InfoSection from "./HomePageInfoSection";
-import { homeObjOne, homeObjThree, homeObjTwo } from "./InfoSection/Data";
+import { homeObjOne, homeObjThree, homeObjTwo } from "../sources/Data";
 import Services from "./HomePageServices";
 import WorkOutSection from "./HomePage";
 

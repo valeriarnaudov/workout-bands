@@ -17,7 +17,7 @@ import {
     Video,
 } from "../styles/PostDetailsElements";
 import { deleteDoc, doc } from "firebase/firestore";
-import { db } from "../../firebase";
+import { db } from "../firebase";
 import PostNewComment from "./PostNewComment";
 
 function PostDetails(props) {

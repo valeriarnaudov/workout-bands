@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../../firebase";
+import { auth, db } from "../firebase";
 
 import {
     Container,
@@ -15,7 +15,7 @@ import {
     FormWrap,
     Text,
 } from "../styles/SigninElements";
-import { AuthContext } from "../AuthContext/AuthContext";
+import { AuthContext } from "../contexts/AuthContext/AuthContext";
 import { doc, getDoc } from "firebase/firestore";
 
 function SignIn() {

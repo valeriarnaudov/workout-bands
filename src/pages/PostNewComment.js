@@ -10,7 +10,7 @@ import {
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router";
-import { db } from "../../firebase";
+import { db } from "../firebase";
 import {
     CommentContainer,
     CommentForm,

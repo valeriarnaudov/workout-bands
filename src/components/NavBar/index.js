@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { FaListAlt } from "react-icons/fa";
 import { animateScroll as scroll } from "react-scroll";
 import { GiWeightLiftingUp } from "react-icons/gi";
-import { auth } from "../../../firebase";
+import { auth } from "../../firebase";
 import {
     MobileIcon,
     Nav,

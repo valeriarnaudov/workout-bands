@@ -1,7 +1,7 @@
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { db } from "../../firebase";
+import { db } from "../firebase";
 import {
     CommentsCounter,
     H2,

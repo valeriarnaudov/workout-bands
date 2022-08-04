@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
-import { collection, doc, setDoc, Timestamp } from "firebase/firestore";
+import { collection, doc, getDoc, setDoc, Timestamp, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import React, { useEffect, useState } from "react";
 import { FaUpload } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-
+import { useNavigate, useParams } from "react-router-dom";
+import { db, storage } from "../firebase";
+import { postInputs } from "../sources/FormSource";
 import {
     Container,
     ErrorLable,
@@ -14,11 +15,10 @@ import {
     FormInput,
     FormLabel,
     FormWrap,
-} from "../styles/CreateElements";
-import { db, storage } from "../../firebase";
-import { postInputs } from "../Sources/FormSource";
+} from "../styles/EditPostElements";
 
-function CreatePost() {
+function EditPost() {
+    const { id } = useParams();
     const [errorHandler, setError] = useState(false);
     const [file, setFile] = useState("");
     const [data, setData] = useState({});
@@ -63,31 +63,38 @@ function CreatePost() {
         file && uploadFile();
     }, [file]);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            const post = await getDoc(doc(db, "posts", id));
+            setData(post.data());
+        };
+
+        fetchData();
+    }, []);
+
     const handleInput = (e) => {
         const id = e.target.id;
         const value = e.target.value;
         setData({ ...data, [id]: value });
     };
 
-    const handleAdd = async (e) => {
+    const editHandler = async (e) => {
         e.preventDefault();
 
         try {
-            const userId = JSON.parse(localStorage.getItem("user")).uid;
-
-            const docRef = doc(collection(db, "posts"));
-            await setDoc(docRef, {
+            const docRef = doc(db, "posts", id);
+            await updateDoc(docRef, {
                 title: data.title,
                 description: data.description,
-                owner: userId,
-                src: data.src || "",
-                likes: [],
+                owner: data.owner,
+                src: data.src,
+                likes: data.likes,
                 muscleGroup: data.muscleGroup,
-                timeStamp: Timestamp.fromDate(new Date()),
-                comments: [],
+                timeStamp: data.timeStamp,
+                comments: data.comments,
             });
 
-            navigate("/workouts");
+            navigate("/details/" + id);
         } catch (error) {
             return error;
         }
@@ -98,8 +105,8 @@ function CreatePost() {
             <Container>
                 <FormWrap>
                     <FormContent>
-                        <Form onSubmit={handleAdd}>
-                            <FormH1>Create new post</FormH1>
+                        <Form onSubmit={editHandler}>
+                            <FormH1>Edit Post</FormH1>
                             {errorHandler && (
                                 <ErrorLable>{errorHandler}</ErrorLable>
                             )}
@@ -126,12 +133,15 @@ function CreatePost() {
                             />
                             {postInputs.map((input) => (
                                 <>
-                                    <FormLabel>{input.label}</FormLabel>
+                                    <FormLabel value={input.value}>
+                                        {input.label}
+                                    </FormLabel>
                                     <FormInput
                                         id={input.id}
                                         type={input.type}
                                         placeholder={input.placeholder}
                                         onChange={handleInput}
+                                        value={data[input.id]}
                                     />
                                 </>
                             ))}
@@ -149,4 +159,4 @@ function CreatePost() {
     );
 }
 
-export default CreatePost;
+export default EditPost;

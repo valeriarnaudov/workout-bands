@@ -1,10 +1,9 @@
-import { collection, doc, getDoc, setDoc, Timestamp, updateDoc } from "firebase/firestore";
+import { useContext, useEffect, useState } from "react";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import React, { useEffect, useState } from "react";
 import { FaUpload } from "react-icons/fa";
-import { useNavigate, useParams } from "react-router-dom";
-import { db, storage } from "../../firebase";
-import { postInputs } from "../Sources/FormSource";
+import { useNavigate } from "react-router-dom";
+
 import {
     Container,
     ErrorLable,
@@ -15,15 +14,20 @@ import {
     FormInput,
     FormLabel,
     FormWrap,
-} from "../styles/EditPostElements";
+    Text,
+} from "../styles/SignupElements";
+import { auth, db, storage } from "../firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { userInputs } from "../sources/FormSource";
+import { AuthContext } from "../contexts/AuthContext/AuthContext";
 
-function EditPost() {
-    const { id } = useParams();
+function SignUp() {
     const [errorHandler, setError] = useState(false);
     const [file, setFile] = useState("");
     const [data, setData] = useState({});
     const [per, setPer] = useState(null);
 
+    const { dispatch } = useContext(AuthContext);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -55,7 +59,7 @@ function EditPost() {
                 },
                 () => {
                     getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-                        setData((prev) => ({ ...prev, src: url }));
+                        setData((prev) => ({ ...prev, img: url }));
                     });
                 }
             );
@@ -63,38 +67,75 @@ function EditPost() {
         file && uploadFile();
     }, [file]);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const post = await getDoc(doc(db, "posts", id));
-            setData(post.data());
-        };
-
-        fetchData();
-    }, []);
-
     const handleInput = (e) => {
         const id = e.target.id;
         const value = e.target.value;
         setData({ ...data, [id]: value });
     };
 
-    const editHandler = async (e) => {
+    const handleAdd = async (e) => {
         e.preventDefault();
 
         try {
-            const docRef = doc(db, "posts", id);
-            await updateDoc(docRef, {
-                title: data.title,
-                description: data.description,
-                owner: data.owner,
-                src: data.src,
-                likes: data.likes,
-                muscleGroup: data.muscleGroup,
-                timeStamp: data.timeStamp,
-                comments: data.comments,
+            if (data.age === "" || data.age == null || data.age === undefined) {
+                return setError("Fill age to continue");
+            } else if (
+                data.displayName === "" ||
+                data.displayName == null ||
+                data.displayName === undefined
+            ) {
+                return setError("Fill display name to continue");
+            } else if (
+                data.img === "" ||
+                data.img == null ||
+                data.img === undefined
+            ) {
+                return setError("Upload image to continue");
+            } else if (
+                data.username === "" ||
+                data.username == null ||
+                data.username === undefined
+            ) {
+                return setError("Fill username to continue");
+            } else if (
+                data.confirmPassword === "" ||
+                data.confirmPassword == null ||
+                data.confirmPassword === undefined
+            ) {
+                return setError("Confirm password to continue");
+            } else if (
+                data.password === "" ||
+                data.password == null ||
+                data.password === undefined
+            ) {
+                return setError("Fill password to continue");
+            }
+
+            if (data.password !== data.confirmPassword) {
+                return setError("Passwords do not match");
+            }
+
+            const res = await createUserWithEmailAndPassword(
+                auth,
+                data.email,
+                data.password
+            );
+
+            const user = res.user;
+            dispatch({ type: "LOGIN", payload: user });
+
+            await setDoc(doc(db, "users", res.user.uid), {
+                email: data.email,
+                age: data.age,
+                displayName: data.displayName,
+                img: data.img,
+                username: data.username,
+                timeStamp: serverTimestamp(),
             });
 
-            navigate("/details/" + id);
+            navigate("/workouts");
+            window.location.reload(true);
+
         } catch (error) {
             return error;
         }
@@ -105,8 +146,8 @@ function EditPost() {
             <Container>
                 <FormWrap>
                     <FormContent>
-                        <Form onSubmit={editHandler}>
-                            <FormH1>Edit Post</FormH1>
+                        <Form onSubmit={handleAdd}>
+                            <FormH1>Create new user</FormH1>
                             {errorHandler && (
                                 <ErrorLable>{errorHandler}</ErrorLable>
                             )}
@@ -114,7 +155,7 @@ function EditPost() {
                                 htmlFor="file"
                                 style={{ fontSize: "20px" }}
                             >
-                                Image or video link below:{" "}
+                                Image:{" "}
                                 <FaUpload
                                     style={{
                                         background: "red",
@@ -131,17 +172,14 @@ function EditPost() {
                                 style={{ display: "none" }}
                                 onChange={(e) => setFile(e.target.files[0])}
                             />
-                            {postInputs.map((input) => (
+                            {userInputs.map((input) => (
                                 <>
-                                    <FormLabel value={input.value}>
-                                        {input.label}
-                                    </FormLabel>
+                                    <FormLabel>{input.label}</FormLabel>
                                     <FormInput
                                         id={input.id}
                                         type={input.type}
                                         placeholder={input.placeholder}
                                         onChange={handleInput}
-                                        value={data[input.id]}
                                     />
                                 </>
                             ))}
@@ -149,8 +187,9 @@ function EditPost() {
                                 disabled={per !== null && per < 100}
                                 type="submit"
                             >
-                                Submit
+                                Sign in
                             </FormButton>
+                            <Text href="/signin">Have an account?</Text>
                         </Form>
                     </FormContent>
                 </FormWrap>
@@ -159,4 +198,4 @@ function EditPost() {
     );
 }
 
-export default EditPost;
+export default SignUp;

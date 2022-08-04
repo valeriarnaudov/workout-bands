@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { NavItem, NavLink } from "../../styles/NavbarElements";
 import { getDoc, doc } from "firebase/firestore";
-import { db } from "../../../firebase";
+import { db } from "../../firebase";
 import { useEffect } from "react";
 import { signOut } from "firebase/auth";
 

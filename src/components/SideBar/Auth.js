@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { getDoc, doc } from "firebase/firestore";
-import { db } from "../../../firebase";
+import { db } from "../../firebase";
 import { SidebarLink } from "../../styles/SidebarElements";
 
 function Auth({ toogle }) {

@@ -7,21 +7,21 @@ import {
 } from "react-router-dom";
 import { useContext, useState } from "react";
 
-import Home from "./components/pages";
-import SignInPage from "./components/pages/SignIn";
-import SignUp from "./components/pages/SignUp";
-import CreatePost from "./components/pages/CreatePost";
-import Sidebar from "./components/pages/SideBar";
-import NavBar from "./components/pages/NavBar";
-import Footer from "./components/pages/Footer";
+import Home from "./pages";
+import SignInPage from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import CreatePost from "./pages/CreatePost";
+import Sidebar from "./components/SideBar";
+import NavBar from "./components/NavBar";
+import Footer from "./components/Footer";
 import {
     AuthContectProvider,
     AuthContext,
-} from "./components/AuthContext/AuthContext";
-import Main from "./components/pages/MainPage";
-import Details from "./components/pages/Details";
-import EditPost from "./components/pages/EditPost";
-import Profile from "./components/pages/Profile";
+} from "./contexts/AuthContext/AuthContext";
+import Main from "./pages/MainPage";
+import Details from "./pages/Details";
+import EditPost from "./pages/EditPost";
+import Profile from "./pages/Profile";
 
 function App() {
     const { currentUser } = useContext(AuthContext);

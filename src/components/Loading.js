@@ -1,20 +1,13 @@
 
 import React from "react";
+import { Center, Ring, Text } from "../styles/LoadingElements";
 
 const Loading = () => {
   return (
-    <div style={{ position: "relative" }}>
-      <h2
-        style={{
-          position: "fixed",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-        }}
-      >
-        Loading...
-      </h2>
-    </div>
+    <Center>
+      <Ring />
+      <Text>Loading...</Text>
+    </Center>
   );
 };
 

@@ -16,12 +16,15 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { AuthContext } from "../contexts/AuthContext";
 import { getAllPosts, likePostService } from "../services/postServices";
+import Loading from "../components/Loading";
 
 function Main() {
     const [data, setData] = useState([]);
+    const [like, setLike] = useState(false);
+    const [loading, setLoading] = useState(true);
+
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
-    const [like, setLike] = useState(false);
 
     let userId = "null";
     if (user) {
@@ -31,10 +34,11 @@ function Main() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                let list = await getAllPosts()
+                let list = await getAllPosts();
                 setData(list);
+                setLoading(false);
             } catch (error) {
-                console.log(error)
+                console.log(error);
             }
         };
 
@@ -47,8 +51,12 @@ function Main() {
 
     const likePostHandler = async (id) => {
         await likePostService(id, userId);
-        setLike(!like)
+        setLike(!like);
     };
+
+    if (loading) {
+        return <Loading />;
+    }
 
     return (
         <>
@@ -82,14 +90,14 @@ function Main() {
                                     {user && item.likes.includes(userId)
                                         ? undefined
                                         : user && (
-                                            <LikeBtn
-                                                onClick={() =>
-                                                    likePostHandler(item.id)
-                                                }
-                                            >
-                                                <BiLike />
-                                            </LikeBtn>
-                                        )}
+                                              <LikeBtn
+                                                  onClick={() =>
+                                                      likePostHandler(item.id)
+                                                  }
+                                              >
+                                                  <BiLike />
+                                              </LikeBtn>
+                                          )}
                                 </PostInfo>
                             </PostContainer>
                         ))}

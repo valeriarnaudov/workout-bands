@@ -30,12 +30,16 @@ import {
 } from "../services/postServices";
 import { AuthContext } from "../contexts/AuthContext";
 import { getUserName } from "../services/userServices";
+import Loading from "../components/Loading";
 
 function PostNewComment() {
     const [comment, setComment] = useState("");
     const [ownerName, setOwnerName] = useState("");
     const [comments, setComments] = useState([]);
     const [onLike, setOnLike] = useState(false);
+
+    const [loading, setLoading] = useState(true);
+
 
     const { id } = useParams();
     const { user } = useContext(AuthContext);
@@ -48,6 +52,7 @@ function PostNewComment() {
         const getComments = async () => {
             const list = await getAllComments(id);
             setComments(list);
+            setLoading(false);
         };
 
         getComments();
@@ -72,10 +77,11 @@ function PostNewComment() {
 
     const commentSubmitHandler = async (e) => {
         e.preventDefault();
-
+        setLoading(true);
         await createCommentService(id, comment, userId, ownerName);
         setComment("");
         navigate("/details/" + id);
+        setLoading(false);
         e.target.querySelector("textarea").value = "";
     };
 
@@ -86,6 +92,10 @@ function PostNewComment() {
         await likeCommentService(id, commentId, currentComment, userId);
         setOnLike(!onLike);
     };
+
+    if (loading) {
+        return <Loading />;
+    }
 
     return (
         <>

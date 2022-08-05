@@ -12,59 +12,42 @@ import {
     PostVideo,
 } from "../styles/MainElements";
 import { BiLike } from "react-icons/bi";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import {
-    collection,
-    doc,
-    getDoc,
-    getDocs,
-    updateDoc,
-} from "firebase/firestore";
-import { db } from "../firebase";
+import { AuthContext } from "../contexts/AuthContext";
+import { getAllPosts, likePostService } from "../services/postServices";
 
 function Main() {
     const [data, setData] = useState([]);
-    const userId = JSON.parse(localStorage.getItem("user")).uid;
     const navigate = useNavigate();
+    const { user } = useContext(AuthContext);
+    const [like, setLike] = useState(false);
+
+    let userId = "null";
+    if (user) {
+        userId = user.uid;
+    }
 
     useEffect(() => {
         const fetchData = async () => {
-            let list = [];
             try {
-                const postsSnapshop = await getDocs(collection(db, "posts"));
-                postsSnapshop.forEach((doc) => {
-                    list.push({ id: doc.id, ...doc.data() });
-                });
+                let list = await getAllPosts()
                 setData(list);
             } catch (error) {
-                return error;
+                console.log(error)
             }
         };
 
         fetchData();
-    }, []);
+    }, [like]);
 
     const redirectToDetailsHandler = (id) => {
         navigate(`/details/${id}`);
     };
 
     const likePostHandler = async (id) => {
-        try {
-            const docRef = doc(db, "posts", id);
-            const docSnapshot = await getDoc(docRef);
-            const likes = docSnapshot.data().likes;
-
-            if (likes.includes(userId)) {
-                throw new Error(`Already liked this post!`);
-            }
-
-            await updateDoc(docRef, {
-                likes: [...likes, userId],
-            });
-        } catch (error) {
-            console.log(error);
-        }
+        await likePostService(id, userId);
+        setLike(!like)
     };
 
     return (
@@ -96,15 +79,17 @@ function Main() {
                                 <PostInfo>
                                     <PostTitle>{item.title}</PostTitle>
                                     <Likes>Likes: {item.likes.length}</Likes>
-                                    {item.likes.includes(userId) ? undefined : (
-                                        <LikeBtn
-                                            onClick={() =>
-                                                likePostHandler(item.id)
-                                            }
-                                        >
-                                            <BiLike />
-                                        </LikeBtn>
-                                    )}
+                                    {user && item.likes.includes(userId)
+                                        ? undefined
+                                        : user && (
+                                            <LikeBtn
+                                                onClick={() =>
+                                                    likePostHandler(item.id)
+                                                }
+                                            >
+                                                <BiLike />
+                                            </LikeBtn>
+                                        )}
                                 </PostInfo>
                             </PostContainer>
                         ))}

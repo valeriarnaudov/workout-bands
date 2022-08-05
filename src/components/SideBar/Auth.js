@@ -1,33 +1,40 @@
-import { useState } from "react";
-import { getDoc, doc } from "firebase/firestore";
-import { db } from "../../firebase";
+import { useContext, useEffect, useState } from "react";
+import { auth } from "../../firebase";
 import { SidebarLink } from "../../styles/SidebarElements";
+import { AuthContext } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { getUserName } from "../../services/userServices";
 
 function Auth({ toogle }) {
-    // const [user, setUser] = useState("");
 
-    // const userNameGetter = async () => {
-    //     try {
-    //         const userId = JSON.parse(localStorage.getItem("user")).uid;
-    //         const docRef = await doc(db, "users", userId);
-    //         const userData = await getDoc(docRef);
-    
-    //         const displayName = userData.data().displayName;
-    
-    //         setUser(displayName);
-    //         return displayName;
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
+    const [userName, setUserName] = useState("");
 
-    // };
+    const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
 
-    // userNameGetter();
+    useEffect(() => {
+        const userNameGetter = async () => {
+            try {
+                const name = await getUserName(user.uid);
+                setUserName(name);
+            } catch (error) {
+                
+            }
+        }
+        userNameGetter();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
+    const handleSignout = async () => {
+        await signOut(auth);
+        navigate("/workouts");
+        localStorage.setItem("user", null);
+    };
     return (
         <>
             <SidebarLink to="/profile" onClick={toogle}>
-                Welcome: {}
+                Welcome: {userName}
             </SidebarLink>
             <SidebarLink to="/create-post" onClick={toogle}>
                 Create Post
@@ -35,7 +42,7 @@ function Auth({ toogle }) {
             <SidebarLink to="/my-posts" onClick={toogle}>
                 My Posts
             </SidebarLink>
-            <SidebarLink to="/signout" onClick={toogle}>
+            <SidebarLink to="/" onClick={handleSignout}>
                 Sign Out
             </SidebarLink>
         </>

@@ -9,11 +9,11 @@ import {
     SidebarWrapper,
     SideBtnWrap,
 } from "../../styles/SidebarElements";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const Sidebar = ({ isOpen, toogle }) => {
-    const isSignIn = () => {
-        return localStorage.getItem("user") !== null;
-    };
+    const { user } = useContext(AuthContext);
 
     return (
         <SidebarContainer isOpen={isOpen} onClick={toogle}>
@@ -21,14 +21,12 @@ const Sidebar = ({ isOpen, toogle }) => {
                 <CloseIcon />
             </Icon>
             <SidebarWrapper>
-                <SidebarMenu>
-                    {!isSignIn() ? (<Guest />) : (<Auth />)}
-                </SidebarMenu>
+                <SidebarMenu>{user ? <Auth /> : <Guest />}</SidebarMenu>
                 <SideBtnWrap>
-                    {!isSignIn() ? (
-                        <SidebarRoute to="/signin">Sign In</SidebarRoute>
-                    ) : (
+                    {user ? (
                         <SidebarRoute to="/profile">Profile</SidebarRoute>
+                    ) : (
+                        <SidebarRoute to="/signin">Sign In</SidebarRoute>
                     )}
                 </SideBtnWrap>
             </SidebarWrapper>

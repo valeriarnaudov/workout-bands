@@ -102,3 +102,15 @@ export const DeleteBtn = styled.button`
         transition: 500ms ease-in-out;
     }
 `;
+
+export const H3 = styled.h3`
+    font-size: 20px;
+    color: black;
+    margin-bottom: 20px;
+    text-align: center;
+`
+
+export const SignRedirect = styled.a`
+cursor: pointer;
+    color: red;
+`

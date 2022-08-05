@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs, updateDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDoc, getDocs, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
 
 
@@ -29,4 +29,10 @@ export const likePostService = async (id, userId) => {
     } catch (error) {
         console.log(error);
     }
+}
+
+//DETAILS PAGE SERVICES
+
+export const deletePostService = async (id) => {
+    return await deleteDoc(doc(db, "posts", id));
 }

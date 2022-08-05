@@ -5,6 +5,7 @@ import {
     Description,
     EditBtn,
     H1,
+    H3,
     Image,
     InfoContainer,
     LikeBtn,
@@ -12,39 +13,33 @@ import {
     MuscleGroup,
     PostContainer,
     PostSection,
+    SignRedirect,
     SrcContainer,
     Title,
     Video,
 } from "../styles/PostDetailsElements";
-import { deleteDoc, doc } from "firebase/firestore";
-import { db } from "../firebase";
 import PostNewComment from "./PostNewComment";
+import { useContext } from "react";
+import { AuthContext } from "../contexts/AuthContext";
+import { deletePostService } from "../services/postServices";
 
-function PostDetails(props) {
-    const post = props.postData;
-    const isSignIn = props.isSignIn;
+function PostDetails({ postData }) {
+    const post = postData;
     const { id } = useParams();
-
-    const ownerId = post.owner;
-
+    const { user } = useContext(AuthContext);
     const navigate = useNavigate();
+
+    let isOwner = false;
+    if (user) {
+        isOwner = post.owner === user.uid;
+    }
 
     const editRedirect = () => {
         navigate("/edit/" + id);
     };
 
-    const isOwner = () => {
-        const signedUser = JSON.parse(localStorage.getItem("user")).uid;
-        if (ownerId !== signedUser) {
-            return false;
-        }
-        return true;
-    };
-
-    isOwner();
-
     const deleteHandler = async () => {
-        await deleteDoc(doc(db, "posts", id));
+        await deletePostService(id);
         navigate("/workouts");
     };
 
@@ -73,14 +68,14 @@ function PostDetails(props) {
                                 ? "This post currently has no likes"
                                 : "Likes: " + post.likes.length}
                         </Likes>
-                        {isSignIn && !isOwner() ? (
+                        {user && !isOwner ? (
                             <LikeBtn>
                                 <BiLike />
                             </LikeBtn>
                         ) : (
                             ""
                         )}
-                        {isOwner() ? (
+                        {isOwner ? (
                             <>
                                 <EditBtn onClick={editRedirect}>Edit</EditBtn>
                                 <DeleteBtn onClick={deleteHandler}>
@@ -92,7 +87,14 @@ function PostDetails(props) {
                         )}
                     </InfoContainer>
                 </PostContainer>
-                {isSignIn ? <PostNewComment postData={post}/> : undefined}
+                {user ? (
+                    <PostNewComment postData={post} />
+                ) : (
+                    <H3>
+                        <SignRedirect href='/signin'>Sign In</SignRedirect> to see and post
+                        comments
+                    </H3>
+                )}
             </PostSection>
         </>
     );

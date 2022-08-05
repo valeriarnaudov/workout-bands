@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { NavItem, NavLink } from "../../styles/NavbarElements";
-import { getDoc, doc, updateDoc } from "firebase/firestore";
-import { auth, db } from "../../firebase";
+import { auth } from "../../firebase";
 import { useEffect } from "react";
 import { signOut } from "firebase/auth";
 import { AuthContext } from "../../contexts/AuthContext";
@@ -24,6 +23,7 @@ function Auth() {
             }
         }
         userNameGetter();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleSignout = async () => {

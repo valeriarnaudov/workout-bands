@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { FaListAlt } from "react-icons/fa";
 import { animateScroll as scroll } from "react-scroll";
 import { GiWeightLiftingUp } from "react-icons/gi";
-import { auth, db } from "../../firebase";
 import {
     MobileIcon,
     Nav,
@@ -15,9 +14,6 @@ import {
 import Guest from "./Guest";
 import Auth from "./Auth";
 import { AuthContext } from "../../contexts/AuthContext";
-import { doc, updateDoc } from "firebase/firestore";
-import { signOut } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
 
 function NavBar({ toogle }) {
     const [scrollNav, setScrollNav] = useState(false);
@@ -49,11 +45,11 @@ function NavBar({ toogle }) {
             <Nav scrollNav={scrollNav}>
                 <NavbarContainer>
                     {user ? (
-                        <NavLogo to="/" onClick={toogleHome}>
+                        <NavLogo to="/workouts" onClick={toogleHome}>
                             <GiWeightLiftingUp /> workout bands
                         </NavLogo>
                     ) : (
-                        <NavLogo to="/workouts" onClick={toogleHome}>
+                        <NavLogo to="/" onClick={toogleHome}>
                             <GiWeightLiftingUp /> workout bands
                         </NavLogo>
                     )}

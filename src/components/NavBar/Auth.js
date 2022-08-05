@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { signOut } from "firebase/auth";
 import { AuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { getUserName } from "../../services/userServices";
 
 function Auth() {
     const [userName, setUserName] = useState("");
@@ -15,22 +16,19 @@ function Auth() {
 
     useEffect(() => {
         const userNameGetter = async () => {
-            let userId = JSON.parse(localStorage.getItem("user")).uid;
-            const docRef = await doc(db, "users", userId);
-            const userData = await getDoc(docRef);
-
-            const displayName = userData.data().displayName;
-
-            setUserName(displayName);
-            return displayName;
-        };
-
+            try {
+                const name = await getUserName(user.uid);
+                setUserName(name);
+            } catch (error) {
+                
+            }
+        }
         userNameGetter();
     }, []);
 
     const handleSignout = async () => {
         await signOut(auth);
-        navigate("/");
+        navigate("/workouts");
         localStorage.setItem("user", null);
     };
 

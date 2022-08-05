@@ -21,6 +21,7 @@ import { useNavigate } from "react-router-dom";
 
 function NavBar({ toogle }) {
     const [scrollNav, setScrollNav] = useState(false);
+    const { user } = useContext(AuthContext);
 
     const changeNav = () => {
         if (window.scrollY >= 80) {
@@ -47,7 +48,7 @@ function NavBar({ toogle }) {
         <>
             <Nav scrollNav={scrollNav}>
                 <NavbarContainer>
-                    {auth.currentUser ? (
+                    {user ? (
                         <NavLogo to="/" onClick={toogleHome}>
                             <GiWeightLiftingUp /> workout bands
                         </NavLogo>
@@ -59,8 +60,8 @@ function NavBar({ toogle }) {
                     <MobileIcon onClick={toogle}>
                         <FaListAlt />
                     </MobileIcon>
-                    <NavMenu>{auth.currentUser ? <Auth /> : <Guest />}</NavMenu>
-                    {auth.currentUser ? (
+                    <NavMenu>{user ? <Auth /> : <Guest />}</NavMenu>
+                    {user ? (
                         <NavBtn>
                             <NavBtnLink to="/profile">Profile</NavBtnLink>
                         </NavBtn>

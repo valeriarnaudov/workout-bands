@@ -1,11 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
-
 import {
     Container,
-    ErrorLable,
     Form,
     FormButton,
     FormContent,
@@ -15,28 +11,23 @@ import {
     FormWrap,
     Text,
 } from "../styles/SigninElements";
-import { toast } from "react-toastify";
+import { signUp } from "../services/authService";
+import { AuthContext } from "../contexts/AuthContext";
 
 function SignIn() {
-    const [error, setError] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const { user } = useContext(AuthContext);
+
 
     const navigate = useNavigate();
 
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
-        try {
-            const userCredentials = await signInWithEmailAndPassword(auth, email, password);
-            const user = userCredentials.user;
-            localStorage.setItem('user', JSON.stringify(user));
-            toast("Welcome back!", { type: "success" });
+        await signUp(email, password);
+        if (user) {
             navigate("/workouts");
-            toast.success("Welcome back! You successfully signed in");
-        } catch (error) {
-            setError(true);
         }
     };
 
@@ -49,11 +40,6 @@ function SignIn() {
                     <FormContent>
                         <Form onSubmit={handleLogin}>
                             <FormH1>Sign In to your accout</FormH1>
-                            {error && (
-                                <ErrorLable>
-                                    Wrong email or password!!!
-                                </ErrorLable>
-                            )}
                             <FormLabel htmlFor="for" value="email">
                                 Email
                             </FormLabel>

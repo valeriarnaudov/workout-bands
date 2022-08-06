@@ -1,7 +1,18 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { auth, db } from "../firebase";
+
+export const signUp = async (email, password) => {
+    try {
+        const userCredentials = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredentials.user;
+        localStorage.setItem('user', JSON.stringify(user));
+        toast.success("Welcome back! You successfully signed in");
+    } catch (error) {
+        toast.error("Incorrect email or password");
+    }
+}
 
 export const createUserCollection = async (data) => {
     try {

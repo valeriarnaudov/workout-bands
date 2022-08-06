@@ -37,9 +37,9 @@ function PostNewComment() {
     const [ownerName, setOwnerName] = useState("");
     const [comments, setComments] = useState([]);
     const [onLike, setOnLike] = useState(false);
+    const [onPost, setOnPost] = useState(false);
 
     const [loading, setLoading] = useState(true);
-
 
     const { id } = useParams();
     const { user } = useContext(AuthContext);
@@ -57,11 +57,11 @@ function PostNewComment() {
 
         getComments();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [onLike]);
+    }, [onLike, onPost]);
 
     useEffect(() => {
         const ownerDisplayName = async () => {
-            const user = getUserName(userId);
+            const user = await getUserName(userId);
             setOwnerName(user);
         };
 
@@ -82,6 +82,7 @@ function PostNewComment() {
         setComment("");
         navigate("/details/" + id);
         setLoading(false);
+        setOnPost(!onPost);
         e.target.querySelector("textarea").value = "";
     };
 

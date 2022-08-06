@@ -24,11 +24,11 @@ function SignIn() {
     const handleLogin = async (e) => {
         e.preventDefault();
         await signUp(email, password);
-        if (user) {
-            navigate("/workouts");
-        }
     };
-
+    
+    if (user) {
+        navigate("/workouts");
+    }
     //todo forgot password
 
     return (

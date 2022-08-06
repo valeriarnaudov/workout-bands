@@ -6,6 +6,7 @@ import { signOut } from "firebase/auth";
 import { AuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { getUserName } from "../../services/userServices";
+import { toast } from "react-toastify";
 
 function Auth() {
     const [userName, setUserName] = useState("");
@@ -28,6 +29,7 @@ function Auth() {
 
     const handleSignout = async () => {
         await signOut(auth);
+        toast.info("You have been signed out");
         navigate("/workouts");
         localStorage.setItem("user", null);
     };

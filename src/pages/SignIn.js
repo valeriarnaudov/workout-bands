@@ -15,6 +15,7 @@ import {
     FormWrap,
     Text,
 } from "../styles/SigninElements";
+import { toast } from "react-toastify";
 
 function SignIn() {
     const [error, setError] = useState(false);
@@ -31,15 +32,15 @@ function SignIn() {
             const userCredentials = await signInWithEmailAndPassword(auth, email, password);
             const user = userCredentials.user;
             localStorage.setItem('user', JSON.stringify(user));
-
+            toast("Welcome back!", { type: "success" });
             navigate("/workouts");
-
+            toast.success("Welcome back! You successfully signed in");
         } catch (error) {
             setError(true);
         }
-
-        console.log(auth.currentUser);
     };
+
+    //todo forgot password
 
     return (
         <>

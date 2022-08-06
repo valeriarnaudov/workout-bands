@@ -1,6 +1,7 @@
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useEffect } from "react";
+import { AuthContext } from "../contexts/AuthContext";
 import { db } from "../firebase";
 import {
     CommentsCounter,
@@ -25,7 +26,11 @@ function Profile() {
     const [userData, setUserData] = useState({});
     const [posts, setPosts] = useState([]);
 
-    const userId = localStorage.getItem("user").uid;
+    const { user } = useContext(AuthContext);
+    const userId = user.uid;
+
+    console.log(userData)
+    console.log(user)
 
     useEffect(() => {
         const dataHandler =  async () => {
@@ -56,13 +61,13 @@ function Profile() {
                     <ProfileImg />
                     <ProfileInfoContainer>
                         {/* image display */}
-                        <ProfileName>Display name: "name"</ProfileName>
-                        <ProfileUsername>Username: "username"</ProfileUsername>
-                        <ProfileEmail>Email: "email"</ProfileEmail>
-                        <ProfileAge>Age: "age"</ProfileAge>
+                        <ProfileName>Display name: {userData.displayName}</ProfileName>
+                        <ProfileUsername>Username: {userData.username}</ProfileUsername>
+                        <ProfileEmail>Email: {user.email}</ProfileEmail>
+                        <ProfileAge>Age: {userData.age}</ProfileAge>
                         <PostsCount>You have "0" posts.</PostsCount>
                         <CommentsCounter>
-                            You have "0" comments.
+                            You have a total of "0" comments on your posts.
                         </CommentsCounter>
 
                     </ProfileInfoContainer>

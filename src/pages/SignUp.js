@@ -1,12 +1,8 @@
-import { useContext, useEffect, useState } from "react";
-import { doc, serverTimestamp, setDoc } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { Fragment, useContext, useEffect, useState } from "react";
 import { FaUpload } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-
 import {
     Container,
-    ErrorLable,
     Form,
     FormButton,
     FormContent,
@@ -16,55 +12,19 @@ import {
     FormWrap,
     Text,
 } from "../styles/SignupElements";
-import { auth, db, storage } from "../firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import { userInputs } from "../sources/FormSource";
+import { createUserCollection } from "../services/authService";
+import { uploadFile } from "../services/uploadFileService";
 import { AuthContext } from "../contexts/AuthContext";
 
 function SignUp() {
-    const [errorHandler, setError] = useState(false);
     const [file, setFile] = useState("");
     const [data, setData] = useState({});
     const [per, setPer] = useState(null);
-
-    const { dispatch } = useContext(AuthContext);
     const navigate = useNavigate();
-
+    const { user } = useContext(AuthContext);
     useEffect(() => {
-        const uploadFile = () => {
-            const name = new Date().getTime() + file.name;
-            const storageRef = ref(storage, name);
-
-            const uploadTask = uploadBytesResumable(storageRef, file);
-            uploadTask.on(
-                "state_changed",
-                (snapshot) => {
-                    const progress =
-                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    console.log("Upload is " + progress + "% done");
-                    setPer(progress);
-                    switch (snapshot.state) {
-                        case "paused":
-                            console.log("Upload is paused");
-                            break;
-                        case "running":
-                            console.log("Upload is running");
-                            break;
-                        default:
-                            break;
-                    }
-                },
-                (error) => {
-                    setError(error);
-                },
-                () => {
-                    getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-                        setData((prev) => ({ ...prev, img: url }));
-                    });
-                }
-            );
-        };
-        file && uploadFile();
+        file && uploadFile(file, setPer, setData);
     }, [file]);
 
     const handleInput = (e) => {
@@ -75,69 +35,9 @@ function SignUp() {
 
     const handleAdd = async (e) => {
         e.preventDefault();
-
-        try {
-            if (data.age === "" || data.age == null || data.age === undefined) {
-                return setError("Fill age to continue");
-            } else if (
-                data.displayName === "" ||
-                data.displayName == null ||
-                data.displayName === undefined
-            ) {
-                return setError("Fill display name to continue");
-            } else if (
-                data.img === "" ||
-                data.img == null ||
-                data.img === undefined
-            ) {
-                return setError("Upload image to continue");
-            } else if (
-                data.username === "" ||
-                data.username == null ||
-                data.username === undefined
-            ) {
-                return setError("Fill username to continue");
-            } else if (
-                data.confirmPassword === "" ||
-                data.confirmPassword == null ||
-                data.confirmPassword === undefined
-            ) {
-                return setError("Confirm password to continue");
-            } else if (
-                data.password === "" ||
-                data.password == null ||
-                data.password === undefined
-            ) {
-                return setError("Fill password to continue");
-            }
-
-            if (data.password !== data.confirmPassword) {
-                return setError("Passwords do not match");
-            }
-
-            const res = await createUserWithEmailAndPassword(
-                auth,
-                data.email,
-                data.password
-            );
-
-            const user = res.user;
-            dispatch({ type: "LOGIN", payload: user });
-
-            await setDoc(doc(db, "users", res.user.uid), {
-                email: data.email,
-                age: data.age,
-                displayName: data.displayName,
-                img: data.img,
-                username: data.username,
-                timeStamp: serverTimestamp(),
-            });
-
+        await createUserCollection(data);
+        if (user) {
             navigate("/workouts");
-            window.location.reload(true);
-
-        } catch (error) {
-            return error;
         }
     };
 
@@ -148,9 +48,6 @@ function SignUp() {
                     <FormContent>
                         <Form onSubmit={handleAdd}>
                             <FormH1>Create new user</FormH1>
-                            {errorHandler && (
-                                <ErrorLable>{errorHandler}</ErrorLable>
-                            )}
                             <FormLabel
                                 htmlFor="file"
                                 style={{ fontSize: "20px" }}
@@ -173,7 +70,7 @@ function SignUp() {
                                 onChange={(e) => setFile(e.target.files[0])}
                             />
                             {userInputs.map((input) => (
-                                <>
+                                <Fragment key={input.id}>
                                     <FormLabel>{input.label}</FormLabel>
                                     <FormInput
                                         id={input.id}
@@ -181,13 +78,13 @@ function SignUp() {
                                         placeholder={input.placeholder}
                                         onChange={handleInput}
                                     />
-                                </>
+                                </Fragment>
                             ))}
                             <FormButton
                                 disabled={per !== null && per < 100}
                                 type="submit"
                             >
-                                Sign in
+                                Sign Up
                             </FormButton>
                             <Text href="/signin">Have an account?</Text>
                         </Form>

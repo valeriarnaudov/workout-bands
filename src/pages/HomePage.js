@@ -31,7 +31,7 @@ const WorkOutSection = () => {
                 </WorkoutP>
                 <WorkoutBtnWrapper>
                     <Button
-                        to="/"
+                        to="/signup"
                         onMouseEnter={onHover}
                         onMouseLeave={onHover}
                         primary="true"

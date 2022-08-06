@@ -53,7 +53,7 @@ function SignIn() {
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                             <FormButton type="submit">Sign in</FormButton>
-                            <Text href="/forgot">Forgot password</Text>
+                            <Text href="/signup">Have an account? Sign Up now!</Text>
                         </Form>
                     </FormContent>
                 </FormWrap>

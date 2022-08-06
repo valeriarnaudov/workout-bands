@@ -36,6 +36,10 @@ function Auth({ toogle }) {
             <SidebarLink to="/profile" onClick={toogle}>
                 Welcome: <br /> {userName}
             </SidebarLink>
+            <hr />
+            <SidebarLink to="/" onClick={toogle}>
+                Home
+            </SidebarLink>
             <SidebarLink to="/create-post" onClick={toogle}>
                 Create Post
             </SidebarLink>

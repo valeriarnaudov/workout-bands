@@ -34,13 +34,10 @@ function Auth({ toogle }) {
     return (
         <>
             <SidebarLink to="/profile" onClick={toogle}>
-                Welcome: {userName}
+                Welcome: <br /> {userName}
             </SidebarLink>
             <SidebarLink to="/create-post" onClick={toogle}>
                 Create Post
-            </SidebarLink>
-            <SidebarLink to="/my-posts" onClick={toogle}>
-                My Posts
             </SidebarLink>
             <SidebarLink to="/" onClick={handleSignout}>
                 Sign Out

@@ -12,14 +12,13 @@ export const uploadFile = (file, setPer, setData) => {
         (snapshot) => {
             const progress =
                 (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log("Upload is " + progress + "% done");
             setPer(progress);
             switch (snapshot.state) {
                 case "paused":
                     toast.info("Upload is paused");
                     break;
                 case "running":
-                    toast.info("Upload is " + Number(progress).toFixed(0) + "% done");
+                    console.log("Upload is running");
                     break;
                 default:
                     break;

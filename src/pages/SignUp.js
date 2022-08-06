@@ -23,6 +23,7 @@ function SignUp() {
     const [per, setPer] = useState(null);
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
+
     useEffect(() => {
         file && uploadFile(file, setPer, setData);
     }, [file]);

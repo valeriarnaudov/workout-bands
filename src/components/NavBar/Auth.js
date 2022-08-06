@@ -50,16 +50,6 @@ function Auth() {
                 </NavLink>
             </NavItem>
             <NavItem>
-                <NavLink
-                    to="/my-posts"
-                    duration={500}
-                    exact="true"
-                    offset={-80}
-                >
-                    My posts
-                </NavLink>
-            </NavItem>
-            <NavItem>
                 <NavLink to="/" onClick={handleSignout}>
                     Sign out
                 </NavLink>

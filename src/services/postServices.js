@@ -8,17 +8,22 @@ import {
     Timestamp,
     updateDoc,
 } from "firebase/firestore";
+import { toast } from "react-toastify";
 import { db } from "../firebase";
 
 //MAIN PAGE SERVICES
 
 export const getAllPosts = async () => {
-    const list = [];
-    const postsSnapshop = await getDocs(collection(db, "posts"));
-    postsSnapshop.forEach((doc) => {
-        list.push({ id: doc.id, ...doc.data() });
-    });
-    return list;
+    try {
+        const list = [];
+        const postsSnapshop = await getDocs(collection(db, "posts"));
+        postsSnapshop.forEach((doc) => {
+            list.push({ id: doc.id, ...doc.data() });
+        });
+        return list;
+    } catch (error) {
+        toast.error("Error while getting all posts");
+    }
 };
 
 export const likePostService = async (id, userId) => {
@@ -35,14 +40,18 @@ export const likePostService = async (id, userId) => {
             likes: [...likes, userId],
         });
     } catch (error) {
-        console.log(error);
+        toast.error("Error while liking post");
     }
 };
 
 //DETAILS PAGE SERVICES
 
 export const deletePostService = async (id) => {
-    return await deleteDoc(doc(db, "posts", id));
+    try {
+        return await deleteDoc(doc(db, "posts", id));
+    } catch (error) {
+        toast.error("Error while deleting post");
+    }
 };
 
 //COMMENTS PAGE SERVICES
@@ -58,7 +67,7 @@ export const getAllComments = async (id) => {
         });
         return list;
     } catch (error) {
-        console.log(error);
+        toast.error("Error while getting comments");
     }
 };
 
@@ -71,7 +80,7 @@ export const createCommentService = async (id, comment, userId, ownerName) => {
             likes: [],
         });
     } catch (error) {
-        console.log(error);
+        toast.error("Error while creating comment");
     }
 };
 
@@ -86,6 +95,24 @@ export const likeCommentService = async (
             likes: [...currentComment.likes, userId],
         });
     } catch (error) {
-        console.log(error);
+        toast.error("Error while liking comment");
+    }
+};
+
+//PROFILE PAGE POSTS
+
+export const ownerPosts = async (userId) => {
+    try {
+        const userPosts = [];
+        const allPosts = await getAllPosts();
+        allPosts.forEach((post) => {
+            if (post.owner === userId) {
+                userPosts.push(post);
+            }
+        });
+        userPosts.sort((a, b) => a.timeStamp - b.timeStamp);
+        return userPosts;
+    } catch (error) {
+        toast.error("Error while getting user posts");
     }
 };

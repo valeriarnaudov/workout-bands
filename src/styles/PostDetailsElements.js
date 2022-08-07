@@ -77,7 +77,8 @@ export const EditBtn = styled.button`
     border-radius: 20px;
     color: red;
     transition: 500ms ease-in-out;
-
+    cursor: pointer;
+    
     &:hover {
         color: white;
         background: red;
@@ -108,9 +109,9 @@ export const H3 = styled.h3`
     color: black;
     margin-bottom: 20px;
     text-align: center;
-`
+`;
 
 export const SignRedirect = styled.a`
-cursor: pointer;
+    cursor: pointer;
     color: red;
-`
+`;

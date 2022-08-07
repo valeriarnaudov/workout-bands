@@ -37,11 +37,12 @@ function SignUp() {
     const handleAdd = async (e) => {
         e.preventDefault();
         await createUserCollection(data);
-        if (user) {
-            navigate("/workouts");
-        }
     };
-
+    
+    if (user) {
+        navigate("/workouts");
+    }
+    
     return (
         <>
             <Container>

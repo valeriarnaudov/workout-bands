@@ -40,6 +40,9 @@ function Auth() {
                 <NavLink to="/profile">Welcome: {userName}</NavLink>
             </NavItem>
             <NavItem>
+                <NavLink to="/workouts">Workouts</NavLink>
+            </NavItem>
+            <NavItem>
                 <NavLink
                     to="/create-post"
                     duration={500}

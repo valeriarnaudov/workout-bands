@@ -16,6 +16,7 @@ import EditPost from "./pages/EditPost";
 import Profile from "./pages/Profile";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import EditProfile from "./pages/EditProfile";
 
 function App() {
     const [isOpen, setIsOpen] = useState(false);
@@ -50,6 +51,14 @@ function App() {
                         element={
                             // <RequireAuth>
                             <Profile />
+                            // </RequireAuth>
+                        }
+                    />
+                    <Route
+                        path="/profile/edit/:uid"
+                        element={
+                            // <RequireAuth>
+                            <EditProfile />
                             // </RequireAuth>
                         }
                     />

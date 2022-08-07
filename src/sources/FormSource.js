@@ -18,6 +18,7 @@ export const userInputs = [
         label: "Age",
         type: "number",
         placeholder: "Age",
+        value: "",
     },
     {
         id: "email",
@@ -37,6 +38,30 @@ export const userInputs = [
         label: "Confirm Password",
         type: "password",
         placeholder: "Confirm Password",
+    },
+];
+
+export const userInputsOnEdit = [
+    {
+        id: "username",
+        label: "Username",
+        type: "text",
+        placeholder: "Username",
+        value: "",
+    },
+    {
+        id: "displayName",
+        label: "Display Name",
+        type: "text",
+        placeholder: "Display Name",
+        value: "",
+    },
+    {
+        id: "age",
+        label: "Age",
+        type: "number",
+        placeholder: "Age",
+        value: "",
     },
 ];
 

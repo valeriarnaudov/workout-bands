@@ -20,7 +20,6 @@ import { AuthContext } from "../contexts/AuthContext";
 import { createPostService } from "../services/postServices";
 
 function CreatePost() {
-    const [errorHandler, setError] = useState(false);
     const [file, setFile] = useState("");
     const [data, setData] = useState({});
     const [per, setPer] = useState(null);
@@ -55,9 +54,6 @@ function CreatePost() {
                     <FormContent>
                         <Form onSubmit={handleAdd}>
                             <FormH1>Create new post</FormH1>
-                            {errorHandler && (
-                                <ErrorLable>{errorHandler}</ErrorLable>
-                            )}
                             <FormLabel
                                 htmlFor="file"
                                 style={{ fontSize: "20px" }}

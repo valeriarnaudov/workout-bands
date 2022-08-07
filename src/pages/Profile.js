@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../components/Loading";
 import { AuthContext } from "../contexts/AuthContext";
 import { ownerPosts } from "../services/postServices";
-import { getSignedUserData, getUserData } from "../services/userServices";
+import { getUserData } from "../services/userServices";
 import {
     CommentsCounter,
     EditProfileBtn,
@@ -85,7 +85,7 @@ function Profile() {
                             Total comments on posts: "0"
                         </CommentsCounter>
                         {isLoggedUserProfile && (
-                            <EditProfileBtn>Edit profile</EditProfileBtn>
+                            <EditProfileBtn to={`/profile/edit/${user.uid}`}>Edit profile</EditProfileBtn>
                         )}
                     </ProfileInfoContainer>
                 </ProfileInfo>

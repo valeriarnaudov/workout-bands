@@ -1,3 +1,5 @@
+
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const ProfileContainer = styled.div`
@@ -82,7 +84,8 @@ export const CommentsCounter = styled.p`
     line-height: 2rem;
 `;
 
-export const EditProfileBtn = styled.button`
+export const EditProfileBtn = styled(Link)`
+    text-decoration: none;
     font-size: 20px;
     font-weight: 700;
     margin-top: 20px;

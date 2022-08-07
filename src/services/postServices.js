@@ -87,7 +87,7 @@ export const createPostService = async (data, userId, setPostCreated) => {
             muscleGroup: data.muscleGroup,
             timeStamp: Timestamp.fromDate(new Date()),
         });
-
+        toast.success("Successfully created new post");
         setPostCreated(true);
     } catch (error) {
         toast.error("Error while creating post");

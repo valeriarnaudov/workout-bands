@@ -122,6 +122,14 @@ export const getAllComments = async (id) => {
     }
 };
 
+export const deleteCommentService = async (postId, commentId) => {
+    try {
+        return await deleteDoc(doc(db, "posts", postId, "comments", commentId));
+    } catch (error) {
+        toast.error("Error while deleting comment");
+    }
+}
+
 export const createCommentService = async (id, comment, userId, ownerName) => {
     try {
         await setDoc(doc(collection(db, "posts", id, "comments")), {

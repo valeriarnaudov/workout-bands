@@ -22,9 +22,11 @@ import {
     NoComments,
     SingleCommentContainer,
     ColumnContainer,
+    DeleteCommentBtn,
 } from "../styles/CommentsElements";
 import {
     createCommentService,
+    deleteCommentService,
     getAllComments,
     likeCommentService,
 } from "../services/postServices";
@@ -38,6 +40,7 @@ function PostNewComment() {
     const [comments, setComments] = useState([]);
     const [onLike, setOnLike] = useState(false);
     const [onPost, setOnPost] = useState(false);
+    const [onDelete, setOnDelete] = useState(false);
 
     const [loading, setLoading] = useState(true);
 
@@ -57,7 +60,7 @@ function PostNewComment() {
 
         getComments();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [onLike, onPost]);
+    }, [onLike, onPost, onDelete]);
 
     useEffect(() => {
         const ownerDisplayName = async () => {
@@ -96,6 +99,11 @@ function PostNewComment() {
 
     if (loading) {
         return <Loading />;
+    }
+
+    const deleteHandler = async (postId, commentId) => {
+        await deleteCommentService(postId, commentId);
+        setOnDelete(!onDelete);
     }
 
     return (
@@ -152,6 +160,9 @@ function PostNewComment() {
                                                 .toDate()
                                                 .toLocaleString()}
                                         </CommentTime>
+                                        {user.uid === com.owner.id && (
+                                            <DeleteCommentBtn onClick={() => deleteHandler(id, com.id)}>Delete</DeleteCommentBtn>
+                                        )}
                                     </InfoCommentContainer>
                                 </ColumnContainer>
                             </SingleCommentContainer>

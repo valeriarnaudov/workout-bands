@@ -80,4 +80,22 @@ export const CommentOwner = styled.p`
 
 export const CommentTime = styled.p`
     font-size: 0.7rem;
+    margin-bottom: 0.5rem;
+`;
+
+export const DeleteCommentBtn = styled.button`
+    padding: 0.7rem;
+    background: white;
+    border: none;
+    margin: 0;
+    font-size: 1rem;
+    color: red;
+    font-weight: bold;
+    border-radius: 20pc;
+
+    :hover {
+        cursor: pointer;
+        color: white;
+        background: red;
+    }
 `;

@@ -10,6 +10,7 @@ import {
 } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { db } from "../firebase";
+import { getUserName } from "./userServices";
 
 //MAIN PAGE SERVICES
 
@@ -43,6 +44,51 @@ export const likePostService = async (id, userId) => {
         toast.error("Error while liking post");
     }
 };
+
+//CREATE PAGE SERVICES
+
+export const createPostService = async (data, userId, setPostCreated) => {
+    try {
+        if (data.title === "" || data.title == null || data.title === undefined) {
+            return toast.error("Fill title to continue");
+        } else if (
+            data.muscleGroup === "" ||
+            data.muscleGroup == null ||
+            data.muscleGroup === undefined
+        ) {
+            return toast.error("Fill muscle group to continue");
+        } else if (
+            data.src === "" ||
+            data.src == null ||
+            data.src === undefined
+        ) {
+            return toast.error("Upload image or video to continue");
+        } else if (
+            data.description === "" ||
+            data.description == null ||
+            data.description === undefined
+        ) {
+            return toast.error("Fill description to continue");
+        } 
+
+        const ownerName = await getUserName(userId);
+        const docRef = doc(collection(db, "posts"));
+        await setDoc(docRef, {
+            title: data.title,
+            description: data.description,
+            owner: userId,
+            ownerName,
+            src: data.src || "",
+            likes: [],
+            muscleGroup: data.muscleGroup,
+            timeStamp: Timestamp.fromDate(new Date()),
+        });
+
+        setPostCreated(true);
+    } catch (error) {
+        toast.error("Error while creating post");
+    }
+}
 
 //DETAILS PAGE SERVICES
 

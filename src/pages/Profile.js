@@ -64,7 +64,7 @@ function Profile() {
             <ProfileContainer>
                 <H2>{userData.displayName}'s profile</H2>
                 <ProfileInfo>
-                    <ProfileImg src={userData.img} />
+                    <ProfileImg src={userData.src} />
                     <ProfileInfoContainer>
                         <ProfileName>
                             Display name: {userData.displayName}

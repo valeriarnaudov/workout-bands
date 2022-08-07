@@ -37,7 +37,7 @@ function Auth() {
     return (
         <>
             <NavItem>
-                <NavLink to="/profile">Welcome: {userName}</NavLink>
+                <NavLink to={`/profile/${user.uid}`} >Welcome: {userName}</NavLink>
             </NavItem>
             <NavItem>
                 <NavLink to="/workouts">Workouts</NavLink>

@@ -66,7 +66,7 @@ export const createUserCollection = async (data) => {
             email: data.email,
             age: data.age,
             displayName: data.displayName,
-            img: data.img,
+            src: data.src,
             username: data.username,
             timeStamp: serverTimestamp(),
         });

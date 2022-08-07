@@ -33,7 +33,7 @@ function Auth({ toogle }) {
     };
     return (
         <>
-            <SidebarLink to="/profile" onClick={toogle}>
+            <SidebarLink to={`/profile/${user.uid}`} onClick={toogle}>
                 Welcome: <br /> {userName}
             </SidebarLink>
             _____________

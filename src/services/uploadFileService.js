@@ -30,7 +30,7 @@ export const uploadFile = (file, setPer, setData) => {
         () => {
             toast.success("Upload completed!");
             getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-                setData((prev) => ({ ...prev, img: url }));
+                setData((prev) => ({ ...prev, src: url }));
             });
         }
     );

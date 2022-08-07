@@ -46,7 +46,7 @@ function App() {
                     <Route path="/signin" element={<SignInPage />} />
                     <Route path="/signup" element={<SignUp />} />
                     <Route
-                        path="/profile"
+                        path="/profile/:uid"
                         element={
                             // <RequireAuth>
                             <Profile />

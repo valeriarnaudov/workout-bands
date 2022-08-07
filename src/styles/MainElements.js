@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const MainSection = styled.section`
@@ -79,6 +80,17 @@ export const PostInfo = styled.div`
 export const PostTitle = styled.h2`
     color: red;
 `;
+
+export const By = styled.p`
+    font-size: 12px;
+`
+
+export const PostOwner = styled(Link)`
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: bold;
+    color: black;
+`
 
 export const Likes = styled.p`
     margin-top: 10px;

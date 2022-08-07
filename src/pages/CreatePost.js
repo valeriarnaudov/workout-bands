@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
-import { collection, doc, setDoc, Timestamp } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { Fragment, useEffect, useState } from "react";
 import { FaUpload } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
@@ -15,52 +13,24 @@ import {
     FormLabel,
     FormWrap,
 } from "../styles/CreateElements";
-import { db, storage } from "../firebase";
 import { postInputs } from "../sources/FormSource";
+import { uploadFile } from "../services/uploadFileService";
+import { useContext } from "react";
+import { AuthContext } from "../contexts/AuthContext";
+import { createPostService } from "../services/postServices";
 
 function CreatePost() {
     const [errorHandler, setError] = useState(false);
     const [file, setFile] = useState("");
     const [data, setData] = useState({});
     const [per, setPer] = useState(null);
+    const [postCreated, setPostCreated] = useState(false);
 
+    const { user } = useContext(AuthContext);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const uploadFile = () => {
-            const name = new Date().getTime() + file.name;
-            const storageRef = ref(storage, name);
-
-            const uploadTask = uploadBytesResumable(storageRef, file);
-            uploadTask.on(
-                "state_changed",
-                (snapshot) => {
-                    const progress =
-                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    console.log("Upload is " + progress + "% done");
-                    setPer(progress);
-                    switch (snapshot.state) {
-                        case "paused":
-                            console.log("Upload is paused");
-                            break;
-                        case "running":
-                            console.log("Upload is running");
-                            break;
-                        default:
-                            break;
-                    }
-                },
-                (error) => {
-                    setError(error);
-                },
-                () => {
-                    getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-                        setData((prev) => ({ ...prev, src: url }));
-                    });
-                }
-            );
-        };
-        file && uploadFile();
+        file && uploadFile(file, setPer, setData);
     }, [file]);
 
     const handleInput = (e) => {
@@ -71,27 +41,12 @@ function CreatePost() {
 
     const handleAdd = async (e) => {
         e.preventDefault();
-
-        try {
-            const userId = JSON.parse(localStorage.getItem("user")).uid;
-
-            const docRef = doc(collection(db, "posts"));
-            await setDoc(docRef, {
-                title: data.title,
-                description: data.description,
-                owner: userId,
-                src: data.src || "",
-                likes: [],
-                muscleGroup: data.muscleGroup,
-                timeStamp: Timestamp.fromDate(new Date()),
-                comments: [],
-            });
-
-            navigate("/workouts");
-        } catch (error) {
-            return error;
-        }
+        await createPostService(data, user.uid, setPostCreated);
     };
+
+    if (postCreated) {
+        navigate("/workouts");
+    }
 
     return (
         <>
@@ -125,7 +80,7 @@ function CreatePost() {
                                 onChange={(e) => setFile(e.target.files[0])}
                             />
                             {postInputs.map((input) => (
-                                <>
+                                <Fragment key={input.id}>
                                     <FormLabel>{input.label}</FormLabel>
                                     <FormInput
                                         id={input.id}
@@ -133,7 +88,7 @@ function CreatePost() {
                                         placeholder={input.placeholder}
                                         onChange={handleInput}
                                     />
-                                </>
+                                </Fragment>
                             ))}
                             <FormButton
                                 disabled={per !== null && per < 100}

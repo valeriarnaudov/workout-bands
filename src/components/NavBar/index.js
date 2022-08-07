@@ -59,7 +59,7 @@ function NavBar({ toogle }) {
                     <NavMenu>{user ? <Auth /> : <Guest />}</NavMenu>
                     {user ? (
                         <NavBtn>
-                            <NavBtnLink to="/profile">Profile</NavBtnLink>
+                            <NavBtnLink to={`/profile/${user.uid}`}>Profile</NavBtnLink>
                         </NavBtn>
                     ) : (
                         <NavBtn>

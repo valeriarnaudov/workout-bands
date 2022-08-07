@@ -1,4 +1,5 @@
 import {
+    By,
     ContentContainer,
     ContentItemsContainer,
     LikeBtn,
@@ -8,6 +9,7 @@ import {
     PostContainer,
     PostImage,
     PostInfo,
+    PostOwner,
     PostTitle,
     PostVideo,
 } from "../styles/MainElements";
@@ -17,11 +19,13 @@ import { useNavigate } from "react-router";
 import { AuthContext } from "../contexts/AuthContext";
 import { getAllPosts, likePostService } from "../services/postServices";
 import Loading from "../components/Loading";
+import { getUserName } from "../services/userServices";
 
 function Main() {
     const [data, setData] = useState([]);
     const [like, setLike] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [postOwnerName, setPostOwnerName] = useState("");
 
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
@@ -33,13 +37,9 @@ function Main() {
 
     useEffect(() => {
         const fetchData = async () => {
-            try {
-                let list = await getAllPosts();
+                const list = await getAllPosts();
                 setData(list);
                 setLoading(false);
-            } catch (error) {
-                console.log(error);
-            }
         };
 
         fetchData();
@@ -86,6 +86,7 @@ function Main() {
                                 )}
                                 <PostInfo>
                                     <PostTitle>{item.title}</PostTitle>
+                                    <By>By :<PostOwner to={`/profile/${item.owner}`}>{item.ownerName}</PostOwner></By>
                                     <Likes>Likes: {item.likes.length}</Likes>
                                     {user && item.likes.includes(userId)
                                         ? undefined

@@ -18,7 +18,7 @@ export const getUserName = async (userId) => {
 export const getUserData = async (userId, setUserData) => {
     try {
         const user = await getDoc(doc(db, "users", userId));
-        console.log(user.data())
+        console.log(user.data());
         setUserData(user.data());
     } catch (error) {
         toast.error("Error while getting user data");
@@ -62,7 +62,6 @@ export const editUserService = async (id, userData, setIsEdited) => {
         });
         setIsEdited(true);
     } catch (error) {
-        toast.error("Error updating")
-        console.log(error);
+        toast.error("Error updating");
     }
 };

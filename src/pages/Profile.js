@@ -85,7 +85,9 @@ function Profile() {
                             Total comments on posts: "0"
                         </CommentsCounter>
                         {isLoggedUserProfile && (
-                            <EditProfileBtn to={`/profile/edit/${user.uid}`}>Edit profile</EditProfileBtn>
+                            <EditProfileBtn to={`/profile/edit/${user.uid}`}>
+                                Edit profile
+                            </EditProfileBtn>
                         )}
                     </ProfileInfoContainer>
                 </ProfileInfo>

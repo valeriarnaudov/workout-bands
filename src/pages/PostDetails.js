@@ -91,8 +91,8 @@ function PostDetails({ postData }) {
                     <PostNewComment postData={post} />
                 ) : (
                     <H3>
-                        <SignRedirect href='/signin'>Sign In</SignRedirect> to see and post
-                        comments
+                        <SignRedirect href="/signin">Sign In</SignRedirect> to
+                        see and post comments
                     </H3>
                 )}
             </PostSection>

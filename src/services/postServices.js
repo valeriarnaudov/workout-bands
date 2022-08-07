@@ -115,6 +115,7 @@ export const getAllComments = async (id) => {
         commentData.docs.forEach((com) => {
             list.push({ ...com.data(), id: com.id });
         });
+        list.sort((a, b) => b.createdAt - a.createdAt);
         return list;
     } catch (error) {
         toast.error("Error while getting comments");
@@ -219,7 +220,7 @@ export const editPostService = async (id, data, setIsEdited) => {
         });
         setIsEdited(true);
     } catch (error) {
-        toast.error("Error updating")
+        toast.error("Error updating");
         console.log(error);
     }
 };

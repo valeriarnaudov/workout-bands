@@ -1,13 +1,20 @@
 import React, { Fragment, useContext, useEffect, useState } from "react";
-import { Container, Form, FormButton, FormContent, FormH1, FormInput, FormLabel, FormWrap } from "../styles/EditProfileElements";
+import {
+    Container,
+    Form,
+    FormButton,
+    FormContent,
+    FormH1,
+    FormInput,
+    FormLabel,
+    FormWrap,
+} from "../styles/EditProfileElements";
 import { FaUpload } from "react-icons/fa";
 import { userInputsOnEdit } from "../sources/FormSource";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { uploadFile } from "../services/uploadFileService";
 import { editUserService, getUserData } from "../services/userServices";
 import { AuthContext } from "../contexts/AuthContext";
-
-
 
 function EditProfile() {
     const [file, setFile] = useState("");
@@ -27,7 +34,7 @@ function EditProfile() {
             await getUserData(user.uid, setUserData);
         };
         fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleInput = (e) => {
@@ -45,7 +52,6 @@ function EditProfile() {
         navigate("/profile/" + user.uid);
     }
 
-
     return (
         <Container>
             <FormWrap>
@@ -53,7 +59,6 @@ function EditProfile() {
                     <Form onSubmit={editHandler}>
                         <FormH1>Profile edit</FormH1>
                         <FormLabel htmlFor="file" style={{ fontSize: "20px" }}>
-                            
                             <FaUpload
                                 style={{
                                     background: "red",

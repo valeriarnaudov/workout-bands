@@ -101,7 +101,7 @@ export const likeCommentService = async (
 
 //PROFILE PAGE POSTS
 
-export const ownerPosts = async (userId) => {
+export const ownerPosts = async (userId, setPosts) => {
     try {
         const userPosts = [];
         const allPosts = await getAllPosts();
@@ -111,7 +111,7 @@ export const ownerPosts = async (userId) => {
             }
         });
         userPosts.sort((a, b) => a.timeStamp - b.timeStamp);
-        return userPosts;
+        return setPosts(userPosts);
     } catch (error) {
         toast.error("Error while getting user posts");
     }

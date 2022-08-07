@@ -4,6 +4,7 @@ export const ProfileContainer = styled.div`
     display: grid;
     justify-content: center;
     align-items: center;
+    justify-items: center;
 `;
 
 export const H2 = styled.h2`
@@ -29,6 +30,10 @@ export const ProfileInfo = styled.div`
     align-items: center;
     background: lightgray;
     box-shadow: 0 0 20px 20px (0, 0, 0, 1);
+
+    @media screen and (max-width: 768px) {
+        grid-template-columns: 1fr;
+    }
 `;
 
 export const ProfileImg = styled.img`
@@ -50,7 +55,7 @@ export const ProfileName = styled.p`
 export const ProfileCreatedAt = styled.p`
     font-size: 15px;
     line-height: 2rem;
-`
+`;
 
 export const ProfileUsername = styled.p`
     font-size: 20px;
@@ -94,10 +99,82 @@ export const EditProfileBtn = styled.button`
         background: red;
         transition: 500ms ease-in-out;
     }
-`
+`;
 
-export const PostsContainer = styled.div``;
-export const SinglePostContainer = styled.div``;
-export const PostImg = styled.img``;
-export const PostInfo = styled.div``;
-export const PostTitle = styled.p``;
+export const NoPosts = styled.p`
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: white;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background: black;
+    border-radius: 20px;
+    text-decoration: italic;
+`;
+
+export const PostsContainer = styled.div`
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    padding: 10px 10px 10px 10px;
+    grid-template-columns: repeat(3, 1fr);
+
+    @media screen and (max-width: 1150px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media screen and (max-width: 768px) {
+        grid-template-columns: repeat(1, 1fr);
+    }
+`;
+
+export const SinglePostContainer = styled.div`
+    margin: 10px 10px;
+    background: lightgray;
+    padding: 30px;
+    border-radius: 15px;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    width: 360px;
+    height: 320px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    justify-items: center;
+
+    @media screen and (max-width: 768px) {
+        height: 900px;
+        width: 460px;
+    }
+`;
+export const PostImg = styled.img`
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+
+    @media screen and (max-width: 768px) {
+        height: 500px;
+    }
+`;
+export const PostVideo = styled.video`
+    max-width: 100%;
+    max-height: 200px;
+    object-fit: fill;
+
+    @media screen and (max-width: 768px) {
+        max-height: 500px;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        justify-items: center;
+    }
+`;
+
+export const PostTitle = styled.p`
+    font-size: 20px;
+    color: red;
+    font-weight: bold;
+`;

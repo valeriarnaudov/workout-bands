@@ -1,6 +1,7 @@
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import React, { useContext, useState } from "react";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
 import { AuthContext } from "../contexts/AuthContext";
 import { db } from "../firebase";
@@ -10,11 +11,13 @@ import {
     CommentsCounter,
     EditProfileBtn,
     H2,
+    NoPosts,
     PostImg,
     PostInfo,
     PostsContainer,
     PostsCount,
     PostTitle,
+    PostVideo,
     ProfileAge,
     ProfileContainer,
     ProfileCreatedAt,
@@ -32,6 +35,8 @@ function Profile() {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const navigate = useNavigate();
+
     const { user } = useContext(AuthContext);
     const userId = user.uid;
 
@@ -45,6 +50,10 @@ function Profile() {
         dataHandler();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    const redirectToDetailsHandler = (id) => {
+        navigate(`/details/${id}`);
+    };
 
     if (loading) {
         return <Loading />;
@@ -79,13 +88,33 @@ function Profile() {
 
                 <H2>Posts</H2>
 
+                {!posts.length && (
+                    <NoPosts>You didn't make any post yet.</NoPosts>
+                )}
+
                 <PostsContainer>
-                    <SinglePostContainer>
-                        <PostImg />
-                        <PostInfo>
-                            <PostTitle>Title: "title"</PostTitle>
-                        </PostInfo>
-                    </SinglePostContainer>
+                    {posts.map((post) => (
+                        <SinglePostContainer key={post.id}>
+                            {post.src.includes(".mp4") ? (
+                                <PostVideo
+                                    src={post.src}
+                                    autoPlay={true}
+                                    muted={true}
+                                    onClick={() =>
+                                        redirectToDetailsHandler(post.id)
+                                    }
+                                />
+                            ) : (
+                                <PostImg
+                                    src={post.src}
+                                    onClick={() =>
+                                        redirectToDetailsHandler(post.id)
+                                    }
+                                />
+                            )}
+                            <PostTitle>{post.title}</PostTitle>
+                        </SinglePostContainer>
+                    ))}
                 </PostsContainer>
             </ProfileContainer>
         </>

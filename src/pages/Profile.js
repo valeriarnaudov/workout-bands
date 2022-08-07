@@ -1,7 +1,7 @@
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import React, { useContext, useState } from "react";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../components/Loading";
 import { AuthContext } from "../contexts/AuthContext";
 import { db } from "../firebase";
@@ -34,9 +34,11 @@ function Profile() {
     const [userData, setUserData] = useState({});
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [isLoggedUserProfile, setIsLoggedUserProfile] = useState(false);
 
     const navigate = useNavigate();
 
+    const { uid } = useParams()
     const { user } = useContext(AuthContext);
     const userId = user.uid;
 
@@ -47,6 +49,10 @@ function Profile() {
             setLoading(false);
         };
 
+        if (user.uid === uid) {
+            setIsLoggedUserProfile(true);
+        }
+
         dataHandler();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -54,6 +60,8 @@ function Profile() {
     const redirectToDetailsHandler = (id) => {
         navigate(`/details/${id}`);
     };
+
+   
 
     if (loading) {
         return <Loading />;
@@ -82,7 +90,9 @@ function Profile() {
                         <CommentsCounter>
                             Total comments on posts: "0"
                         </CommentsCounter>
-                        <EditProfileBtn>Edit profile</EditProfileBtn>
+                        {isLoggedUserProfile && (
+                            <EditProfileBtn>Edit profile</EditProfileBtn>
+                        )}
                     </ProfileInfoContainer>
                 </ProfileInfo>
 

@@ -64,8 +64,21 @@ export const Likes = styled.p`
     line-height: 2rem;
 `;
 export const LikeBtn = styled.button`
-    padding: 10px 10px 10px 10px;
+        font-size: 2rem;
+    margin-top: 10px;
+    color: red;
+    background: white;
+    border: none;
     border-radius: 50%;
+    padding: 5px;
+    text-align: center;
+    align-items: center;
+
+    &:hover {
+        cursor: pointer;
+        color: white;
+        background: red;
+    }
 `;
 export const EditBtn = styled.button`
     font-size: 25px;

@@ -34,7 +34,7 @@ export const likePostService = async (id, userId) => {
         const likes = docSnapshot.data().likes;
 
         if (likes.includes(userId)) {
-            throw new Error(`Already liked this post!`);
+           return toast.error(`Already liked this post!`);
         }
 
         await updateDoc(docRef, {
@@ -168,12 +168,15 @@ export const ownerPosts = async (userId, setPosts) => {
     }
 };
 
-//EDIT PAGE SERVICES
+//EDIT PAGE SERVICES AND DETAILS PAGE
 
-export const getSinglePostService = async (id, setData) => {
+export const getSinglePostService = async (id, setData, userId, setIsLiked) => {
     try {
         const post = await getDoc(doc(db, "posts", id));
         setData(post.data());
+        if (post.data().likes.includes(userId)) {
+            setIsLiked(true);
+        }
     } catch (error) {
         toast.error("Error while getting the post");
     }

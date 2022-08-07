@@ -19,14 +19,14 @@ import {
     Video,
 } from "../styles/PostDetailsElements";
 import PostNewComment from "./PostNewComment";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
-import { deletePostService } from "../services/postServices";
+import { deletePostService, likePostService } from "../services/postServices";
+import { useEffect } from "react";
 
-function PostDetails({ postData }) {
+function PostDetails({ postData, isLiked, user, setIsLiked }) {
     const post = postData;
     const { id } = useParams();
-    const { user } = useContext(AuthContext);
     const navigate = useNavigate();
 
     let isOwner = false;
@@ -42,6 +42,11 @@ function PostDetails({ postData }) {
         await deletePostService(id);
         navigate("/workouts");
     };
+
+    const onLike = async () => {
+        await likePostService(id, user.uid);
+        setIsLiked(true);
+    }
 
     return (
         <>
@@ -68,9 +73,9 @@ function PostDetails({ postData }) {
                                 ? "This post currently has no likes"
                                 : "Likes: " + post.likes.length}
                         </Likes>
-                        {user && !isOwner ? (
+                        {user && !isOwner && isLiked === false ? (
                             <LikeBtn>
-                                <BiLike />
+                                <BiLike onClick={onLike}/>
                             </LikeBtn>
                         ) : (
                             ""

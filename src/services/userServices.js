@@ -15,7 +15,7 @@ export const getUserName = async (userId) => {
     }
 };
 
-export const getSignedUserData = async (userId, setUserData) => {
+export const getUserData = async (userId, setUserData) => {
     try {
         const user = await getDoc(doc(db, "users", userId));
         setUserData(user.data());

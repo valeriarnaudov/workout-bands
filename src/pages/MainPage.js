@@ -19,13 +19,11 @@ import { useNavigate } from "react-router";
 import { AuthContext } from "../contexts/AuthContext";
 import { getAllPosts, likePostService } from "../services/postServices";
 import Loading from "../components/Loading";
-import { getUserName } from "../services/userServices";
 
 function Main() {
     const [data, setData] = useState([]);
     const [like, setLike] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [postOwnerName, setPostOwnerName] = useState("");
 
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);

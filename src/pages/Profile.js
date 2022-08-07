@@ -1,19 +1,16 @@
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import React, { useContext, useState } from "react";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../components/Loading";
 import { AuthContext } from "../contexts/AuthContext";
-import { db } from "../firebase";
-import { getAllPosts, ownerPosts } from "../services/postServices";
-import { getSignedUserData } from "../services/userServices";
+import { ownerPosts } from "../services/postServices";
+import { getSignedUserData, getUserData } from "../services/userServices";
 import {
     CommentsCounter,
     EditProfileBtn,
     H2,
     NoPosts,
     PostImg,
-    PostInfo,
     PostsContainer,
     PostsCount,
     PostTitle,
@@ -38,14 +35,13 @@ function Profile() {
 
     const navigate = useNavigate();
 
-    const { uid } = useParams()
+    const { uid } = useParams();
     const { user } = useContext(AuthContext);
-    const userId = user.uid;
 
     useEffect(() => {
         const dataHandler = async () => {
-            await getSignedUserData(userId, setUserData);
-            await ownerPosts(userId, setPosts);
+            await getUserData(uid, setUserData);
+            await ownerPosts(uid, setPosts);
             setLoading(false);
         };
 
@@ -60,8 +56,6 @@ function Profile() {
     const redirectToDetailsHandler = (id) => {
         navigate(`/details/${id}`);
     };
-
-   
 
     if (loading) {
         return <Loading />;
@@ -84,7 +78,7 @@ function Profile() {
                         <ProfileUsername>
                             Username: {userData.username}
                         </ProfileUsername>
-                        <ProfileEmail>Email: {user.email}</ProfileEmail>
+                        <ProfileEmail>Email: {userData.email}</ProfileEmail>
                         <ProfileAge>Age: {userData.age}</ProfileAge>
                         <PostsCount>You have "0" posts.</PostsCount>
                         <CommentsCounter>

@@ -49,7 +49,11 @@ export const likePostService = async (id, userId) => {
 
 export const createPostService = async (data, userId, setPostCreated) => {
     try {
-        if (data.title === "" || data.title == null || data.title === undefined) {
+        if (
+            data.title === "" ||
+            data.title == null ||
+            data.title === undefined
+        ) {
             return toast.error("Fill title to continue");
         } else if (
             data.muscleGroup === "" ||
@@ -69,7 +73,7 @@ export const createPostService = async (data, userId, setPostCreated) => {
             data.description === undefined
         ) {
             return toast.error("Fill description to continue");
-        } 
+        }
 
         const ownerName = await getUserName(userId);
         const docRef = doc(collection(db, "posts"));
@@ -88,7 +92,7 @@ export const createPostService = async (data, userId, setPostCreated) => {
     } catch (error) {
         toast.error("Error while creating post");
     }
-}
+};
 
 //DETAILS PAGE SERVICES
 
@@ -160,5 +164,62 @@ export const ownerPosts = async (userId, setPosts) => {
         return setPosts(userPosts);
     } catch (error) {
         toast.error("Error while getting user posts");
+    }
+};
+
+//EDIT PAGE SERVICES
+
+export const getSinglePostService = async (id, setData) => {
+    try {
+        const post = await getDoc(doc(db, "posts", id));
+        setData(post.data());
+    } catch (error) {
+        toast.error("Error while getting the post");
+    }
+};
+
+export const editPostService = async (id, data, setIsEdited) => {
+    try {
+        if (
+            data.title === "" ||
+            data.title == null ||
+            data.title === undefined
+        ) {
+            return toast.error("Fill title to continue");
+        } else if (
+            data.muscleGroup === "" ||
+            data.muscleGroup == null ||
+            data.muscleGroup === undefined
+        ) {
+            return toast.error("Fill muscle group to continue");
+        } else if (
+            data.src === "" ||
+            data.src == null ||
+            data.src === undefined
+        ) {
+            return toast.error("Upload image or video to continue");
+        } else if (
+            data.description === "" ||
+            data.description == null ||
+            data.description === undefined
+        ) {
+            return toast.error("Fill description to continue");
+        }
+
+        const docRef = doc(db, "posts", id);
+        await updateDoc(docRef, {
+            title: data.title,
+            description: data.description,
+            owner: data.owner,
+            src: data.src,
+            likes: data.likes,
+            muscleGroup: data.muscleGroup,
+            timeStamp: data.timeStamp,
+            ownerName: data.ownerName,
+        });
+        setIsEdited(true);
+    } catch (error) {
+        toast.error("Error updating")
+        console.log(error);
     }
 };

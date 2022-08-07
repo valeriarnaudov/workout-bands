@@ -112,7 +112,7 @@ function PostNewComment() {
                     />
                     <CommentSubmit type="submit">Submit</CommentSubmit>
                 </CommentForm>
-                {!comments ? (
+                {comments.length === 0 ? (
                     <NoComments>Still no comments</NoComments>
                 ) : (
                     comments.map((com) => {

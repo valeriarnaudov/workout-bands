@@ -232,6 +232,5 @@ export const editPostService = async (id, data, setIsEdited) => {
         setIsEdited(true);
     } catch (error) {
         toast.error("Error updating");
-        console.log(error);
     }
 };

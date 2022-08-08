@@ -36,6 +36,7 @@ function PostDetails({ postData, isLiked, user, setIsLiked }) {
     };
 
     const deleteHandler = async () => {
+        window.confirm(`Are you sure you want to delete?`)
         await deletePostService(id);
         navigate("/workouts");
     };

@@ -110,7 +110,7 @@ function Main() {
                         ))}
                     </SortContainer>
                 </FunctionsContainer>
-                {!data.length && <h1>There are no posts yet.</h1>}
+                {data.length === 0 && <h1>There are no posts yet.</h1>}
                 <ContentContainer>
                     <ContentItemsContainer>
 
@@ -167,31 +167,6 @@ function Main() {
                                   />
                               ))
                             : undefined}
-                            {/* {filteredData.length > 0 ? filteredData.map((post) => (
-                                  <SinglePost
-                                      key={post.id}
-                                      redirectToDetailsHandler={
-                                          redirectToDetailsHandler
-                                      }
-                                      post={post}
-                                      user={user}
-                                      userId={userId}
-                                      likePostHandler={likePostHandler}
-                                  />
-                            ))
-                            :
-                            data.map((post) => (
-                                  <SinglePost
-                                      key={post.id}
-                                      redirectToDetailsHandler={
-                                          redirectToDetailsHandler
-                                      }
-                                      post={post}
-                                      user={user}
-                                      userId={userId}
-                                      likePostHandler={likePostHandler}
-                                  />
-                              ))} */}
                     </ContentItemsContainer>
                 </ContentContainer>
             </MainSection>

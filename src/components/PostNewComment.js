@@ -102,6 +102,7 @@ function PostNewComment() {
     }
 
     const deleteHandler = async (postId, commentId) => {
+        window.confirm(`Are you sure you want to delete?`)
         await deleteCommentService(postId, commentId);
         setOnDelete(!onDelete);
     }

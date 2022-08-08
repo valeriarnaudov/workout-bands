@@ -18,7 +18,7 @@ import {
     Title,
     Video,
 } from "../styles/PostDetailsElements";
-import PostNewComment from "./PostNewComment";
+import PostNewComment from "../components/PostNewComment";
 import { deletePostService, likePostService } from "../services/postServices";
 
 function PostDetails({ postData, isLiked, user, setIsLiked }) {

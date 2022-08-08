@@ -32,7 +32,7 @@ import {
 } from "../services/postServices";
 import { AuthContext } from "../contexts/AuthContext";
 import { getUserName } from "../services/userServices";
-import Loading from "../components/Loading";
+import Loading from "./Loading";
 
 function PostNewComment() {
     const [comment, setComment] = useState("");

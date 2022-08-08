@@ -1,25 +1,16 @@
 import {
-    By,
     ContentContainer,
     ContentItemsContainer,
-    LikeBtn,
-    Likes,
     MainSection,
     MainSectionTitle,
-    PostContainer,
-    PostImage,
-    PostInfo,
-    PostOwner,
-    PostTitle,
-    PostVideo,
 } from "../styles/MainElements";
-import { BiLike } from "react-icons/bi";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { AuthContext } from "../contexts/AuthContext";
 import { getAllPosts, likePostService } from "../services/postServices";
 import Loading from "../components/Loading";
-import Search from "./Search";
+import Search from "../components/Search";
+import SinglePost from "../components/SinglePost";
 
 function Main() {
     const [data, setData] = useState([]);
@@ -69,54 +60,36 @@ function Main() {
                     setFiltredPosts={setFiltredPosts}
                 />
                 <MainSectionTitle>Workouts</MainSectionTitle>
-                {filtredPosts.map(filtredPost => <div className="filtredPosts">{filtredPost.title}</div>)}
                 {!data.length && <h1>There are no posts yet.</h1>}
                 <ContentContainer>
                     <ContentItemsContainer>
-                        {data.map((item) => (
-                            <PostContainer key={item.id}>
-                                {item.src.includes(".mp4") ? (
-                                    <PostVideo
-                                        src={item.src}
-                                        autoPlay={true}
-                                        muted={true}
-                                        onClick={() =>
-                                            redirectToDetailsHandler(item.id)
-                                        }
-                                    />
-                                ) : (
-                                    <PostImage
-                                        src={item.src}
-                                        onClick={() =>
-                                            redirectToDetailsHandler(item.id)
-                                        }
-                                    />
-                                )}
-                                <PostInfo>
-                                    <PostTitle>{item.title}</PostTitle>
-                                    <By>
-                                        By :
-                                        <PostOwner
-                                            to={`/profile/${item.owner}`}
-                                        >
-                                            {item.ownerName}
-                                        </PostOwner>
-                                    </By>
-                                    <Likes>Likes: {item.likes.length}</Likes>
-                                    {user && item.likes.includes(userId)
-                                        ? undefined
-                                        : user && (
-                                              <LikeBtn
-                                                  onClick={() =>
-                                                      likePostHandler(item.id)
-                                                  }
-                                              >
-                                                  <BiLike />
-                                              </LikeBtn>
-                                          )}
-                                </PostInfo>
-                            </PostContainer>
-                        ))}
+                        {filtredPosts
+                            ? filtredPosts.map((post) => (
+                                  <SinglePost
+                                      key={post.id}
+                                      redirectToDetailsHandler={
+                                          redirectToDetailsHandler
+                                      }
+                                      post={post}
+                                      user={user}
+                                      userId={userId}
+                                      likePostHandler={likePostHandler}
+                                  />
+                              ))
+                            : undefined}
+                        {filtredPosts.length === 0 &&
+                            data.map((post) => (
+                                <SinglePost
+                                    key={post.id}
+                                    redirectToDetailsHandler={
+                                        redirectToDetailsHandler
+                                    }
+                                    post={post}
+                                    user={user}
+                                    userId={userId}
+                                    likePostHandler={likePostHandler}
+                                />
+                            ))}
                     </ContentItemsContainer>
                 </ContentContainer>
             </MainSection>

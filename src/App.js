@@ -17,7 +17,6 @@ import Profile from "./pages/Profile";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import EditProfile from "./pages/EditProfile";
-import Search from "./pages/Search";
 
 function App() {
     const [isOpen, setIsOpen] = useState(false);

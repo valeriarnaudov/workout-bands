@@ -51,7 +51,7 @@ function Profile() {
 
         dataHandler();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [uid]);
 
     const redirectToDetailsHandler = (id) => {
         navigate(`/details/${id}`);

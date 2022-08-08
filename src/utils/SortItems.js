@@ -20,6 +20,6 @@ export const sortData = (
             );
         } else {
             setData(data.sort((a, b) => b.timeStamp - a.timeStamp));
-        }
+        }  
     }
 };

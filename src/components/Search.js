@@ -10,7 +10,7 @@ import {
 } from "../styles/SearchElements";
 import { FiSearch, FiXCircle } from "react-icons/fi";
 
-function Search({ data, filteredData, setFilteredData, setFiltredPosts }) {
+function Search({ data, filteredData, setFilteredData, setFilteredPosts }) {
     const [wordEntered, setWordEntered] = useState("");
 
     const handleInput = (e) => {
@@ -36,14 +36,15 @@ function Search({ data, filteredData, setFilteredData, setFiltredPosts }) {
 
     const clearInput = () => {
         setFilteredData([]);
-        setFiltredPosts([])
+        setFilteredPosts([])
         setWordEntered("");
     };
 
     const submitFormHandler = (e) => {
         e.preventDefault();
-        setFiltredPosts(filteredData);
+        setFilteredPosts(filteredData);
     };
+
 
     return (
         <>

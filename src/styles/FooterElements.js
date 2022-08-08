@@ -16,48 +16,9 @@ export const FooterWrap = styled.div`
     margin: 0 auto;
 `;
 
-export const FooterLinksContainer = styled.div`
-    display: flex;
-    justify-content: center;
 
-    @media screen and (max-width: 820px) {
-        padding-top: 32px;
-    }
-`;
 
-export const FooterLinksWrapper = styled.div`
-    display: flex;
 
-    @media screen and (max-width: 820px) {
-        flex-direction: column;
-    }
-`;
-
-export const FooterLinkItems = styled.div`
-    background-color: lightgray;
-    padding: 16px;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin: 16px;
-    text-align: left;
-    width: 160px;
-    box-sizing: border-box;
-    color: red;
-    box-shadow: 10px 4px 20px 0px rgba(0, 0, 0, 1);
-
-    @media screen and (max-width: 420px) {
-        margin: 0;
-        padding: 10px;
-        width: 100%;
-    }
-`;
-
-export const FooterLinkTitle = styled.h1`
-    font-size: 14px;
-    margin-bottom: 16px;
-`;
 
 export const FooterLink = styled(Link)`
     color: black;

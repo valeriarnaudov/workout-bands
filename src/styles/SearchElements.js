@@ -9,8 +9,6 @@ export const SearchForm = styled.form`
     margin-top: 30px;
 `;
 
-export const SearchInputs = styled.div``;
-
 export const Input = styled.input`
     background-color: white;
     border: 0;

@@ -25,6 +25,8 @@ function Main() {
     const [data, setData] = useState([]);
     const [like, setLike] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [filteredData, setFilteredData] = useState([]);
+    const [filtredPosts, setFiltredPosts] = useState([]);
 
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
@@ -36,9 +38,9 @@ function Main() {
 
     useEffect(() => {
         const fetchData = async () => {
-                const list = await getAllPosts();
-                setData(list);
-                setLoading(false);
+            const list = await getAllPosts();
+            setData(list);
+            setLoading(false);
         };
 
         fetchData();
@@ -60,8 +62,14 @@ function Main() {
     return (
         <>
             <MainSection>
-                <Search />
+                <Search
+                    data={data}
+                    filteredData={filteredData}
+                    setFilteredData={setFilteredData}
+                    setFiltredPosts={setFiltredPosts}
+                />
                 <MainSectionTitle>Workouts</MainSectionTitle>
+                {filtredPosts.map(filtredPost => <div className="filtredPosts">{filtredPost.title}</div>)}
                 {!data.length && <h1>There are no posts yet.</h1>}
                 <ContentContainer>
                     <ContentItemsContainer>
@@ -86,7 +94,14 @@ function Main() {
                                 )}
                                 <PostInfo>
                                     <PostTitle>{item.title}</PostTitle>
-                                    <By>By :<PostOwner to={`/profile/${item.owner}`}>{item.ownerName}</PostOwner></By>
+                                    <By>
+                                        By :
+                                        <PostOwner
+                                            to={`/profile/${item.owner}`}
+                                        >
+                                            {item.ownerName}
+                                        </PostOwner>
+                                    </By>
                                     <Likes>Likes: {item.likes.length}</Likes>
                                     {user && item.likes.includes(userId)
                                         ? undefined

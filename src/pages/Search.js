@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
     ClearIcon,
     DataItem,
@@ -7,26 +7,11 @@ import {
     Input,
     SearchForm,
     SearchIcon,
-    SearchInputs,
 } from "../styles/SearchElements";
 import { FiSearch, FiXCircle } from "react-icons/fi";
-import { getAllPosts } from "../services/postServices";
-import Loading from "../components/Loading";
 
-function Search() {
-    const [data, setData] = useState([]);
-    const [filteredData, setFilteredData] = useState([]);
+function Search({ data, filteredData, setFilteredData, setFiltredPosts }) {
     const [wordEntered, setWordEntered] = useState("");
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const list = await getAllPosts();
-            setData(list);
-            setLoading(false);
-        };
-        fetchData();
-    }, []);
 
     const handleInput = (e) => {
         const searchWord = e.target.value;
@@ -51,17 +36,18 @@ function Search() {
 
     const clearInput = () => {
         setFilteredData([]);
+        setFiltredPosts([])
         setWordEntered("");
     };
 
-    if (loading) {
-        return <Loading />;
-    }
+    const submitFormHandler = (e) => {
+        e.preventDefault();
+        setFiltredPosts(filteredData);
+    };
 
     return (
         <>
-            <SearchForm>
-                {/* <SearchInputs> */}
+            <SearchForm onSubmit={submitFormHandler}>
                 <Input
                     type="text"
                     placeholder="Search a workout by title..."
@@ -77,7 +63,6 @@ function Search() {
                     <FiSearch />
                 </SearchIcon>
             </SearchForm>
-            {/* </SearchInputs> */}
             {filteredData.length !== 0 && (
                 <DataResult>
                     {filteredData.map((item) => (

@@ -18,6 +18,29 @@ export const MainSectionTitle = styled.h1`
     max-width: 100%;
 `;
 
+export const FunctionsContainer = styled.div`
+
+`
+
+export const SortContainer = styled.select`
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: red;
+    margin-top: 1.5rem;
+    width: 200px;
+`
+
+export const SortOption = styled.option`
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: red;
+    margin-top: 2rem;
+    max-width: 500px;
+
+`
+
 export const ContentContainer = styled.div`
     display: flex;
     flex-direction: column;

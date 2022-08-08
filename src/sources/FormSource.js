@@ -75,13 +75,6 @@ export const postInputs = [
         value: "title",
     },
     {
-        id: "muscleGroup",
-        label: "Muscle Group",
-        type: "text",
-        placeholder: "Muscle Group",
-        value: "muscleGroup",
-    },
-    {
         id: "description",
         label: "Description",
         type: "text",

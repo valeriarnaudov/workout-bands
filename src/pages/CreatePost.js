@@ -11,18 +11,24 @@ import {
     FormInput,
     FormLabel,
     FormWrap,
+    GroupOptionContainer,
+    GroupSelectOption,
 } from "../styles/CreateElements";
 import { postInputs } from "../sources/FormSource";
 import { uploadFile } from "../services/uploadFileService";
 import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { createPostService } from "../services/postServices";
+import { muscleGroupOptions } from "../sources/MuscleGroupsOptions";
 
 function CreatePost() {
     const [file, setFile] = useState("");
     const [data, setData] = useState({});
     const [per, setPer] = useState(null);
     const [postCreated, setPostCreated] = useState(false);
+    const [selectedGroup, setSelectedGroup] = useState(
+        muscleGroupOptions[0].value
+    );
 
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -40,6 +46,11 @@ function CreatePost() {
     const handleAdd = async (e) => {
         e.preventDefault();
         await createPostService(data, user.uid, setPostCreated);
+    };
+
+    const handleGroupChange = (e) => {
+        setSelectedGroup(e.target.value);
+        setData({ ...data, muscleGroup: e.target.value });
     };
 
     if (postCreated) {
@@ -85,6 +96,19 @@ function CreatePost() {
                                     />
                                 </Fragment>
                             ))}
+                            <GroupOptionContainer
+                                value={selectedGroup}
+                                onChange={handleGroupChange}
+                            >
+                                {muscleGroupOptions.map((option) => (
+                                    <GroupSelectOption
+                                        key={option.value}
+                                        value={option.value}
+                                    >
+                                        {option.text}
+                                    </GroupSelectOption>
+                                ))}
+                            </GroupOptionContainer>
                             <FormButton
                                 disabled={per !== null && per < 100}
                                 type="submit"

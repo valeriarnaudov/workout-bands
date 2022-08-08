@@ -1,4 +1,10 @@
-export const sortData = (selectedSort,filtredPosts ,setFilteredData,setData,data) => {
+export const sortData = (
+    selectedSort,
+    filtredPosts,
+    setFilteredData,
+    setData,
+    data
+) => {
     if (selectedSort === "title") {
         if (filtredPosts.length > 0) {
             setFilteredData(
@@ -15,5 +21,5 @@ export const sortData = (selectedSort,filtredPosts ,setFilteredData,setData,data
         } else {
             setData(data.sort((a, b) => b.timeStamp - a.timeStamp));
         }
-    } 
-}
+    }
+};

@@ -54,11 +54,8 @@ function Main() {
 
     const handleSortChange = (e) => {
         setSelectedSort(e.target.value);
-        sortData(e.target.value,filtredPosts,setFilteredData,setData,data)
-
+        sortData(e.target.value, filtredPosts, setFilteredData, setData, data);
     };
-
-
 
     if (loading) {
         return <Loading />;

@@ -117,13 +117,18 @@ export const Text = styled.a`
     font-size: 14px;
 `;
 
-export const ErrorLable = styled.label`
-    text-align: center;
-    color: white;
-    font-size: 16px;
-    margin-bottom: 8px;
-    padding: 10px;
+export const GroupOptionContainer = styled.select`
+    padding: 16px 16px;
+    margin-bottom: 32px;
+    border: none;
     border-radius: 4px;
-    background: red;
-    font-weight: 700;
+`;
+
+export const GroupSelectOption = styled.option`
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: red;
+    margin-top: 2rem;
+    max-width: 500px;
 `;

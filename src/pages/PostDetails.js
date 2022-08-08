@@ -19,10 +19,7 @@ import {
     Video,
 } from "../styles/PostDetailsElements";
 import PostNewComment from "./PostNewComment";
-import { useContext, useState } from "react";
-import { AuthContext } from "../contexts/AuthContext";
 import { deletePostService, likePostService } from "../services/postServices";
-import { useEffect } from "react";
 
 function PostDetails({ postData, isLiked, user, setIsLiked }) {
     const post = postData;

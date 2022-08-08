@@ -19,6 +19,7 @@ import { useNavigate } from "react-router";
 import { AuthContext } from "../contexts/AuthContext";
 import { getAllPosts, likePostService } from "../services/postServices";
 import Loading from "../components/Loading";
+import Search from "./Search";
 
 function Main() {
     const [data, setData] = useState([]);
@@ -59,6 +60,7 @@ function Main() {
     return (
         <>
             <MainSection>
+                <Search />
                 <MainSectionTitle>Workouts</MainSectionTitle>
                 {!data.length && <h1>There are no posts yet.</h1>}
                 <ContentContainer>

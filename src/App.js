@@ -15,8 +15,9 @@ import Details from "./pages/Details";
 import EditPost from "./pages/EditPost";
 import Profile from "./pages/Profile";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import EditProfile from "./pages/EditProfile";
+import Search from "./pages/Search";
 
 function App() {
     const [isOpen, setIsOpen] = useState(false);
@@ -28,17 +29,17 @@ function App() {
     return (
         <AuthProvider>
             <ToastContainer
-                    position="top-center"
-                    autoClose={3000}
-                    hideProgressBar={false}
-                    newestOnTop
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="colored"
-                />
+                position="top-center"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+            />
             <Router>
                 <NavBar toogle={toogle} />
                 <Sidebar isOpen={isOpen} toogle={toogle} />

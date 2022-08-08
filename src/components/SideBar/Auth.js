@@ -5,9 +5,9 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { getUserName } from "../../services/userServices";
+import { FiSearch } from "react-icons/fi";
 
 function Auth({ toogle }) {
-
     const [userName, setUserName] = useState("");
 
     const { user } = useContext(AuthContext);
@@ -18,12 +18,10 @@ function Auth({ toogle }) {
             try {
                 const name = await getUserName(user.uid);
                 setUserName(name);
-            } catch (error) {
-                
-            }
-        }
+            } catch (error) {}
+        };
         userNameGetter();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleSignout = async () => {
@@ -45,6 +43,10 @@ function Auth({ toogle }) {
             </SidebarLink>
             <SidebarLink to="/" onClick={handleSignout}>
                 Sign Out
+            </SidebarLink>
+            <SidebarLink to={"/search"}>
+                <FiSearch />
+                Search
             </SidebarLink>
         </>
     );

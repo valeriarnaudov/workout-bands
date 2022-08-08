@@ -24,7 +24,9 @@ const Sidebar = ({ isOpen, toogle }) => {
                 <SidebarMenu>{user ? <Auth /> : <Guest />}</SidebarMenu>
                 <SideBtnWrap>
                     {user ? (
-                        <SidebarRoute to={`/profile/${user.uid}`}>Profile</SidebarRoute>
+                        <SidebarRoute to={`/profile/${user.uid}`}>
+                            Profile
+                        </SidebarRoute>
                     ) : (
                         <SidebarRoute to="/signin">Sign In</SidebarRoute>
                     )}

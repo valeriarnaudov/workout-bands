@@ -56,10 +56,12 @@ function NavBar({ toogle }) {
                     <MobileIcon onClick={toogle}>
                         <FaListAlt />
                     </MobileIcon>
-                    <NavMenu>{user ? <Auth /> : <Guest />}</NavMenu>
+                    <NavMenu>{user ? <Auth /> : <Guest />} </NavMenu>
                     {user ? (
                         <NavBtn>
-                            <NavBtnLink to={`/profile/${user.uid}`}>Profile</NavBtnLink>
+                            <NavBtnLink to={`/profile/${user.uid}`}>
+                                Profile
+                            </NavBtnLink>
                         </NavBtn>
                     ) : (
                         <NavBtn>

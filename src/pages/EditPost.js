@@ -12,8 +12,8 @@ import {
     FormInput,
     FormLabel,
     FormWrap,
-} from "../styles/EditPostElements";
-import { UploadBtn } from "../styles/SignupElements";
+    UploadBtn,
+} from "../styles/FormPagesElements";
 
 function EditPost() {
     const { id } = useParams();

@@ -9,7 +9,7 @@ import {
     FormLabel,
     FormWrap,
     UploadBtn,
-} from "../styles/EditProfileElements";
+} from "../styles/FormPagesElements";
 import { userInputsOnEdit } from "../sources/FormSource";
 import { useNavigate } from "react-router-dom";
 import { uploadFile } from "../services/uploadFileService";

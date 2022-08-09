@@ -12,14 +12,14 @@ import {
     FormWrap,
     GroupOptionContainer,
     GroupSelectOption,
-} from "../styles/CreateElements";
+    UploadBtn,
+} from "../styles/FormPagesElements";
 import { postInputs } from "../sources/FormSource";
 import { uploadFile } from "../services/uploadFileService";
 import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { createPostService } from "../services/postServices";
 import { muscleGroupOptions } from "../sources/MuscleGroupsOptions";
-import { UploadBtn } from "../styles/SignupElements";
 
 function CreatePost() {
     const [file, setFile] = useState("");

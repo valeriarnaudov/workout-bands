@@ -11,7 +11,7 @@ import {
     FormWrap,
     Text,
     UploadBtn,
-} from "../styles/SignupElements";
+} from "../styles/FormPagesElements";
 import { userInputs } from "../sources/FormSource";
 import { createUserCollection } from "../services/authService";
 import { uploadFile } from "../services/uploadFileService";

@@ -10,7 +10,7 @@ import {
     FormLabel,
     FormWrap,
     Text,
-} from "../styles/SigninElements";
+} from "../styles/FormPagesElements";
 import { signUp } from "../services/authService";
 import { AuthContext } from "../contexts/AuthContext";
 

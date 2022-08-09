@@ -131,3 +131,27 @@ export const GroupSelectOption = styled.option`
     margin-top: 2rem;
     max-width: 500px;
 `;
+
+export const UploadBtn = styled.label`
+    justify-content: center;
+    background: ${BTN_BACKGROUND};
+    padding: 12px 12px;
+    border: none;
+    border-radius: 20px;
+    color: ${BTN_MAIN_TEXT_COLOR};
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    margin-bottom: 20px;
+
+    &:hover {
+        transition: 0.3s ease-in-out;
+        background: ${BTN_BACKGROUND_HOVER};
+        color: ${BTN_HOVER_TEXT_COLOR};
+    }
+
+    &:disabled {
+        background: #ccc;
+        color: #fff;
+    }
+`;

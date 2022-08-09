@@ -1,18 +1,25 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import {
+    BTN_BACKGROUND,
+    BTN_BACKGROUND_HOVER,
+    BTN_HOVER_TEXT_COLOR,
+    BTN_MAIN_TEXT_COLOR,
+    CONTAINER_BACKGROUND_COLOR,
+    TEXT_COLOR,
+    TITLES_TEXT_COLOR,
+} from "../variables/Colors";
 
 export const Container = styled.div`
-    min-height: 692px;
+    min-height: calc(100vh - 155px);
     display: block;
     align-items: center;
-    padding: 15px 0 20px;
+    padding: 15px 0;
     bottom: 0;
     left: 0;
     right: 0;
     top: 0;
     z-index: 0;
     overflow: hidden;
-    background: #303030;
 `;
 
 export const FormWrap = styled.div`
@@ -23,20 +30,6 @@ export const FormWrap = styled.div`
 
     @media screen and (max-width: 400px) {
         height: 80%;
-    }
-`;
-
-export const Icon = styled(Link)`
-    margin-left: 32px;
-    margin-top: 32px;
-    text-decoration: none;
-    color: red;
-    font-weight: 700;
-    font-size: 32px;
-
-    @media screen and (max-width: 480px) {
-        margin-left: 16px;
-        margin-top: 8px;
     }
 `;
 
@@ -51,14 +44,14 @@ export const FormContent = styled.div`
     }
 `;
 export const Form = styled.form`
-    background: #010101;
+    background: ${CONTAINER_BACKGROUND_COLOR};
     max-width: 400px;
     height: auto;
     width: 100%;
     z-index: 1;
     display: grid;
     margin: 0 auto;
-    padding: 80px 32px;
+    padding: 40px 32px;
     border-radius: 20px;
     box-shadow: 10px 4px 20px rgba(0, 0, 0, 0.9);
 
@@ -69,16 +62,17 @@ export const Form = styled.form`
 
 export const FormH1 = styled.h1`
     margin-bottom: 40px;
-    color: #fff;
-    font-size: 20px;
+    color: ${TITLES_TEXT_COLOR};
+    font-size: 24px;
     font-weight: 400;
     text-align: center;
+    font-weight: bold;
 `;
 
 export const FormLabel = styled.label`
     margin-bottom: 8px;
     font-size: 14px;
-    color: #fff;
+    color: ${TEXT_COLOR};
 `;
 
 export const FormInput = styled.input`
@@ -89,19 +83,19 @@ export const FormInput = styled.input`
 `;
 
 export const FormButton = styled.button`
-    background: red;
+    background: ${BTN_BACKGROUND};
     padding: 16px 0;
     border: none;
     border-radius: 4px;
-    color: #fff;
+    color: ${BTN_MAIN_TEXT_COLOR};
     font-size: 20px;
     cursor: pointer;
     transition: 0.3s ease-in-out;
 
     &:hover {
         transition: 0.3s ease-in-out;
-        background: white;
-        color: red;
+        background: ${BTN_BACKGROUND_HOVER};
+        color: ${BTN_HOVER_TEXT_COLOR};
     }
 
     &:disabled {
@@ -113,17 +107,11 @@ export const FormButton = styled.button`
 export const Text = styled.a`
     text-align: center;
     margin-top: 24px;
-    color: #fff;
+    color: ${TEXT_COLOR};
     font-size: 14px;
-`;
+    cursor: pointer;
 
-export const ErrorLable = styled.label`
-    text-align: center;
-    color: white;
-    font-size: 16px;
-    margin-bottom: 8px;
-    padding: 10px;
-    border-radius: 4px;
-    background: red;
-    font-weight: 700;
+    &:hover {
+        color: ${BTN_HOVER_TEXT_COLOR};
+    }
 `;

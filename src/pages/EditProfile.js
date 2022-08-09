@@ -8,8 +8,8 @@ import {
     FormInput,
     FormLabel,
     FormWrap,
+    UploadBtn,
 } from "../styles/EditProfileElements";
-import { FaUpload } from "react-icons/fa";
 import { userInputsOnEdit } from "../sources/FormSource";
 import { useNavigate } from "react-router-dom";
 import { uploadFile } from "../services/uploadFileService";
@@ -58,17 +58,9 @@ function EditProfile() {
                 <FormContent>
                     <Form onSubmit={editHandler}>
                         <FormH1>Profile edit</FormH1>
-                        <FormLabel htmlFor="file" style={{ fontSize: "20px" }}>
-                            <FaUpload
-                                style={{
-                                    background: "red",
-                                    padding: "10px",
-                                    fontSize: "40px",
-                                    borderRadius: "50%",
-                                    color: "white",
-                                }}
-                            />
-                        </FormLabel>
+                        <UploadBtn htmlFor="file" style={{ fontSize: "20px" }}>
+                            Upload image or video
+                        </UploadBtn>
                         <FormInput
                             type="file"
                             id="file"

@@ -1,5 +1,4 @@
 import { Fragment, useContext, useEffect, useState } from "react";
-import { FaUpload } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import {
     Container,
@@ -11,6 +10,7 @@ import {
     FormLabel,
     FormWrap,
     Text,
+    UploadBtn,
 } from "../styles/SignupElements";
 import { userInputs } from "../sources/FormSource";
 import { createUserCollection } from "../services/authService";
@@ -38,11 +38,11 @@ function SignUp() {
         e.preventDefault();
         await createUserCollection(data);
     };
-    
+
     if (user) {
         navigate("/workouts");
     }
-    
+
     return (
         <>
             <Container>
@@ -50,21 +50,12 @@ function SignUp() {
                     <FormContent>
                         <Form onSubmit={handleAdd}>
                             <FormH1>Create new user</FormH1>
-                            <FormLabel
+                            <UploadBtn
                                 htmlFor="file"
                                 style={{ fontSize: "20px" }}
                             >
-                                Image:{" "}
-                                <FaUpload
-                                    style={{
-                                        background: "red",
-                                        padding: "10px",
-                                        fontSize: "40px",
-                                        borderRadius: "50%",
-                                        color: "white",
-                                    }}
-                                />
-                            </FormLabel>
+                                Upload image or video
+                            </UploadBtn>
                             <FormInput
                                 type="file"
                                 id="file"

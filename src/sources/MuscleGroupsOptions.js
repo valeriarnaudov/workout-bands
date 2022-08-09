@@ -9,7 +9,7 @@ export const muscleGroupOptions = [
 ]
 
 export const filterMuscleGroupOptions = [
-    { value: "", text: "-Filter by muscle group-" },
+    { value: "", text: "Filter by group:" },
     { value: "Chest", text: "Chest" },
     { value: "Back", text: "Back" },
     { value: "Arms", text: "Arms" },

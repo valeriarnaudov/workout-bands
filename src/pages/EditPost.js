@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { FaUpload } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
 import { editPostService, getSinglePostService } from "../services/postServices";
 import { uploadFile } from "../services/uploadFileService";
@@ -14,6 +13,7 @@ import {
     FormLabel,
     FormWrap,
 } from "../styles/EditPostElements";
+import { UploadBtn } from "../styles/SignupElements";
 
 function EditPost() {
     const { id } = useParams();
@@ -58,21 +58,18 @@ function EditPost() {
                     <FormContent>
                         <Form onSubmit={editHandler}>
                             <FormH1>Edit Post</FormH1>
-                            <FormLabel
+                            <UploadBtn
                                 htmlFor="file"
                                 style={{ fontSize: "20px" }}
-                            >
-                                Image or video link below:{" "}
-                                <FaUpload
-                                    style={{
-                                        background: "red",
-                                        padding: "10px",
-                                        fontSize: "40px",
-                                        borderRadius: "50%",
-                                        color: "white",
-                                    }}
-                                />
-                            </FormLabel>
+                            >   
+                                Upload image or video
+                            </UploadBtn>
+                            <FormInput
+                                type="file"
+                                id="file"
+                                style={{ display: "none" }}
+                                onChange={(e) => setFile(e.target.files[0])}
+                            />
                             <FormInput
                                 type="file"
                                 id="file"

@@ -1,9 +1,17 @@
 import styled from "styled-components";
 import { Link as LinkR } from "react-router-dom";
-import { Link as LinkS } from "react-scroll";
+import {
+    BARS_BACKGROUND,
+    BTN_BACKGROUND,
+    BTN_BACKGROUND_HOVER,
+    BTN_HOVER_TEXT_COLOR,
+    BTN_MAIN_TEXT_COLOR,
+    TEXT_COLOR,
+    TITLES_TEXT_COLOR,
+} from "../variables/Colors";
 
 export const Nav = styled.nav`
-    background: #303030;
+    background: ${BARS_BACKGROUND};
     height: 80px;
     display: flex;
     justify-content: center;
@@ -12,6 +20,8 @@ export const Nav = styled.nav`
     position: sticky;
     top: 0;
     z-index: 10;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 
     @media screen and (min-width: 960px) {
         transition: 0.8s all ease;
@@ -29,7 +39,7 @@ export const NavbarContainer = styled.div`
 `;
 
 export const NavLogo = styled(LinkR)`
-    color: red;
+    color: ${TITLES_TEXT_COLOR};
     justify-self: flex-start;
     cursor: pointer;
     font-size: 1.5rem;
@@ -51,7 +61,7 @@ export const MobileIcon = styled.div`
         transform: translate(-100%, 60%);
         font-size: 1.8rem;
         cursor: pointer;
-        color: #fff;
+        color: ${TITLES_TEXT_COLOR};
     }
 `;
 
@@ -71,28 +81,8 @@ export const NavItem = styled.li`
     height: 80px;
 `;
 
-export const NavLinks = styled(LinkS)`
-    color: white;
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    padding: 0 1rem;
-    height: 100%;
-    cursor: pointer;
-
-    &.active {
-        border-bottom: 3px solid red;
-    }
-
-    &:hover {
-        color: red;
-        transition: 0.3s ease-in-out;
-        font-weight: 700;
-    }
-`;
-
 export const NavLink = styled(LinkR)`
-    color: white;
+    color: ${TEXT_COLOR};
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -100,12 +90,8 @@ export const NavLink = styled(LinkR)`
     height: 100%;
     cursor: pointer;
 
-    &.active {
-        border-bottom: 3px solid red;
-    }
-
     &:hover {
-        color: red;
+        color: ${TITLES_TEXT_COLOR};
         transition: 0.3s ease-in-out;
         font-weight: 700;
     }
@@ -122,8 +108,8 @@ export const NavBtn = styled.nav`
 
 export const NavBtnLink = styled(LinkR)`
     border-radius: 50px;
-    background: red;
-    color: white;
+    background: ${BTN_BACKGROUND};
+    color: ${BTN_MAIN_TEXT_COLOR};
     white-space: nowrap;
     padding: 10px 22px;
     font-size: 16px;
@@ -135,7 +121,7 @@ export const NavBtnLink = styled(LinkR)`
 
     &:hover {
         transition: all 0.2s ease-in-out;
-        background: #fff;
-        color: red;
+        background: ${BTN_BACKGROUND_HOVER};
+        color: ${BTN_HOVER_TEXT_COLOR};
     }
 `;

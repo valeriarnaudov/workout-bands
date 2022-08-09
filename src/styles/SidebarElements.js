@@ -1,13 +1,22 @@
 import styled from "styled-components";
 import { FaTimesCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import {
+    BARS_BACKGROUND,
+    BTN_BACKGROUND,
+    BTN_BACKGROUND_HOVER,
+    BTN_HOVER_TEXT_COLOR,
+    BTN_MAIN_TEXT_COLOR,
+    TEXT_COLOR,
+    TITLES_TEXT_COLOR,
+} from "../variables/Colors";
 
 export const SidebarContainer = styled.aside`
     position: fixed;
     z-index: 999;
     width: 100%;
     height: 100%;
-    background: #0d0d0d;
+    background: ${BARS_BACKGROUND};
     display: grid;
     align-items: center;
     top: 0;
@@ -18,8 +27,14 @@ export const SidebarContainer = styled.aside`
 `;
 
 export const CloseIcon = styled(FaTimesCircle)`
-    color: red;
+    color: ${TITLES_TEXT_COLOR};
     font-size: 4rem;
+    cursor: pointer;
+
+    &:hover {
+        color: ${BTN_BACKGROUND_HOVER};
+        transition: 0.3s ease-in-out;
+    }
 `;
 
 export const Icon = styled.div`
@@ -33,7 +48,7 @@ export const Icon = styled.div`
 `;
 
 export const SidebarWrapper = styled.div`
-    color: white;
+    color: ${TITLES_TEXT_COLOR};
 `;
 
 export const SidebarLink = styled(Link)`
@@ -44,11 +59,11 @@ export const SidebarLink = styled(Link)`
     text-decoration: none;
     list-style: none;
     transition: all 0.2s ease-in-out;
-    color: white;
+    color: ${TEXT_COLOR};
     cursor: pointer;
 
     &:hover {
-        color: red;
+        color: ${BTN_HOVER_TEXT_COLOR};
         transition: all 0.2s ease-in-out;
     }
 `;
@@ -72,20 +87,21 @@ export const SidebarMenu = styled.ul`
 
 export const SidebarRoute = styled(Link)`
     border-radius: 50px;
-    background: red;
+    background: ${BTN_BACKGROUND};
     white-space: nowrap;
     padding: 16px 64px;
-    color: white;
+    color: ${BTN_MAIN_TEXT_COLOR};
     font-size: 16px;
     outline: none;
     border: none;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
+    font-weight: bold;
 
     &:hover {
         transition: all 0.2s ease-in-out;
-        background: white;
-        color: red;
+        background: ${BTN_BACKGROUND_HOVER};
+        color: ${BTN_HOVER_TEXT_COLOR};
     }
 `;

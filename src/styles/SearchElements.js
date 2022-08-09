@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { MAIN_CONTAINER_BACKGROUND_COLOR } from "../variables/Colors";
 
 export const SearchForm = styled.form`
     display: flex;
@@ -10,7 +11,7 @@ export const SearchForm = styled.form`
 `;
 
 export const Input = styled.input`
-    background-color: white;
+    background-color: ${MAIN_CONTAINER_BACKGROUND_COLOR};
     border: 0;
     border-radius: 20px;
     border-top-right-radius: 0px;
@@ -27,10 +28,11 @@ export const Input = styled.input`
 export const SearchIcon = styled.div`
     height: 30px;
     width: 50px;
-    background-color: white;
+    background-color: ${MAIN_CONTAINER_BACKGROUND_COLOR};
     display: grid;
     place-items: center;
     font-size: 12px;
+    font-weight: bold;
     cursor: pointer;
 `;
 
@@ -41,6 +43,7 @@ export const ClearIcon = styled.div`
     display: grid;
     place-items: center;
     font-size: 12px;
+    font-weight: bold;
     cursor: pointer;
 `;
 
@@ -48,10 +51,12 @@ export const DataResult = styled.div`
     margin-top: 5px;
     width: 300px;
     height: 200px;
-    background-color: white;
+    background-color: ${MAIN_CONTAINER_BACKGROUND_COLOR};
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     overflow: hidden;
     overflow-y: auto;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 
     ::-webkit-scrollbar {
         display: none;

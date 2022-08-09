@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { MdKeyboardArrowRight, MdArrowForward } from "react-icons/md";
+import { TEXT_COLOR } from "../variables/Colors";
 
 export const WorkoutContainer = styled.div`
-    background: #0c0c0c;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,10 +18,11 @@ export const WorkoutContainer = styled.div`
         right: 0;
         bottom: 0;
         background: linear-gradient(
-            180def,
-            rgba(0, 0, 0, 2 0%),
-            rgba(0, 0, 0, 0.6) 100%
-        ), linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%), transparent 100%;
+                180def,
+                rgba(0, 0, 0, 2 0%),
+                rgba(0, 0, 0, 0.6) 100%
+            ),
+            linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%), transparent 100%;
         z-index: 2;
     }
 `;
@@ -56,7 +57,7 @@ export const WorkoutContent = styled.div`
 `;
 
 export const WorkoutH1 = styled.h1`
-    color: white;
+    color: ${TEXT_COLOR};
     font-size: 48px;
     text-align: center;
 

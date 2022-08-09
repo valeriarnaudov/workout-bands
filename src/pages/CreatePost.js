@@ -1,5 +1,4 @@
 import { Fragment, useEffect, useState } from "react";
-import { FaUpload } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -20,6 +19,7 @@ import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { createPostService } from "../services/postServices";
 import { muscleGroupOptions } from "../sources/MuscleGroupsOptions";
+import { UploadBtn } from "../styles/SignupElements";
 
 function CreatePost() {
     const [file, setFile] = useState("");
@@ -64,21 +64,12 @@ function CreatePost() {
                     <FormContent>
                         <Form onSubmit={handleAdd}>
                             <FormH1>Create new post</FormH1>
-                            <FormLabel
+                            <UploadBtn
                                 htmlFor="file"
                                 style={{ fontSize: "20px" }}
                             >
-                                Image or video link below:{" "}
-                                <FaUpload
-                                    style={{
-                                        background: "red",
-                                        padding: "10px",
-                                        fontSize: "40px",
-                                        borderRadius: "50%",
-                                        color: "white",
-                                    }}
-                                />
-                            </FormLabel>
+                                Upload image or video
+                            </UploadBtn>
                             <FormInput
                                 type="file"
                                 id="file"

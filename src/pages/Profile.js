@@ -6,13 +6,12 @@ import { AuthContext } from "../contexts/AuthContext";
 import { ownerPosts } from "../services/postServices";
 import { getUserData } from "../services/userServices";
 import {
-    CommentsCounter,
     EditProfileBtn,
     H2,
     NoPosts,
+    PostDate,
     PostImg,
     PostsContainer,
-    PostsCount,
     PostTitle,
     PostVideo,
     ProfileAge,
@@ -80,10 +79,6 @@ function Profile() {
                         </ProfileUsername>
                         <ProfileEmail>Email: {userData.email}</ProfileEmail>
                         <ProfileAge>Age: {userData.age}</ProfileAge>
-                        <PostsCount>You have "0" posts.</PostsCount>
-                        <CommentsCounter>
-                            Total comments on posts: "0"
-                        </CommentsCounter>
                         {isLoggedUserProfile && (
                             <EditProfileBtn to={`/profile/edit/${user.uid}`}>
                                 Edit profile
@@ -119,6 +114,9 @@ function Profile() {
                                 />
                             )}
                             <PostTitle>{post.title}</PostTitle>
+                            <PostDate>
+                                {post.timeStamp.toDate().toLocaleString()}
+                            </PostDate>
                         </SinglePostContainer>
                     ))}
                 </PostsContainer>

@@ -1,7 +1,17 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import {
+    BTN_BACKGROUND,
+    BTN_BACKGROUND_HOVER,
+    BTN_HOVER_TEXT_COLOR,
+    BTN_MAIN_TEXT_COLOR,
+    CONTAINER_BACKGROUND_COLOR,
+    TEXT_COLOR,
+    TITLES_TEXT_COLOR,
+} from "../variables/Colors";
 
 export const ProfileContainer = styled.div`
+    min-height: calc(100vh - 155px);
     display: grid;
     justify-content: center;
     align-items: center;
@@ -12,7 +22,7 @@ export const H2 = styled.h2`
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 1rem;
-    color: red;
+    color: ${TITLES_TEXT_COLOR};
     margin-top: 2rem;
     max-width: 100%;
     text-align: center;
@@ -29,7 +39,7 @@ export const ProfileInfo = styled.div`
     text-align: center;
     justify-content: center;
     align-items: center;
-    background: lightgray;
+    background: ${CONTAINER_BACKGROUND_COLOR};
     box-shadow: 0 0 20px 20px (0, 0, 0, 1);
 
     @media screen and (max-width: 768px) {
@@ -40,7 +50,7 @@ export const ProfileInfo = styled.div`
 export const ProfileImg = styled.img`
     max-width: 250px;
     max-height: 250px;
-    border-radius: 20%;
+    border-radius: 50%;
 `;
 
 export const ProfileInfoContainer = styled.div`
@@ -50,55 +60,49 @@ export const ProfileInfoContainer = styled.div`
 
 export const ProfileName = styled.p`
     font-size: 30px;
-    color: red;
+    color: ${TITLES_TEXT_COLOR};
 `;
 
 export const ProfileCreatedAt = styled.p`
+    color: ${TEXT_COLOR};
     font-size: 15px;
     line-height: 2rem;
 `;
 
 export const ProfileUsername = styled.p`
+    color: ${TEXT_COLOR};
     font-size: 20px;
     line-height: 2rem;
 `;
 
 export const ProfileEmail = styled.p`
+    color: ${TEXT_COLOR};
     font-size: 20px;
     line-height: 2rem;
 `;
 
 export const ProfileAge = styled.p`
+    color: ${TEXT_COLOR};
     font-size: 20px;
     line-height: 2rem;
-`;
-
-export const PostsCount = styled.p`
-    font-size: 20px;
-    line-height: 2rem;
-`;
-
-export const CommentsCounter = styled.p`
-    font-size: 20px;
-    line-height: 2rem;
+    margin-bottom: 10px;
 `;
 
 export const EditProfileBtn = styled(Link)`
     text-decoration: none;
     font-size: 20px;
     font-weight: 700;
-    margin-top: 20px;
-    background: white;
+    background: ${BTN_BACKGROUND};
     border: none;
     padding: 5px 10px 5px 10px;
     border-radius: 20px;
-    color: red;
+    color: ${BTN_MAIN_TEXT_COLOR};
     transition: 500ms ease-in-out;
     cursor: pointer;
 
     &:hover {
-        color: white;
-        background: red;
+        color: ${BTN_HOVER_TEXT_COLOR};
+        background: ${BTN_BACKGROUND_HOVER};
         transition: 500ms ease-in-out;
     }
 `;
@@ -106,12 +110,12 @@ export const EditProfileBtn = styled(Link)`
 export const NoPosts = styled.p`
     font-size: 1.2rem;
     font-weight: 700;
-    color: white;
+    color: ${TITLES_TEXT_COLOR};
     text-align: center;
     margin-top: 20px;
     margin-bottom: 20px;
     padding: 20px;
-    background: black;
+    background: ${CONTAINER_BACKGROUND_COLOR};
     border-radius: 20px;
     text-decoration: italic;
 `;
@@ -135,9 +139,9 @@ export const PostsContainer = styled.div`
 
 export const SinglePostContainer = styled.div`
     margin: 10px 10px;
-    background: lightgray;
+    background: ${CONTAINER_BACKGROUND_COLOR};
     padding: 30px;
-    border-radius: 15px;
+    border-radius: 20px;
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     width: 360px;
@@ -156,6 +160,7 @@ export const PostImg = styled.img`
     width: 100%;
     height: 200px;
     object-fit: cover;
+    border-radius: 20px;
 
     @media screen and (max-width: 768px) {
         height: 500px;
@@ -165,6 +170,7 @@ export const PostVideo = styled.video`
     max-width: 100%;
     max-height: 200px;
     object-fit: fill;
+    border-radius: 20px;
 
     @media screen and (max-width: 768px) {
         max-height: 500px;
@@ -177,6 +183,11 @@ export const PostVideo = styled.video`
 
 export const PostTitle = styled.p`
     font-size: 20px;
-    color: red;
+    color: ${TITLES_TEXT_COLOR};
     font-weight: bold;
+`;
+
+export const PostDate = styled.p`
+    font-size: 10px;
+    color: ${TEXT_COLOR};
 `;

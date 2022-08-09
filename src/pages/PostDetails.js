@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router";
-import { BiLike } from "react-icons/bi";
 import {
+    By,
+    CreatedAt,
     DeleteBtn,
     Description,
     EditBtn,
@@ -12,6 +13,7 @@ import {
     Likes,
     MuscleGroup,
     PostContainer,
+    PostOwner,
     PostSection,
     SignRedirect,
     SrcContainer,
@@ -20,9 +22,12 @@ import {
 } from "../styles/PostDetailsElements";
 import PostNewComment from "../components/PostNewComment";
 import { deletePostService, likePostService } from "../services/postServices";
+import { useState } from "react";
 
 function PostDetails({ postData, isLiked, user, setIsLiked }) {
     const post = postData;
+    const [postDate, setPostDate] = useState("");
+    const [postLikes, setPostLikes] = useState(0);
     const { id } = useParams();
     const navigate = useNavigate();
 
@@ -36,7 +41,7 @@ function PostDetails({ postData, isLiked, user, setIsLiked }) {
     };
 
     const deleteHandler = async () => {
-        window.confirm(`Are you sure you want to delete?`)
+        window.confirm(`Are you sure you want to delete?`);
         await deletePostService(id);
         navigate("/workouts");
     };
@@ -44,7 +49,12 @@ function PostDetails({ postData, isLiked, user, setIsLiked }) {
     const onLike = async () => {
         await likePostService(id, user.uid);
         setIsLiked(true);
-    }
+    };
+
+    setTimeout(() => {
+        setPostDate(post.timeStamp.toDate().toLocaleString());
+        setPostLikes(post.likes.length);
+    }, 1000);
 
     return (
         <>
@@ -60,21 +70,22 @@ function PostDetails({ postData, isLiked, user, setIsLiked }) {
                     </SrcContainer>
                     <InfoContainer>
                         <Title>Title: {post.title}</Title>
+                        <CreatedAt>Created at: {postDate}</CreatedAt>
+                        <By>
+                            By:{" "}
+                            <PostOwner to={`/profile/${post.owner}`}>
+                                {post.ownerName}
+                            </PostOwner>
+                        </By>
                         <MuscleGroup>
                             Muscle group: {post.muscleGroup}
                         </MuscleGroup>
                         <Description>
                             Description: {post.description}
                         </Description>
-                        <Likes>
-                            {!post.likes
-                                ? "This post currently has no likes"
-                                : "Likes: " + post.likes.length}
-                        </Likes>
-                        {user && !isOwner && isLiked === false ? (
-                            <LikeBtn>
-                                <BiLike onClick={onLike}/>
-                            </LikeBtn>
+                        <Likes>Likes: {postLikes}</Likes>
+                        {user && isLiked === false ? (
+                            <LikeBtn onClick={onLike}>Like</LikeBtn>
                         ) : (
                             ""
                         )}

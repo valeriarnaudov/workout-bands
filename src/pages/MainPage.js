@@ -81,13 +81,13 @@ function Main() {
     return (
         <>
             <MainSection>
+                <MainSectionTitle>Workouts</MainSectionTitle>
                 <Search
                     data={data}
                     filteredData={filteredData}
                     setFilteredData={setFilteredData}
                     setFilteredPosts={setFilteredPosts}
                 />
-                <MainSectionTitle>Workouts</MainSectionTitle>
                 <FunctionsContainer>
                     <SortContainer
                         value={selectedSort}

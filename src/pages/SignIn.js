@@ -37,7 +37,7 @@ function SignIn() {
                 <FormWrap>
                     <FormContent>
                         <Form onSubmit={handleLogin}>
-                            <FormH1>Sign In to your accout</FormH1>
+                            <FormH1>Sign In</FormH1>
                             <FormLabel htmlFor="for" value="email">
                                 Email
                             </FormLabel>

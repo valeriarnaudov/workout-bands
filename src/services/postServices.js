@@ -34,7 +34,7 @@ export const likePostService = async (id, userId) => {
         const likes = docSnapshot.data().likes;
 
         if (likes.includes(userId)) {
-           return toast.error(`Already liked this post!`);
+            return toast.error(`Already liked this post!`);
         }
 
         await updateDoc(docRef, {
@@ -128,7 +128,7 @@ export const deleteCommentService = async (postId, commentId) => {
     } catch (error) {
         toast.error("Error while deleting comment");
     }
-}
+};
 
 export const createCommentService = async (id, comment, userId, ownerName) => {
     try {
@@ -169,7 +169,7 @@ export const ownerPosts = async (userId, setPosts) => {
                 userPosts.push(post);
             }
         });
-        userPosts.sort((a, b) => a.timeStamp - b.timeStamp);
+        userPosts.sort((a, b) => b.timeStamp - a.timeStamp);
         return setPosts(userPosts);
     } catch (error) {
         toast.error("Error while getting user posts");

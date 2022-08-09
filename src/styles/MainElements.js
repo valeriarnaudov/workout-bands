@@ -124,6 +124,7 @@ export const PostTitle = styled.h2`
 `;
 
 export const By = styled.p`
+    margin-top: 10px;
     color: ${TEXT_COLOR};
     font-size: 12px;
 `;

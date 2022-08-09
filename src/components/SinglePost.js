@@ -43,6 +43,7 @@ function SinglePost({
                             {post.ownerName}
                         </PostOwner>
                     </By>
+                    <By>{post.timeStamp.toDate().toLocaleString()}</By>
                     <Likes>Likes: {post.likes.length}</Likes>
                     {user && post.likes.includes(userId)
                         ? undefined

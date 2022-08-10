@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { editPostService, getSinglePostService } from "../services/postServices";
+import {
+    editPostService,
+    getSinglePostService,
+} from "../services/postServices";
 import { uploadFile } from "../services/uploadFileService";
 import { postInputs } from "../sources/FormSource";
+import { muscleGroupOptions } from "../sources/MuscleGroupsOptions";
 import {
     Container,
     Form,
@@ -12,6 +16,8 @@ import {
     FormInput,
     FormLabel,
     FormWrap,
+    OptionContainer,
+    SelectOption,
     UploadBtn,
 } from "../styles/FormPagesElements";
 
@@ -21,6 +27,9 @@ function EditPost() {
     const [data, setData] = useState({});
     const [per, setPer] = useState(null);
     const [isEdited, setIsEdited] = useState(false);
+    const [selectedGroup, setSelectedGroup] = useState(
+        muscleGroupOptions[0].value
+    );
 
     const navigate = useNavigate();
 
@@ -33,7 +42,7 @@ function EditPost() {
             await getSinglePostService(id, setData);
         };
         fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleInput = (e) => {
@@ -45,6 +54,11 @@ function EditPost() {
     const editHandler = async (e) => {
         e.preventDefault();
         await editPostService(id, data, setIsEdited);
+    };
+
+    const handleGroupChange = (e) => {
+        setSelectedGroup(e.target.value);
+        setData({ ...data, muscleGroup: e.target.value });
     };
 
     if (isEdited) {
@@ -61,7 +75,7 @@ function EditPost() {
                             <UploadBtn
                                 htmlFor="file"
                                 style={{ fontSize: "20px" }}
-                            >   
+                            >
                                 Upload image or video
                             </UploadBtn>
                             <FormInput
@@ -90,6 +104,19 @@ function EditPost() {
                                     />
                                 </>
                             ))}
+                            <OptionContainer
+                                value={selectedGroup}
+                                onChange={handleGroupChange}
+                            >
+                                {muscleGroupOptions.map((option) => (
+                                    <SelectOption
+                                        key={option.value}
+                                        value={option.value}
+                                    >
+                                        {option.text}
+                                    </SelectOption>
+                                ))}
+                            </OptionContainer>
                             <FormButton
                                 disabled={per !== null && per < 100}
                                 type="submit"

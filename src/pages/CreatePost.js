@@ -10,8 +10,8 @@ import {
     FormInput,
     FormLabel,
     FormWrap,
-    GroupOptionContainer,
-    GroupSelectOption,
+    OptionContainer,
+    SelectOption,
     UploadBtn,
 } from "../styles/FormPagesElements";
 import { postInputs } from "../sources/FormSource";
@@ -87,19 +87,19 @@ function CreatePost() {
                                     />
                                 </Fragment>
                             ))}
-                            <GroupOptionContainer
+                            <OptionContainer
                                 value={selectedGroup}
                                 onChange={handleGroupChange}
                             >
                                 {muscleGroupOptions.map((option) => (
-                                    <GroupSelectOption
+                                    <SelectOption
                                         key={option.value}
                                         value={option.value}
                                     >
                                         {option.text}
-                                    </GroupSelectOption>
+                                    </SelectOption>
                                 ))}
-                            </GroupOptionContainer>
+                            </OptionContainer>
                             <FormButton
                                 disabled={per !== null && per < 100}
                                 type="submit"

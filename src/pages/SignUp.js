@@ -54,7 +54,7 @@ function SignUp() {
                                 htmlFor="file"
                                 style={{ fontSize: "20px" }}
                             >
-                                Upload image or video
+                                Upload profile image
                             </UploadBtn>
                             <FormInput
                                 type="file"

@@ -116,14 +116,14 @@ export const Text = styled.a`
     }
 `;
 
-export const GroupOptionContainer = styled.select`
+export const OptionContainer = styled.select`
     padding: 16px 16px;
     margin-bottom: 32px;
     border: none;
     border-radius: 4px;
 `;
 
-export const GroupSelectOption = styled.option`
+export const SelectOption = styled.option`
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 1rem;

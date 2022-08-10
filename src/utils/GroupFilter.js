@@ -17,5 +17,7 @@ export const filterGroups = (
                 data.filter((item) => item.muscleGroup === selectedGroup)
             );
         }
+    } else {
+        setFilteredGroups([]);
     }
 };

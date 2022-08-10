@@ -36,7 +36,7 @@ function Search({ data, filteredData, setFilteredData, setFilteredPosts }) {
 
     const clearInput = () => {
         setFilteredData([]);
-        setFilteredPosts([])
+        setFilteredPosts([]);
         setWordEntered("");
     };
 
@@ -44,7 +44,6 @@ function Search({ data, filteredData, setFilteredData, setFilteredPosts }) {
         e.preventDefault();
         setFilteredPosts(filteredData);
     };
-
 
     return (
         <>
@@ -55,13 +54,11 @@ function Search({ data, filteredData, setFilteredData, setFilteredPosts }) {
                     value={wordEntered}
                     onChange={handleInput}
                 />
-                {filteredData.length === 0 ? undefined : (
-                    <ClearIcon>
-                        <FiXCircle onClick={clearInput} />
-                    </ClearIcon>
-                )}
+                <ClearIcon>
+                    <FiXCircle onClick={clearInput} />
+                </ClearIcon>
                 <SearchIcon>
-                    <FiSearch />
+                    <FiSearch onClick={submitFormHandler} />
                 </SearchIcon>
             </SearchForm>
             {filteredData.length !== 0 && (

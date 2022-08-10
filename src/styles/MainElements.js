@@ -12,12 +12,11 @@ import {
     TITLES_TEXT_COLOR,
 } from "../variables/Colors";
 
-export const MainSection = styled.section`
+export const MainSection = styled.div`
     min-height: calc(100vh - 155px);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 `;
 
 export const MainSectionTitle = styled.h1`
@@ -40,11 +39,22 @@ export const SortContainer = styled.select`
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 1rem;
-    margin-left: 5px;
     color: ${BTN_MAIN_TEXT_COLOR};
     margin-top: 1.5rem;
-    width: 200px;
+    width: 195px;
 `;
+
+export const FilterContainer = styled.select`
+    border-radius: 10px;
+    border: 4px solid ${CONTAINER_TEXT_COLOR};
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    margin-left: 10px;
+    color: ${BTN_MAIN_TEXT_COLOR};
+    margin-top: 1.5rem;
+    width: 195px;
+`
 
 export const SortOption = styled.option`
     font-size: 1.5rem;
@@ -156,4 +166,10 @@ export const LikeBtn = styled.button`
         color: ${BTN_HOVER_TEXT_COLOR};
         background: ${BTN_BACKGROUND_HOVER};
     }
+`;
+
+export const NoPosts = styled.h2`
+    color: ${TITLES_TEXT_COLOR};
+    font-size: 2rem;
+    margin-top: 10px;
 `;

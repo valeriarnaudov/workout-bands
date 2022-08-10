@@ -1,9 +1,11 @@
 import {
     ContentContainer,
     ContentItemsContainer,
+    FilterContainer,
     FunctionsContainer,
     MainSection,
     MainSectionTitle,
+    NoPosts,
     SortContainer,
     SortOption,
 } from "../styles/MainElements";
@@ -99,7 +101,7 @@ function Main() {
                             </SortOption>
                         ))}
                     </SortContainer>
-                    <SortContainer
+                    <FilterContainer
                         value={selectedGroup}
                         onChange={handleGroupChange}
                     >
@@ -108,27 +110,18 @@ function Main() {
                                 {option.text}
                             </SortOption>
                         ))}
-                    </SortContainer>
+                    </FilterContainer>
                 </FunctionsContainer>
-                {data.length === 0 && <h1>There are no posts yet.</h1>}
+                {data.length === 0 && (
+                    <NoPosts>There are no posts yet.</NoPosts>
+                )}
+                {selectedGroup !== "" && filteredGroups.length === 0 ? (
+                    <NoPosts>No results found in this group</NoPosts>
+                ) : undefined}
                 <ContentContainer>
                     <ContentItemsContainer>
-
-                        {(filteredPosts.lenght > 0 && filteredGroups.length > 0)
+                        {filteredPosts.lenght > 0 && filteredGroups.length > 0
                             ? filteredGroups.map((post) => (
-                                  <SinglePost
-                                      key={post.id}
-                                      redirectToDetailsHandler={
-                                          redirectToDetailsHandler
-                                      }
-                                      post={post}
-                                      user={user}
-                                      userId={userId}
-                                      likePostHandler={likePostHandler}
-                                  />
-                              ))
-                            : filteredPosts.length > 0
-                            ? filteredPosts.map((post) => (
                                   <SinglePost
                                       key={post.id}
                                       redirectToDetailsHandler={
@@ -142,6 +135,22 @@ function Main() {
                               ))
                             : filteredGroups.length > 0
                             ? filteredGroups.map((post) => (
+                                  <SinglePost
+                                      key={post.id}
+                                      redirectToDetailsHandler={
+                                          redirectToDetailsHandler
+                                      }
+                                      post={post}
+                                      user={user}
+                                      userId={userId}
+                                      likePostHandler={likePostHandler}
+                                  />
+                              ))
+                            : selectedGroup !== "" &&
+                              filteredGroups.length === 0
+                            ? undefined
+                            : filteredPosts.length > 0
+                            ? filteredPosts.map((post) => (
                                   <SinglePost
                                       key={post.id}
                                       redirectToDetailsHandler={

@@ -5,13 +5,17 @@ export const filterGroups = (
     setFilteredGroups,
     data
 ) => {
-    if (selectedGroup !== "" ) {
+    if (selectedGroup !== "") {
         if (filteredPosts.length > 0) {
             setFilteredData(
-                filteredPosts.filter((item) => item.muscleGroup === selectedGroup)
+                filteredPosts.filter(
+                    (item) => item.muscleGroup === selectedGroup
+                )
             );
         } else {
-            setFilteredGroups(data.filter((item) => item.muscleGroup === selectedGroup));
+            setFilteredGroups(
+                data.filter((item) => item.muscleGroup === selectedGroup)
+            );
         }
     }
 };

@@ -4,9 +4,9 @@ export const muscleGroupOptions = [
     { value: "Back", text: "Back" },
     { value: "Arms", text: "Arms" },
     { value: "Abdominals", text: "Abdominals" },
-    { value: "Legs", text: "Likes" },
+    { value: "Legs", text: "Legs" },
     { value: "Shoulders", text: "Shoulders" },
-]
+];
 
 export const filterMuscleGroupOptions = [
     { value: "", text: "Filter by group:" },
@@ -14,6 +14,6 @@ export const filterMuscleGroupOptions = [
     { value: "Back", text: "Back" },
     { value: "Arms", text: "Arms" },
     { value: "Abdominals", text: "Abdominals" },
-    { value: "Legs", text: "Likes" },
+    { value: "Legs", text: "Legs" },
     { value: "Shoulders", text: "Shoulders" },
-]
+];

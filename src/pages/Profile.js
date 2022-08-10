@@ -60,8 +60,6 @@ function Profile() {
         return <Loading />;
     }
 
-    console.log(userData);
-
     return (
         <>
             <ProfileContainer>
@@ -79,7 +77,9 @@ function Profile() {
                         <ProfileUsername>
                             Username: {userData.username}
                         </ProfileUsername>
-                        <ProfileEmail>Email: {userData.email}</ProfileEmail>
+                        {isLoggedUserProfile && (
+                            <ProfileEmail>Email: {userData.email}</ProfileEmail>
+                        )}
                         <ProfileUsername>
                             Gender: {userData.gender}
                         </ProfileUsername>

@@ -13,6 +13,7 @@ import {
     SelectOption,
     Text,
     UploadBtn,
+    UploadedImg,
 } from "../styles/FormPagesElements";
 import { genderOptions, userInputs } from "../sources/FormSource";
 import { createUserCollection } from "../services/authService";
@@ -58,6 +59,7 @@ function SignUp() {
                     <FormContent>
                         <Form onSubmit={handleAdd}>
                             <FormH1>Create new user</FormH1>
+                            {data.src && ( <UploadedImg src={data.src}/> )}
                             <UploadBtn
                                 htmlFor="file"
                                 style={{ fontSize: "20px" }}

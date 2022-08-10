@@ -48,9 +48,10 @@ export const ProfileInfo = styled.div`
 `;
 
 export const ProfileImg = styled.img`
-    max-width: 250px;
-    max-height: 250px;
+    width: 250px;
+    height: 250px;
     border-radius: 50%;
+    object-fit: cover;
 `;
 
 export const ProfileInfoContainer = styled.div`

@@ -9,6 +9,7 @@ import {
     FormLabel,
     FormWrap,
     UploadBtn,
+    UploadedImg,
 } from "../styles/FormPagesElements";
 import { userInputsOnEdit } from "../sources/FormSource";
 import { useNavigate } from "react-router-dom";
@@ -58,6 +59,7 @@ function EditProfile() {
                 <FormContent>
                     <Form onSubmit={editHandler}>
                         <FormH1>Profile edit</FormH1>
+                        {userData.src && ( <UploadedImg src={userData.src}/> )}
                         <UploadBtn htmlFor="file" style={{ fontSize: "20px" }}>
                             Upload image or video
                         </UploadBtn>

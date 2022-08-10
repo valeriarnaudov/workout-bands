@@ -46,6 +46,7 @@ function EditProfile() {
 
     const editHandler = async (e) => {
         e.preventDefault();
+        window.confirm("Are you sure you want to edit your profile?");
         await editUserService(user.uid, userData, setIsEdited);
     };
 

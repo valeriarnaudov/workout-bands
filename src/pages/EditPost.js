@@ -43,8 +43,9 @@ function EditPost() {
     useEffect(() => {
         const fetchData = async () => {
             const ownerId = await getSinglePostService(id, setData);
-            if(ownerId !== user.uid) {
-                navigate("/workouts")
+            if (ownerId !== user.uid) {
+                toast.error("You are not authorized to edit this post");
+                navigate("/workouts");
             }
         };
         fetchData();
@@ -59,6 +60,7 @@ function EditPost() {
 
     const editHandler = async (e) => {
         e.preventDefault();
+        window.confirm("Are you sure you want to edit this post?");
         await editPostService(id, data, setIsEdited);
     };
 

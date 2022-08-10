@@ -17,6 +17,8 @@ import Profile from "./pages/Profile";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import EditProfile from "./pages/EditProfile";
+import RequireAuth from "./guards/RequireAuth";
+import NotFound from "./pages/NotFound";
 
 function App() {
     const [isOpen, setIsOpen] = useState(false);
@@ -57,17 +59,17 @@ function App() {
                     <Route
                         path="/profile/edit/:uid"
                         element={
-                            // <RequireAuth>
-                            <EditProfile />
-                            // </RequireAuth>
+                            <RequireAuth>
+                                <EditProfile />
+                            </RequireAuth>
                         }
                     />
                     <Route
                         path="/create-post"
                         element={
-                            // <RequireAuth>
-                            <CreatePost />
-                            // </RequireAuth>
+                            <RequireAuth>
+                                <CreatePost />
+                            </RequireAuth>
                         }
                     />
                     <Route path="/workouts" element={<Main />} />
@@ -75,11 +77,12 @@ function App() {
                     <Route
                         path="/edit/:id"
                         element={
-                            // <RequireAuth>
-                            <EditPost />
-                            // </RequireAuth>
+                            <RequireAuth>
+                                <EditPost />
+                            </RequireAuth>
                         }
                     />
+                    <Route path="*" element={<NotFound />}/>
                 </Routes>
                 <Footer />
             </Router>

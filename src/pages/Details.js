@@ -13,7 +13,12 @@ function Details() {
 
     useEffect(() => {
         const fetchData = async () => {
-            await getSinglePostService(id, setData, user.uid, setIsLiked);
+            if (user) {
+                await getSinglePostService(id, setData, user.uid, setIsLiked);
+            } else {
+                await getSinglePostService(id, setData);
+            }
+
         };
 
         fetchData();

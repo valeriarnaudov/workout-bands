@@ -231,6 +231,7 @@ export const editPostService = async (id, data, setIsEdited) => {
             ownerName: data.ownerName,
         });
         setIsEdited(true);
+        toast.success("Successfully edited post");
     } catch (error) {
         toast.error("Error updating");
     }

@@ -60,6 +60,7 @@ export const editUserService = async (id, userData, setIsEdited) => {
             src: userData.src,
         });
         setIsEdited(true);
+        toast.success("User data updated");
     } catch (error) {
         toast.error("Error updating");
     }

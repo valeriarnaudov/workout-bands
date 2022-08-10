@@ -43,9 +43,10 @@ function Profile() {
             await ownerPosts(uid, setPosts);
             setLoading(false);
         };
-
-        if (user.uid === uid) {
-            setIsLoggedUserProfile(true);
+        if (user) {
+            if (user.uid === uid) {
+                setIsLoggedUserProfile(true);
+            }
         }
 
         dataHandler();

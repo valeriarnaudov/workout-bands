@@ -19,6 +19,7 @@ import "react-toastify/dist/ReactToastify.css";
 import EditProfile from "./pages/EditProfile";
 import RequireAuth from "./guards/RequireAuth";
 import NotFound from "./pages/NotFound";
+import OnlyGuests from "./guards/OnlyGuests";
 
 function App() {
     const [isOpen, setIsOpen] = useState(false);
@@ -46,8 +47,22 @@ function App() {
                 <Sidebar isOpen={isOpen} toogle={toogle} />
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/signin" element={<SignInPage />} />
-                    <Route path="/signup" element={<SignUp />} />
+                    <Route
+                        path="/signin"
+                        element={
+                            <OnlyGuests>
+                                <SignInPage />
+                            </OnlyGuests>
+                        }
+                    />
+                    <Route
+                        path="/signup"
+                        element={
+                            <OnlyGuests>
+                                <SignUp />
+                            </OnlyGuests>
+                        }
+                    />
                     <Route
                         path="/profile/:uid"
                         element={
@@ -82,7 +97,7 @@ function App() {
                             </RequireAuth>
                         }
                     />
-                    <Route path="*" element={<NotFound />}/>
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
                 <Footer />
             </Router>

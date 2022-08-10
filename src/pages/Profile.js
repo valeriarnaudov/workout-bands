@@ -60,6 +60,8 @@ function Profile() {
         return <Loading />;
     }
 
+    console.log(userData);
+
     return (
         <>
             <ProfileContainer>
@@ -78,6 +80,9 @@ function Profile() {
                             Username: {userData.username}
                         </ProfileUsername>
                         <ProfileEmail>Email: {userData.email}</ProfileEmail>
+                        <ProfileUsername>
+                            Gender: {userData.gender}
+                        </ProfileUsername>
                         <ProfileAge>Age: {userData.age}</ProfileAge>
                         {isLoggedUserProfile && (
                             <EditProfileBtn to={`/profile/edit/${user.uid}`}>

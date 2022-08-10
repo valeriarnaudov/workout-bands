@@ -54,7 +54,7 @@ export const FilterContainer = styled.select`
     color: ${BTN_MAIN_TEXT_COLOR};
     margin-top: 1.5rem;
     width: 195px;
-`
+`;
 
 export const SortOption = styled.option`
     font-size: 1.5rem;

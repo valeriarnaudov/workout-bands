@@ -9,10 +9,12 @@ import {
     FormInput,
     FormLabel,
     FormWrap,
+    OptionContainer,
+    SelectOption,
     Text,
     UploadBtn,
 } from "../styles/FormPagesElements";
-import { userInputs } from "../sources/FormSource";
+import { genderOptions, userInputs } from "../sources/FormSource";
 import { createUserCollection } from "../services/authService";
 import { uploadFile } from "../services/uploadFileService";
 import { AuthContext } from "../contexts/AuthContext";
@@ -21,6 +23,7 @@ function SignUp() {
     const [file, setFile] = useState("");
     const [data, setData] = useState({});
     const [per, setPer] = useState(null);
+    const [selectGender, setSelectGender] = useState(genderOptions[0].value);
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
 
@@ -37,6 +40,11 @@ function SignUp() {
     const handleAdd = async (e) => {
         e.preventDefault();
         await createUserCollection(data);
+    };
+
+    const handleGenderChange = (e) => {
+        setSelectGender(e.target.value);
+        setData({ ...data, gender: e.target.value });
     };
 
     if (user) {
@@ -73,6 +81,19 @@ function SignUp() {
                                     />
                                 </Fragment>
                             ))}
+                            <OptionContainer
+                                value={selectGender}
+                                onChange={handleGenderChange}
+                            >
+                                {genderOptions.map((option) => (
+                                    <SelectOption
+                                        key={option.value}
+                                        value={option.value}
+                                    >
+                                        {option.text}
+                                    </SelectOption>
+                                ))}
+                            </OptionContainer>
                             <FormButton
                                 disabled={per !== null && per < 100}
                                 type="submit"

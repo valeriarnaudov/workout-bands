@@ -1,18 +1,25 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+} from "firebase/auth";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { auth, db } from "../firebase";
 
 export const signUp = async (email, password) => {
     try {
-        const userCredentials = await signInWithEmailAndPassword(auth, email, password);
+        const userCredentials = await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
         const user = userCredentials.user;
-        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem("user", JSON.stringify(user));
         toast.success("Welcome back! You successfully signed in");
     } catch (error) {
         toast.error("Incorrect email or password");
     }
-}
+};
 
 export const createUserCollection = async (data) => {
     try {
@@ -25,9 +32,9 @@ export const createUserCollection = async (data) => {
         ) {
             return toast.error("Fill display name to continue");
         } else if (
-            data.img === "" ||
-            data.img == null ||
-            data.img === undefined
+            data.src === "" ||
+            data.src == null ||
+            data.src === undefined
         ) {
             return toast.error("Upload image to continue");
         } else if (
@@ -48,6 +55,12 @@ export const createUserCollection = async (data) => {
             data.password === undefined
         ) {
             return toast.error("Fill password to continue");
+        } else if (
+            data.gender === "" ||
+            data.gender == null ||
+            data.gender === undefined
+        ) {
+            return toast.error("Select gender to continue");
         }
 
         if (data.password !== data.confirmPassword) {
@@ -65,6 +78,7 @@ export const createUserCollection = async (data) => {
         const loggedUser = await setDoc(doc(db, "users", user), {
             email: data.email,
             age: data.age,
+            gender: data.gender,
             displayName: data.displayName,
             src: data.src,
             username: data.username,

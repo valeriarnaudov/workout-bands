@@ -45,7 +45,7 @@ export const genderOptions = [
     { value: "", text: "-Select gender-" },
     { value: "Male", text: "Male" },
     { value: "Female", text: "Female" },
-]
+];
 
 export const userInputsOnEdit = [
     {
@@ -71,7 +71,6 @@ export const userInputsOnEdit = [
     },
 ];
 
-
 export const postInputs = [
     {
         id: "title",
@@ -86,6 +85,5 @@ export const postInputs = [
         type: "text",
         placeholder: "Description",
         value: "description",
-    },  
-
+    },
 ];

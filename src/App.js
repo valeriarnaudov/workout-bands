@@ -63,14 +63,7 @@ function App() {
                             </OnlyGuests>
                         }
                     />
-                    <Route
-                        path="/profile/:uid"
-                        element={
-                            // <RequireAuth>
-                            <Profile />
-                            // </RequireAuth>
-                        }
-                    />
+                    <Route path="/profile/:uid" element={<Profile />} />
                     <Route
                         path="/profile/edit/:uid"
                         element={

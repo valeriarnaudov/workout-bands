@@ -185,6 +185,7 @@ export const getSinglePostService = async (id, setData, userId, setIsLiked) => {
         if (post.data().likes.includes(userId)) {
             setIsLiked(true);
         }
+        return post.data().owner;
     } catch (error) {
         toast.error("Error while getting the post");
     }

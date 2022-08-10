@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import { AuthContext } from "../contexts/AuthContext";
 import {
     editPostService,
     getSinglePostService,
@@ -23,6 +25,7 @@ import {
 
 function EditPost() {
     const { id } = useParams();
+    const { user } = useContext(AuthContext);
     const [file, setFile] = useState("");
     const [data, setData] = useState({});
     const [per, setPer] = useState(null);
@@ -39,7 +42,10 @@ function EditPost() {
 
     useEffect(() => {
         const fetchData = async () => {
-            await getSinglePostService(id, setData);
+            const ownerId = await getSinglePostService(id, setData);
+            if(ownerId !== user.uid) {
+                navigate("/workouts")
+            }
         };
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -91,7 +97,7 @@ function EditPost() {
                                 onChange={(e) => setFile(e.target.files[0])}
                             />
                             {postInputs.map((input) => (
-                                <>
+                                <Fragment key={input.id}>
                                     <FormLabel value={input.value}>
                                         {input.label}
                                     </FormLabel>
@@ -102,7 +108,7 @@ function EditPost() {
                                         onChange={handleInput}
                                         value={data[input.id]}
                                     />
-                                </>
+                                </Fragment>
                             ))}
                             <OptionContainer
                                 value={selectedGroup}

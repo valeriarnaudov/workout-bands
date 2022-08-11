@@ -6,6 +6,7 @@ export const muscleGroupOptions = [
     { value: "Abdominals", text: "Abdominals" },
     { value: "Legs", text: "Legs" },
     { value: "Shoulders", text: "Shoulders" },
+    { value: "Others", text: "Others" },
 ];
 
 export const filterMuscleGroupOptions = [
@@ -16,4 +17,5 @@ export const filterMuscleGroupOptions = [
     { value: "Abdominals", text: "Abdominals" },
     { value: "Legs", text: "Legs" },
     { value: "Shoulders", text: "Shoulders" },
+    { value: "Others", text: "Others" },
 ];

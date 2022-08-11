@@ -20,6 +20,7 @@ import { sortingOptions } from "../sources/SortOptions";
 import { sortData } from "../utils/SortItems";
 import { filterMuscleGroupOptions } from "../sources/MuscleGroupsOptions";
 import { filterGroups } from "../utils/GroupFilter";
+import filerAndSortDisplayConditions from "../utils/FilerAndSortDisplayConditions";
 
 function Main() {
     const [data, setData] = useState([]);
@@ -32,6 +33,7 @@ function Main() {
     const [selectedGroup, setSelectedGroup] = useState(
         filterMuscleGroupOptions[0].value
     );
+    const [displayData, setDisplayData] = useState([]);
 
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
@@ -50,6 +52,16 @@ function Main() {
 
         fetchData();
     }, [like]);
+
+    useEffect(() => {
+        filerAndSortDisplayConditions(
+            filteredPosts,
+            filteredGroups,
+            setDisplayData,
+            selectedGroup,
+            data
+        );
+    }, [filteredPosts, filteredGroups, selectedGroup, data]);
 
     const redirectToDetailsHandler = (id) => {
         navigate(`/details/${id}`);
@@ -120,62 +132,18 @@ function Main() {
                 ) : undefined}
                 <ContentContainer>
                     <ContentItemsContainer>
-                        {filteredPosts.lenght > 0 && filteredGroups.length > 0
-                            ? filteredGroups.map((post) => (
-                                  <SinglePost
-                                      key={post.id}
-                                      redirectToDetailsHandler={
-                                          redirectToDetailsHandler
-                                      }
-                                      post={post}
-                                      user={user}
-                                      userId={userId}
-                                      likePostHandler={likePostHandler}
-                                  />
-                              ))
-                            : filteredGroups.length > 0
-                            ? filteredGroups.map((post) => (
-                                  <SinglePost
-                                      key={post.id}
-                                      redirectToDetailsHandler={
-                                          redirectToDetailsHandler
-                                      }
-                                      post={post}
-                                      user={user}
-                                      userId={userId}
-                                      likePostHandler={likePostHandler}
-                                  />
-                              ))
-                            : selectedGroup !== "" &&
-                              filteredGroups.length === 0
-                            ? undefined
-                            : filteredPosts.length > 0
-                            ? filteredPosts.map((post) => (
-                                  <SinglePost
-                                      key={post.id}
-                                      redirectToDetailsHandler={
-                                          redirectToDetailsHandler
-                                      }
-                                      post={post}
-                                      user={user}
-                                      userId={userId}
-                                      likePostHandler={likePostHandler}
-                                  />
-                              ))
-                            : data.length > 0
-                            ? data.map((post) => (
-                                  <SinglePost
-                                      key={post.id}
-                                      redirectToDetailsHandler={
-                                          redirectToDetailsHandler
-                                      }
-                                      post={post}
-                                      user={user}
-                                      userId={userId}
-                                      likePostHandler={likePostHandler}
-                                  />
-                              ))
-                            : undefined}
+                        {displayData.map((post) => (
+                            <SinglePost
+                                key={post.id}
+                                redirectToDetailsHandler={
+                                    redirectToDetailsHandler
+                                }
+                                post={post}
+                                user={user}
+                                userId={userId}
+                                likePostHandler={likePostHandler}
+                            />
+                        ))}
                     </ContentItemsContainer>
                 </ContentContainer>
             </MainSection>

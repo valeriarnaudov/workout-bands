@@ -172,4 +172,6 @@ export const NoPosts = styled.h2`
     color: ${TITLES_TEXT_COLOR};
     font-size: 2rem;
     margin-top: 10px;
+    text-align: center;
+    margin-bottom: 20px;
 `;

@@ -21,19 +21,27 @@ import { sortData } from "../utils/SortItems";
 import { filterMuscleGroupOptions } from "../sources/MuscleGroupsOptions";
 import { filterGroups } from "../utils/GroupFilter";
 import filerAndSortDisplayConditions from "../utils/FilerAndSortDisplayConditions";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 function Main() {
     const [data, setData] = useState([]);
     const [like, setLike] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [filteredData, setFilteredData] = useState([]);
-    const [filteredPosts, setFilteredPosts] = useState([]);
-    const [filteredGroups, setFilteredGroups] = useState([]);
-    const [selectedSort, setSelectedSort] = useState(sortingOptions[0].value);
+
+    const [filteredData, setFilteredData] = useState([]); //results after searching
+    const [filteredPosts, setFilteredPosts] = useState([]); //results after sorting by title or date
+    const [filteredGroups, setFilteredGroups] = useState([]); // results after sorting by title or date
+
+    const [selectedSort, setSelectedSort] = useState(sortingOptions[0].value); //  selected sort option
     const [selectedGroup, setSelectedGroup] = useState(
         filterMuscleGroupOptions[0].value
-    );
-    const [displayData, setDisplayData] = useState([]);
+    ); // selected group option
+
+    const [results, setResults] = useState([]); // results after filtering and sorting and searching
+    const [displayData, setDisplayData] = useState([]); // loaded posts
+
+    const [slice, setSlice] = useState(6); // slice of data to display
+    const [hasMore, setHasMore] = useState(true); // if there are more posts to display
 
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
@@ -51,17 +59,26 @@ function Main() {
         };
 
         fetchData();
-    }, [like]);
+    }, [like]); // fetch the initial data and changes only when like is changed
 
     useEffect(() => {
         filerAndSortDisplayConditions(
             filteredPosts,
             filteredGroups,
-            setDisplayData,
+            setResults,
             selectedGroup,
             data
         );
-    }, [filteredPosts, filteredGroups, selectedGroup, data]);
+    }, [filteredPosts, filteredGroups, selectedGroup, data]); // filter and sort the data and set the results to display
+
+    useEffect(() => {
+        setSlice(6);
+
+        setDisplayData(results.slice(0, slice));
+
+        setHasMore(true);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [results]); // infinite scroll
 
     const redirectToDetailsHandler = (id) => {
         navigate(`/details/${id}`);
@@ -86,6 +103,19 @@ function Main() {
             setFilteredGroups,
             data
         );
+    };
+
+    const addSlice = () => {
+        setDisplayData([...displayData, ...nextSlice()]);
+
+        setSlice(slice + 3);
+        if (slice >= results.length) {
+            setHasMore(false);
+        }
+    };
+
+    const nextSlice = () => {
+        return results.slice(slice, slice + 3);
     };
 
     if (loading) {
@@ -131,20 +161,33 @@ function Main() {
                     <NoPosts>No results found in this group</NoPosts>
                 ) : undefined}
                 <ContentContainer>
-                    <ContentItemsContainer>
-                        {displayData.map((post) => (
-                            <SinglePost
-                                key={post.id}
-                                redirectToDetailsHandler={
-                                    redirectToDetailsHandler
-                                }
-                                post={post}
-                                user={user}
-                                userId={userId}
-                                likePostHandler={likePostHandler}
-                            />
-                        ))}
-                    </ContentItemsContainer>
+                    <InfiniteScroll
+                        dataLength={displayData.length} //This is important field to render the next data
+                        next={addSlice}
+                        hasMore={hasMore}
+                        loader={<Loading />}
+                        endMessage={
+                            <NoPosts>Yay! You have seen it all</NoPosts>
+                            // <p style={{ textAlign: "center" }}>
+                            //     <b></b>
+                            // </p>
+                        }
+                    >
+                        <ContentItemsContainer>
+                            {displayData.map((post) => (
+                                <SinglePost
+                                    key={post.id}
+                                    redirectToDetailsHandler={
+                                        redirectToDetailsHandler
+                                    }
+                                    post={post}
+                                    user={user}
+                                    userId={userId}
+                                    likePostHandler={likePostHandler}
+                                />
+                            ))}
+                        </ContentItemsContainer>
+                    </InfiniteScroll>
                 </ContentContainer>
             </MainSection>
         </>

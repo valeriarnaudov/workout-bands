@@ -1,22 +1,22 @@
 function filerAndSortDisplayConditions(
     filteredPosts,
     filteredGroups,
-    setDisplayData,
+    setResults,
     selectedGroup,
     data
 ) {
     if (filteredPosts.length > 0 && filteredGroups.lenght > 0) {
-        setDisplayData(filteredGroups);
+        setResults(filteredGroups);
     } else if (filteredGroups.length > 0) {
-        setDisplayData(filteredGroups);
+        setResults(filteredGroups);
     } else if (selectedGroup !== "" && filteredGroups.length === 0) {
-        setDisplayData([]);
+        setResults([]);
     } else if (filteredPosts.length > 0) {
-        setDisplayData(filteredPosts);
+        setResults(filteredPosts);
     } else if (data.length > 0) {
-        setDisplayData(data);
+        setResults(data);
     } else {
-        setDisplayData([]);
+        setResults([]);
     }
 }
 

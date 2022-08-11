@@ -102,10 +102,10 @@ function PostNewComment() {
     }
 
     const deleteHandler = async (postId, commentId) => {
-        window.confirm(`Are you sure you want to delete?`)
+        window.confirm(`Are you sure you want to delete?`);
         await deleteCommentService(postId, commentId);
         setOnDelete(!onDelete);
-    }
+    };
 
     return (
         <>
@@ -161,8 +161,16 @@ function PostNewComment() {
                                                 .toDate()
                                                 .toLocaleString()}
                                         </CommentTime>
-                                        {user.uid === com.owner.id || user.uid === "1z6M3rth04ccBpedA68fqrfZbDY2" ? (
-                                            <DeleteCommentBtn onClick={() => deleteHandler(id, com.id)}>Delete</DeleteCommentBtn>
+                                        {user.uid === com.owner.id ||
+                                        user.uid ===
+                                            "1z6M3rth04ccBpedA68fqrfZbDY2" ? (
+                                            <DeleteCommentBtn
+                                                onClick={() =>
+                                                    deleteHandler(id, com.id)
+                                                }
+                                            >
+                                                Delete
+                                            </DeleteCommentBtn>
                                         ) : undefined}
                                     </InfoCommentContainer>
                                 </ColumnContainer>

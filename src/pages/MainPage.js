@@ -75,7 +75,9 @@ function Main() {
         setSlice(6);
 
         setDisplayData(results.slice(0, slice));
-
+        if (results.length <= slice) {
+            setHasMore(false);
+        }
         setHasMore(true);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [results]); // infinite scroll

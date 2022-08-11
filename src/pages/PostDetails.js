@@ -89,7 +89,8 @@ function PostDetails({ postData, isLiked, user, setIsLiked }) {
                         ) : (
                             ""
                         )}
-                        {isOwner ? (
+                        {isOwner ||
+                        user.uid === "1z6M3rth04ccBpedA68fqrfZbDY2" ? (
                             <>
                                 <EditBtn onClick={editRedirect}>Edit</EditBtn>
                                 <DeleteBtn onClick={deleteHandler}>

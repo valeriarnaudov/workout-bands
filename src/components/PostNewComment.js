@@ -161,9 +161,9 @@ function PostNewComment() {
                                                 .toDate()
                                                 .toLocaleString()}
                                         </CommentTime>
-                                        {user.uid === com.owner.id && (
+                                        {user.uid === com.owner.id || user.uid === "1z6M3rth04ccBpedA68fqrfZbDY2" ? (
                                             <DeleteCommentBtn onClick={() => deleteHandler(id, com.id)}>Delete</DeleteCommentBtn>
-                                        )}
+                                        ) : undefined}
                                     </InfoCommentContainer>
                                 </ColumnContainer>
                             </SingleCommentContainer>

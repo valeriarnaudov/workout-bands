@@ -161,4 +161,5 @@ export const UploadedImg = styled.img`
     height: 150px;
     border-radius: 50%;
     object-fit: cover;
+    margin-bottom: 20px;
 `;

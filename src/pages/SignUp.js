@@ -19,6 +19,7 @@ import { genderOptions, userInputs } from "../sources/FormSource";
 import { createUserCollection } from "../services/authService";
 import { uploadFile } from "../services/uploadFileService";
 import { AuthContext } from "../contexts/AuthContext";
+import { DefaultPictureImg } from "../variables/DefaultProfileImg";
 
 function SignUp() {
     const [file, setFile] = useState("");
@@ -59,7 +60,7 @@ function SignUp() {
                     <FormContent>
                         <Form onSubmit={handleAdd}>
                             <FormH1>Create new user</FormH1>
-                            {data.src && ( <UploadedImg src={data.src}/> )}
+                            {!data.src ? ( <UploadedImg src={DefaultPictureImg}/>) : ( <UploadedImg src={data.src}/>)}
                             <UploadBtn
                                 htmlFor="file"
                                 style={{ fontSize: "20px" }}

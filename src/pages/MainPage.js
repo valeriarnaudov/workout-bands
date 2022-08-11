@@ -162,15 +162,12 @@ function Main() {
                 ) : undefined}
                 <ContentContainer>
                     <InfiniteScroll
-                        dataLength={displayData.length} //This is important field to render the next data
+                        dataLength={displayData.length}
                         next={addSlice}
                         hasMore={hasMore}
                         loader={<Loading />}
                         endMessage={
                             <NoPosts>Yay! You have seen it all</NoPosts>
-                            // <p style={{ textAlign: "center" }}>
-                            //     <b></b>
-                            // </p>
                         }
                     >
                         <ContentItemsContainer>

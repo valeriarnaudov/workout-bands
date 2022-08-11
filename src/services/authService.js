@@ -5,6 +5,7 @@ import {
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { auth, db } from "../firebase";
+import { DefaultPictureImg } from "../variables/DefaultProfileImg";
 
 export const signUp = async (email, password) => {
     try {
@@ -36,7 +37,7 @@ export const createUserCollection = async (data) => {
             data.src == null ||
             data.src === undefined
         ) {
-            return toast.error("Upload image to continue");
+            toast.info("Default profile picture will be used");
         } else if (
             data.username === "" ||
             data.username == null ||
@@ -80,7 +81,7 @@ export const createUserCollection = async (data) => {
             age: data.age,
             gender: data.gender,
             displayName: data.displayName,
-            src: data.src,
+            src: data.src || DefaultPictureImg,
             username: data.username,
             timeStamp: serverTimestamp(),
         });

@@ -1,23 +1,17 @@
 export const filterGroups = (
     selectedGroup,
-    filteredPosts,
-    setFilteredData,
-    setFilteredGroups,
-    data
+    data,
+    setResults,
+    setSelectedSort
 ) => {
     if (selectedGroup !== "") {
-        if (filteredPosts.length > 0) {
-            setFilteredData(
-                filteredPosts.filter(
-                    (item) => item.muscleGroup === selectedGroup
-                )
-            );
-        } else {
-            setFilteredGroups(
+        setSelectedSort("")
+            setResults(
                 data.filter((item) => item.muscleGroup === selectedGroup)
             );
         }
-    } else {
-        setFilteredGroups([]);
+     else {
+        setSelectedSort("")
+        setResults(data);
     }
 };

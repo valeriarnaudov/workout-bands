@@ -1,25 +1,21 @@
-export const sortData = (
-    selectedSort,
-    filtredPosts,
-    setFilteredData,
-    setData,
-    data
-) => {
+export const sortData = (selectedSort, data, setResults, results) => {
     if (selectedSort === "title") {
-        if (filtredPosts.length > 0) {
-            setFilteredData(
-                filtredPosts.sort((a, b) => a.title.localeCompare(b.title))
-            );
+        if (results.length > 0) {
+            setResults(results.sort((a, b) => a.title.localeCompare(b.title)));
         } else {
-            setData(data.sort((a, b) => a.title.localeCompare(b.title)));
+            setResults(data.sort((a, b) => a.title.localeCompare(b.title)));
         }
     } else if (selectedSort === "date") {
-        if (filtredPosts.length > 0) {
-            setFilteredData(
-                filtredPosts.sort((a, b) => b.timeStamp - a.timeStamp)
-            );
+        if (results.length > 0) {
+            setResults(results.sort((a, b) => b.timeStamp - a.timeStamp));
         } else {
-            setData(data.sort((a, b) => b.timeStamp - a.timeStamp));
-        }  
+            setResults(data.sort((a, b) => b.timeStamp - a.timeStamp));
+        }
+    } else {
+        if (results.length > 0) {
+            setResults(results.sort((a, b) => b.timeStamp - a.timeStamp));
+        } else {
+            setResults(data.sort((a, b) => b.timeStamp - a.timeStamp));
+        }
     }
 };

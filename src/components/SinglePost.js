@@ -10,7 +10,7 @@ import {
     PostOwner,
     PostTitle,
     PostVideo,
-} from "../styles/MainElements";
+} from "../styles/SinglePostElements";
 
 function SinglePost({
     post,
@@ -36,7 +36,7 @@ function SinglePost({
                     />
                 )}
                 <PostInfo>
-                    <PostTitle>{post.title}</PostTitle>
+                    <PostTitle onClick={() => redirectToDetailsHandler(post.id)}>{post.title}</PostTitle>
                     <By>
                         By :
                         <PostOwner to={`/profile/${post.owner}`}>

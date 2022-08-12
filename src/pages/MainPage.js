@@ -20,7 +20,6 @@ import { sortingOptions } from "../sources/SortOptions";
 import { sortData } from "../utils/SortItems";
 import { filterMuscleGroupOptions } from "../sources/MuscleGroupsOptions";
 import { filterGroups } from "../utils/GroupFilter";
-import filerAndSortDisplayConditions from "../utils/FilerAndSortDisplayConditions";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 function Main() {
@@ -28,20 +27,16 @@ function Main() {
     const [like, setLike] = useState(false);
     const [loading, setLoading] = useState(true);
 
-    const [filteredData, setFilteredData] = useState([]); //results after searching
-    const [filteredPosts, setFilteredPosts] = useState([]); //results after sorting by title or date
-    const [filteredGroups, setFilteredGroups] = useState([]); // results after sorting by title or date
-
-    const [selectedSort, setSelectedSort] = useState(sortingOptions[0].value); //  selected sort option
+    const [selectedSort, setSelectedSort] = useState(sortingOptions[0].value);
     const [selectedGroup, setSelectedGroup] = useState(
         filterMuscleGroupOptions[0].value
-    ); // selected group option
+    );
 
-    const [results, setResults] = useState([]); // results after filtering and sorting and searching
-    const [displayData, setDisplayData] = useState([]); // loaded posts
+    const [results, setResults] = useState([]);
+    const [displayData, setDisplayData] = useState([]);
 
-    const [slice, setSlice] = useState(6); // slice of data to display
-    const [hasMore, setHasMore] = useState(true); // if there are more posts to display
+    const [slice, setSlice] = useState(6);
+    const [hasMore, setHasMore] = useState(true);
 
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
@@ -59,28 +54,22 @@ function Main() {
         };
 
         fetchData();
-    }, [like]); // fetch the initial data and changes only when like is changed
-
-    useEffect(() => {
-        filerAndSortDisplayConditions(
-            filteredPosts,
-            filteredGroups,
-            setResults,
-            selectedGroup,
-            data
-        );
-    }, [filteredPosts, filteredGroups, selectedGroup, data]); // filter and sort the data and set the results to display
+    }, [like]);
 
     useEffect(() => {
         setSlice(6);
 
-        setDisplayData(results.slice(0, slice));
-        if (results.length <= slice) {
-            setHasMore(false);
+        if (results.length > 0) {
+            setDisplayData(results.slice(0, slice));
+            if (results.length <= slice) {
+                setHasMore(false);
+            } else {
+                setHasMore(true);
+            }
         }
-        setHasMore(true);
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [results]); // infinite scroll
+    }, [results, data, selectedSort, selectedGroup]);
 
     const redirectToDetailsHandler = (id) => {
         navigate(`/details/${id}`);
@@ -91,20 +80,14 @@ function Main() {
         setLike(!like);
     };
 
-    const handleSortChange = (e) => {
+    function handleSortChange (e) {
         setSelectedSort(e.target.value);
-        sortData(e.target.value, filteredPosts, setFilteredData, setData, data);
+        sortData(e.target.value, data, setResults, results);
     };
 
-    const handleGroupChange = (e) => {
+    function handleGroupChange (e) {
         setSelectedGroup(e.target.value);
-        filterGroups(
-            e.target.value,
-            filteredPosts,
-            setFilteredData,
-            setFilteredGroups,
-            data
-        );
+        filterGroups(e.target.value, data, setResults, setSelectedSort);
     };
 
     const addSlice = () => {
@@ -130,9 +113,11 @@ function Main() {
                 <MainSectionTitle>Workouts</MainSectionTitle>
                 <Search
                     data={data}
-                    filteredData={filteredData}
-                    setFilteredData={setFilteredData}
-                    setFilteredPosts={setFilteredPosts}
+                    displayData={displayData}
+                    setResults={setResults}
+                    setSelectedSort={setSelectedSort}
+                    setSelectedGroup={setSelectedGroup}
+                    like={like}
                 />
                 <FunctionsContainer>
                     <SortContainer
@@ -159,7 +144,7 @@ function Main() {
                 {data.length === 0 && (
                     <NoPosts>There are no posts yet.</NoPosts>
                 )}
-                {selectedGroup !== "" && filteredGroups.length === 0 ? (
+                {selectedGroup !== "" && displayData.length === 0 ? (
                     <NoPosts>No results found in this group</NoPosts>
                 ) : undefined}
                 <ContentContainer>
@@ -167,7 +152,7 @@ function Main() {
                         dataLength={displayData.length}
                         next={addSlice}
                         hasMore={hasMore}
-                        loader={<Loading />}
+                        loader={<NoPosts>Loadding...</NoPosts>}
                         endMessage={
                             <NoPosts>Yay! You have seen it all</NoPosts>
                         }

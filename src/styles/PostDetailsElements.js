@@ -11,6 +11,7 @@ import {
 } from "../variables/Colors";
 
 export const PostSection = styled.div`
+    min-height: calc(100vh - 155px);
     display: grid;
     justify-content: center;
     align-items: center;

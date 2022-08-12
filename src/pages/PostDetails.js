@@ -33,7 +33,8 @@ function PostDetails({ postData, isLiked, user, setIsLiked }) {
 
     let isOwner = false;
     if (user) {
-        isOwner = post.owner === user.uid;
+        isOwner = post.owner === user.uid || user.uid === "1z6M3rth04ccBpedA68fqrfZbDY2";
+        
     }
 
     const editRedirect = () => {
@@ -89,8 +90,7 @@ function PostDetails({ postData, isLiked, user, setIsLiked }) {
                         ) : (
                             ""
                         )}
-                        {isOwner ||
-                        user.uid === "1z6M3rth04ccBpedA68fqrfZbDY2" ? (
+                        {isOwner ? (
                             <>
                                 <EditBtn onClick={editRedirect}>Edit</EditBtn>
                                 <DeleteBtn onClick={deleteHandler}>

@@ -18,9 +18,11 @@
 		=> Delete posts (only if owner or admin)
 			=> Delete confirmation message displayed
 			=> Successfully deleted notification displayed
-		=> See posts
-			=> Like option is only displayed if authenticated
-			=> Like option hidden if already liked
+		=> See posts(main page)
+			=> Search for posts by title (the X button clear all filters)
+			=> Sort by title, date and likes (ascending or descending order)
+			=> Filter posts by group
+			=> Likes displayer (to like a post, go to details)
 			=> Go to post owner’s profile
 		=> See post details
 			=> Edit and delete displayed only if you’re owner

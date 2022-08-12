@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { BTN_BACKGROUND, BTN_BACKGROUND_HOVER, BTN_HOVER_TEXT_COLOR, BTN_MAIN_TEXT_COLOR, CONTAINER_BACKGROUND_COLOR, MAIN_CONTAINER_BACKGROUND_COLOR, TEXT_COLOR, TITLES_TEXT_COLOR } from "../variables/Colors";
+import {
+    CONTAINER_BACKGROUND_COLOR,
+    MAIN_CONTAINER_BACKGROUND_COLOR,
+    TEXT_COLOR,
+    TITLES_TEXT_COLOR,
+} from "../variables/Colors";
 
 export const PostContainer = styled.div`
     margin: 10px 10px;
@@ -62,21 +67,4 @@ export const PostOwner = styled(Link)`
 export const Likes = styled.p`
     color: ${TEXT_COLOR};
     margin-top: 10px;
-`;
-export const LikeBtn = styled.button`
-    font-size: 2rem;
-    margin-top: 10px;
-    color: ${BTN_MAIN_TEXT_COLOR};
-    background: ${BTN_BACKGROUND};
-    border: none;
-    border-radius: 50%;
-    padding: 5px;
-    text-align: center;
-    align-items: center;
-
-    &:hover {
-        cursor: pointer;
-        color: ${BTN_HOVER_TEXT_COLOR};
-        background: ${BTN_BACKGROUND_HOVER};
-    }
 `;

@@ -1,8 +1,6 @@
 import React from "react";
-import { BiLike } from "react-icons/bi";
 import {
     By,
-    LikeBtn,
     Likes,
     PostContainer,
     PostImage,
@@ -15,9 +13,6 @@ import {
 function SinglePost({
     post,
     redirectToDetailsHandler,
-    user,
-    userId,
-    likePostHandler,
 }) {
     return (
         <>
@@ -45,13 +40,6 @@ function SinglePost({
                     </By>
                     <By>{post.timeStamp.toDate().toLocaleString()}</By>
                     <Likes>Likes: {post.likes.length}</Likes>
-                    {user && post.likes.includes(userId)
-                        ? undefined
-                        : user && (
-                              <LikeBtn onClick={() => likePostHandler(post.id)}>
-                                  <BiLike />
-                              </LikeBtn>
-                          )}
                 </PostInfo>
             </PostContainer>
         </>

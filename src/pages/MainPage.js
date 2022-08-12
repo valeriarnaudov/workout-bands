@@ -9,10 +9,9 @@ import {
     SortContainer,
     SortOption,
 } from "../styles/MainElements";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { AuthContext } from "../contexts/AuthContext";
-import { getAllPosts, likePostService } from "../services/postServices";
+import { getAllPosts } from "../services/postServices";
 import Loading from "../components/Loading";
 import Search from "../components/Search";
 import SinglePost from "../components/SinglePost";
@@ -24,7 +23,6 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 function Main() {
     const [data, setData] = useState([]);
-    const [like, setLike] = useState(false);
     const [loading, setLoading] = useState(true);
 
     const [selectedSort, setSelectedSort] = useState(sortingOptions[0].value);
@@ -39,12 +37,6 @@ function Main() {
     const [hasMore, setHasMore] = useState(true);
 
     const navigate = useNavigate();
-    const { user } = useContext(AuthContext);
-
-    let userId = "null";
-    if (user) {
-        userId = user.uid;
-    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -54,7 +46,7 @@ function Main() {
         };
 
         fetchData();
-    }, [like]);
+    }, []);
 
     useEffect(() => {
         setSlice(6);
@@ -75,20 +67,15 @@ function Main() {
         navigate(`/details/${id}`);
     };
 
-    const likePostHandler = async (id) => {
-        await likePostService(id, userId);
-        setLike(!like);
-    };
-
-    function handleSortChange (e) {
+    function handleSortChange(e) {
         setSelectedSort(e.target.value);
         sortData(e.target.value, data, setResults, results);
-    };
+    }
 
-    function handleGroupChange (e) {
+    function handleGroupChange(e) {
         setSelectedGroup(e.target.value);
         filterGroups(e.target.value, data, setResults, setSelectedSort);
-    };
+    }
 
     const addSlice = () => {
         setDisplayData([...displayData, ...nextSlice()]);
@@ -117,7 +104,6 @@ function Main() {
                     setResults={setResults}
                     setSelectedSort={setSelectedSort}
                     setSelectedGroup={setSelectedGroup}
-                    like={like}
                 />
                 <FunctionsContainer>
                     <SortContainer
@@ -165,9 +151,6 @@ function Main() {
                                         redirectToDetailsHandler
                                     }
                                     post={post}
-                                    user={user}
-                                    userId={userId}
-                                    likePostHandler={likePostHandler}
                                 />
                             ))}
                         </ContentItemsContainer>

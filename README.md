@@ -1,72 +1,72 @@
-Protected and public pages included.
+	Protected and public pages included.
 
-Authentication:
-	=> Sign up with profile picture
-		=> Error handling when fields are empty with a notification toasty
-	=> Sign in
-		=> Error handling when fields are empty with a notification toasty
-	=> Sign out
-
-Posts:
-	=> Create new post with picture or video in .mp4 format
-		=> Error handling when fields are empty with a notification toasty
-		=> Successfully created notification displayed
-	=> Edit post (only if owner or admin)
-		=> Edit confirmation message displayed
-		=> Error handling when fields are empty with a notification toasty
-		=> Successfully edited notification displayed
-	=> Delete posts (only if owner or admin)
-		=> Delete confirmation message displayed
-		=> Successfully deleted notification displayed
-	=> See posts
-		=> Like option is only displayed if authenticated
-		=> Like option hidden if already liked
-		=> Go to post owner’s profile
-	=> See post details
-		=> Edit and delete displayed only if you’re owner
-		=> Like option is only displayed if authenticated
-		=> Comments only displayed if authenticated
-		=> Go to post owner’s profile
-	=> Like post (only authenticated users)
-		=> Buttons are not displayed for guests
-	=> Comment on post (only authenticated users)
-		=> A message is displayed to sign in if you want to see comments
-		=> Create new comment
-		=> Like option hidden if already liked
-		=> Comments sorted by newest
-		=> Delete comment if creator (only owner)
-	=> Like comments (only authenticated users)
-		=> Only displayed when user is logged in
-
-	=> Search posts
-		=> Not able to submit if there aren’t results
-	=> Sort by name or date (searched included)
-	=> Filter by muscle group
-		=> Message displayed when the aren’t results
-
-	For owners: 
-		=> Edit post (owner and admin)
-			=> Alert for confirmation to edit the post
-		=> Delete post (owner and admin)
-			=> Alert for confirmation to delete the post
-
-Profile: 
-	=> Go to anyone’s profile
-	=> See the posts of the owner sorted by date
-
-	For authenticated:
-		=> Go from other profile to your’s
+	Authentication:
+		=> Sign up with profile picture
+			=> Error handling when fields are empty with a notification toasty
+		=> Sign in
+			=> Error handling when fields are empty with a notification toasty
+		=> Sign out
 	
-	For owners:
-		=> Edit profile
-			=> Alert for confirmation to edit the post
+	Posts:
+		=> Create new post with picture or video in .mp4 format
+			=> Error handling when fields are empty with a notification toasty
+			=> Successfully created notification displayed
+		=> Edit post (only if owner or admin)
+			=> Edit confirmation message displayed
 			=> Error handling when fields are empty with a notification toasty
 			=> Successfully edited notification displayed
-
-Others:
-	=> Loading spinner
-	=> Toastify notifications
-	=> Infinite scroll on main page
+		=> Delete posts (only if owner or admin)
+			=> Delete confirmation message displayed
+			=> Successfully deleted notification displayed
+		=> See posts
+			=> Like option is only displayed if authenticated
+			=> Like option hidden if already liked
+			=> Go to post owner’s profile
+		=> See post details
+			=> Edit and delete displayed only if you’re owner
+			=> Like option is only displayed if authenticated
+			=> Comments only displayed if authenticated
+			=> Go to post owner’s profile
+		=> Like post (only authenticated users)
+			=> Buttons are not displayed for guests
+		=> Comment on post (only authenticated users)
+			=> A message is displayed to sign in if you want to see comments
+			=> Create new comment
+			=> Like option hidden if already liked
+			=> Comments sorted by newest
+			=> Delete comment if creator (only owner)
+		=> Like comments (only authenticated users)
+			=> Only displayed when user is logged in
+	
+		=> Search posts
+			=> Not able to submit if there aren’t results
+		=> Sort by name or date (searched included)
+		=> Filter by muscle group
+			=> Message displayed when the aren’t results
+	
+		For owners: 
+			=> Edit post (owner and admin)
+				=> Alert for confirmation to edit the post
+			=> Delete post (owner and admin)
+				=> Alert for confirmation to delete the post
+	
+	Profile: 
+		=> Go to anyone’s profile
+		=> See the posts of the owner sorted by date
+	
+		For authenticated:
+			=> Go from other profile to your’s
+		
+		For owners:
+			=> Edit profile
+				=> Alert for confirmation to edit the post
+				=> Error handling when fields are empty with a notification toasty
+				=> Successfully edited notification displayed
+	
+	Others:
+		=> Loading spinner
+		=> Toastify notifications
+		=> Infinite scroll on main page
 
 # Getting Started with Create React App
 
